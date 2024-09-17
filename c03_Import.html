@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R - 3&nbsp; Conjuntos de dados e importação</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./c04_EstDescritiva.html" rel="next">
+<link href="./c02_IntroR.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c03_Import.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjuntos de dados e importação</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c01_Instal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Instalando o R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c02_IntroR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introdução ao R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c03_Import.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjuntos de dados e importação</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c04_EstDescritiva.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estatísticas descritivas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c05_DistProbabilidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Distribuições de Probabilidade</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c06_Graficos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gráficos e análise exploratória de dados</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c07_TesteHip.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c08_ModLinearReg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos lineares e regressão</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c09_ModLinearANOVA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Modelos lineares: ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c10_GLMs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c11_Multivar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Estatística multivariada</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c12_Tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Introdução ao Tidyverse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c13_Progr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Programação, strings e dados relacionais</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c14_Datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./czz_Referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#organização-de-dados" id="toc-organização-de-dados" class="nav-link active" data-scroll-target="#organização-de-dados"><span class="header-section-number">3.1</span> Organização de dados</a></li>
+  <li><a href="#importando-dados" id="toc-importando-dados" class="nav-link" data-scroll-target="#importando-dados"><span class="header-section-number">3.2</span> Importando dados</a>
+  <ul class="collapse">
+  <li><a href="#criando-uma-pasta-de-trabalho" id="toc-criando-uma-pasta-de-trabalho" class="nav-link" data-scroll-target="#criando-uma-pasta-de-trabalho"><span class="header-section-number">3.2.1</span> Criando uma pasta de trabalho</a></li>
+  <li><a href="#definindo-diretório-de-trabalho" id="toc-definindo-diretório-de-trabalho" class="nav-link" data-scroll-target="#definindo-diretório-de-trabalho"><span class="header-section-number">3.2.2</span> Definindo diretório de trabalho</a></li>
+  <li><a href="#importando-arquivos-excel" id="toc-importando-arquivos-excel" class="nav-link" data-scroll-target="#importando-arquivos-excel"><span class="header-section-number">3.2.3</span> Importando arquivos Excel</a></li>
+  <li><a href="#importando-arquivos-fora-do-diretório-de-trabalho" id="toc-importando-arquivos-fora-do-diretório-de-trabalho" class="nav-link" data-scroll-target="#importando-arquivos-fora-do-diretório-de-trabalho"><span class="header-section-number">3.2.4</span> Importando arquivos fora do diretório de trabalho</a></li>
+  <li><a href="#importando-arquivos-excel-de-maneira-fácil" id="toc-importando-arquivos-excel-de-maneira-fácil" class="nav-link" data-scroll-target="#importando-arquivos-excel-de-maneira-fácil"><span class="header-section-number">3.2.5</span> Importando arquivos Excel de maneira fácil</a></li>
+  <li><a href="#copiando-e-colando-os-dados" id="toc-copiando-e-colando-os-dados" class="nav-link" data-scroll-target="#copiando-e-colando-os-dados"><span class="header-section-number">3.2.6</span> Copiando e colando os dados</a></li>
+  <li><a href="#visualização-geral-do-conjunto-de-dados" id="toc-visualização-geral-do-conjunto-de-dados" class="nav-link" data-scroll-target="#visualização-geral-do-conjunto-de-dados"><span class="header-section-number">3.2.7</span> Visualização geral do conjunto de dados</a></li>
+  <li><a href="#alterando-classe-de-variáveis" id="toc-alterando-classe-de-variáveis" class="nav-link" data-scroll-target="#alterando-classe-de-variáveis"><span class="header-section-number">3.2.8</span> Alterando classe de variáveis</a></li>
+  </ul></li>
+  <li><a href="#dados-faltantes" id="toc-dados-faltantes" class="nav-link" data-scroll-target="#dados-faltantes"><span class="header-section-number">3.3</span> Dados faltantes</a></li>
+  <li><a href="#problemas-de-digitação-dos-valores" id="toc-problemas-de-digitação-dos-valores" class="nav-link" data-scroll-target="#problemas-de-digitação-dos-valores"><span class="header-section-number">3.4</span> Problemas de digitação dos valores</a>
+  <ul class="collapse">
+  <li><a href="#erros-de-digitação-de-valores-numéricos" id="toc-erros-de-digitação-de-valores-numéricos" class="nav-link" data-scroll-target="#erros-de-digitação-de-valores-numéricos"><span class="header-section-number">3.4.1</span> Erros de digitação de valores numéricos</a></li>
+  <li><a href="#erros-de-digitação-em-caracteres" id="toc-erros-de-digitação-em-caracteres" class="nav-link" data-scroll-target="#erros-de-digitação-em-caracteres"><span class="header-section-number">3.4.2</span> Erros de digitação em caracteres</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjuntos de dados e importação</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="organização-de-dados" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="organização-de-dados"><span class="header-section-number">3.1</span> Organização de dados</h2>
+<p>A forma de se organizar um conjunto de dados é muito importante, e pode facilitar muito a compreensão da forma como se irá analisar os dados dados. Existem muitas formas como os dados serão organizados e planilhados, o que pode mudar dependendo da área de pesquisa.</p>
+<p>Em um passo inicial, provavelmente os dados serão tabulados em papel ou utilizando uma planlha em um software como Excel, Planilhas do Google ou similar. A organização desses dados muitas vezes depende da área de pesquisa. Entretanto, na hora de se analisar os dados, é necessário aplicar algum sistema de organização que facilite a filtragem, reorganização (<em>data wrangling</em>), preparação de gráficos, estatísticas descritivas e inferência estatística. Podemos chamar esse tipo de conjunto de dados de dados organizados ou <em>tidy data</em> <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>.</p>
+<p>A organização ideal de um conjunto de dados segue alguns princípios <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>, <a href="czz_Referencias.html#fig-varobval" class="quarto-xref" role="doc-biblioref">Figura&nbsp;<span>3.1</span></a>)</span>:</p>
+<ol type="1">
+<li><p>Cada variável é representada por uma coluna;</p></li>
+<li><p>Cada observação é representada por uma linha e cada linha representa uma observação;</p></li>
+<li><p>Cada valor está contido em uma única célula e cada célula contém somente um valor.</p></li>
+</ol>
+<div id="fig-varobval" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-varobval-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/VariavelObsValor.jpg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-varobval-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.1: Variáveis, observações e valores
+</figcaption>
+</figure>
+</div>
+<p>Uma <strong>variável</strong> é uma característica de interesse medida nas unidades amostrais. Exemplos: peso, altura, sexo, espécie. As variáveis podem ser <strong>numéricas</strong> quando podem ser medidas em escala quantitativa. As variáveis numéricas podem ser divididas em contínuas, quando podem assumir valores reais dentro de uma escala, ou <strong>discretas</strong>, quando só podem assumir números inteiros. Além disso, as variáveis podem ser <strong>categóricas</strong> (ou qualitativas) quando expressam uma classificação de observações em algum agrupamento (por exemplo, sexo ou espécie). As variáveis categóricas podem ser ordinais quando existe uma ordem entre as categorias (por exemplo, ensino fundamental, médio e superior).</p>
+<p>Observe os conjuntos de dados abaixo (<a href="#tbl-varobs" class="quarto-xref">Tabela&nbsp;<span>3.1</span></a>):</p>
+<div class="cell">
+<div id="tbl-varobs" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-varobs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;3.1: formas diferentes de se exibir um mesmo conjunto de dados
+</figcaption>
+<div aria-describedby="tbl-varobs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="tbl-varobs-1" class="do-not-create-environment quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-varobs-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) tabela a
+</figcaption>
+<div aria-describedby="tbl-varobs-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="tbl-varobs-1" class="do-not-create-environment caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">especie</th>
+<th style="text-align: left;">sexo</th>
+<th style="text-align: right;">peso_medio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelia</td>
+<td style="text-align: left;">Femea</td>
+<td style="text-align: right;">3368.836</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelia</td>
+<td style="text-align: left;">Macho</td>
+<td style="text-align: right;">4043.493</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Barbicha</td>
+<td style="text-align: left;">Femea</td>
+<td style="text-align: right;">3527.206</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Barbicha</td>
+<td style="text-align: left;">Macho</td>
+<td style="text-align: right;">3938.971</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: left;">Femea</td>
+<td style="text-align: right;">4679.741</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: left;">Macho</td>
+<td style="text-align: right;">5484.836</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="tbl-varobs-2" class="do-not-create-environment quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-varobs-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) tabela b
+</figcaption>
+<div aria-describedby="tbl-varobs-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="tbl-varobs-2" class="do-not-create-environment caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">especie</th>
+<th style="text-align: right;">Femea</th>
+<th style="text-align: right;">Macho</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelia</td>
+<td style="text-align: right;">3368.836</td>
+<td style="text-align: right;">4043.493</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Barbicha</td>
+<td style="text-align: right;">3527.206</td>
+<td style="text-align: right;">3938.971</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: right;">4679.741</td>
+<td style="text-align: right;">5484.836</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Você pode observar que as duas tabelas exibem as mesmas informações. Entretanto, somente a tabela a apresenta está devidamente organizada como <em>tidy data</em>, apresentando somente uma variável por coluna e uma observação por linha.</p>
+</section>
+<section id="importando-dados" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="importando-dados"><span class="header-section-number">3.2</span> Importando dados</h2>
+<p>O R é capaz de importar dados em diferentes formatos. Funções da família <code>read.table()</code> permitem importar diversos tipos de conjuntos de dados separados por tabulações ou separados por vírgula (.csv, com as funções <code>read.csv()</code> e <code>read.csv2()</code>). Existem pacotes que permitem a importação de tabelas do Excel, e de diversas outras formas. Neste tutorial, vamos importar os dados diretamente do excel utilizando o pacote <code>readxl</code>.</p>
+<section id="criando-uma-pasta-de-trabalho" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="criando-uma-pasta-de-trabalho"><span class="header-section-number">3.2.1</span> Criando uma pasta de trabalho</h3>
+<p>Primeiramente, sempre que queremos começar uma nova análise, é interessante criar uma pasta de trabalho no computador, onde colocamos nossos conjuntos de dados, scripts, etc. No exemplo, foi criada uma pasta contendo somente o arquivo excel a ser importado e o script referente às análises <a href="#fig-dir_analise" class="quarto-xref">Figura&nbsp;<span>3.2</span></a> .</p>
+<div id="fig-dir_analise" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dir_analise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/Fig_pasta_arquivos.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dir_analise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.2: Organizando diretório para análises
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="definindo-diretório-de-trabalho" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="definindo-diretório-de-trabalho"><span class="header-section-number">3.2.2</span> Definindo diretório de trabalho</h3>
+<p>Podemos definir pasta de trabalho no RStudio no menu <code>Session &gt; Set Working Directory &gt; Choose Directory…</code> e escolher a pasta de trabalho desejada (<a href="#fig-dir_trabalho" class="quarto-xref">Figura&nbsp;<span>3.3</span></a>)</p>
+<div id="fig-dir_trabalho" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dir_trabalho-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/Fig_setwd.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dir_trabalho-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.3: Definindo diretório de trabalho
+</figcaption>
+</figure>
+</div>
+<p>O diretório de trabalho pode ser definido utilizando linhas de comando. Podemos usar a função <code>setwd()</code> para definir o diretório de trabalho:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/fernandofarache/Documents/R_work/Aula02"</span>) <span class="co"># escolher a pasta de trabalho</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">choose.dir</span>()) <span class="co">#você pode usar choose.dir() para escolher o diretório clicando nele.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ao escolher o diretório, podemos usar a função <code>getwd()</code> para descobrir se estamos mesmo no diretório certo. A função <code>dir()</code> permite descobrirmos se nossos arquivos estão mesmo lá.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() <span class="co"># descobrir em qual pasta estamos</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>()<span class="co">#observa os arquivos disponíveis na minha pasta</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importando-arquivos-excel" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="importando-arquivos-excel"><span class="header-section-number">3.2.3</span> Importando arquivos Excel</h3>
+<p>O pacote <code>readxl</code> oferece funções para a leitura direta de arquivos Excel. Podemos importar a aba <strong>pinguins</strong> do arquivo <code>Bioestat_PPGBio.xlsx</code>. Atenção: o arquivo <strong>.xlsx</strong> deve estar no diretório de trabalho, ou o caminho para o diretório contendo a pasta deve ser indicado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>) <span class="co">#instalar parote readxl</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># abrir o pacote para utilizá-lo</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>pinguins <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"pinguins"</span>) <span class="co">#importar a aba "pinguins" do arquivo Bioestat_PPGBio.xlsx</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importando-arquivos-fora-do-diretório-de-trabalho" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="importando-arquivos-fora-do-diretório-de-trabalho"><span class="header-section-number">3.2.4</span> Importando arquivos fora do diretório de trabalho</h3>
+<p>Podemos importar um arquivo a partir de qualquer diretório do computador, e nào somente do diretório de trabalho. Sendo assim, não é necessário ter definido um diretório de trabalho, como no exemplo abaixo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pinguins <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"/Users/fernandohfarache/Documents/DisciplinaR/dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"pinguins"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importando-arquivos-excel-de-maneira-fácil" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="importando-arquivos-excel-de-maneira-fácil"><span class="header-section-number">3.2.5</span> Importando arquivos Excel de maneira fácil</h3>
+<p>A importação de arquivos Excel pode ser realizada em de forma fácil no RStudio seguindo os seguintes passos(<a href="#fig-excel_rstudio" class="quarto-xref">Figura&nbsp;<span>3.4</span></a>).</p>
+<ol type="1">
+<li><p>Acessar aba <code>Environment</code>;</p></li>
+<li><p>Clicar no ícone <code>Import Dataset</code>;</p></li>
+<li><p>Ir em <code>From Excel</code>;</p></li>
+<li><p>Selecionar o arquivo em <code>Browse</code>;</p></li>
+<li><p>Selecionar a aba do arquivo (quando ouver mais de uma) no campo <code>Sheet</code>;</p></li>
+<li><p>Criar um nome para o objeto em <code>Name</code>;</p></li>
+<li><p>Clicar no botão <code>Import</code>.</p></li>
+</ol>
+<div id="fig-excel_rstudio" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-excel_rstudio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/Fig_read_excel.jpg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-excel_rstudio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.4: Importando arquivos excel utilizando a interface RStudio. Os passos de 1 a 7 estão ilustrados na figura.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="copiando-e-colando-os-dados" class="level3" data-number="3.2.6">
+<h3 data-number="3.2.6" class="anchored" data-anchor-id="copiando-e-colando-os-dados"><span class="header-section-number">3.2.6</span> Copiando e colando os dados</h3>
+<p>Conjuntos de dados podem ser importados para o R pelo método “copia e cola” para isso:</p>
+<ul>
+<li><p>Selecione as linhas e colunas da planilha que deseja copiar;</p></li>
+<li><p>No R, execute o seguinte comando para colar os dados da área de transferência como um objeto no R:</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read.delim2</span>(<span class="st">"clipboard"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#em mac:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read.delim2</span>(<span class="fu">pipe</span>(<span class="st">"pbpaste"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualização-geral-do-conjunto-de-dados" class="level3" data-number="3.2.7">
+<h3 data-number="3.2.7" class="anchored" data-anchor-id="visualização-geral-do-conjunto-de-dados"><span class="header-section-number">3.2.7</span> Visualização geral do conjunto de dados</h3>
+<p>Após realizar a importação, é muito importante verificar se não houveram problemas na importação. podemos utilizar algumas funções para verificar a estrutura dos dados. Uma função excelente para isso é a função <code>str()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pinguins)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [333 × 7] (S3: tbl_df/tbl/data.frame)
+ $ especie  : chr [1:333] "Adelia" "Adelia" "Adelia" "Adelia" ...
+ $ ilha     : chr [1:333] "Torgersen" "Torgersen" "Torgersen" "Torgersen" ...
+ $ bico_comp: num [1:333] 39.1 39.5 40.3 36.7 39.3 38.9 39.2 41.1 38.6 34.6 ...
+ $ bico_prof: num [1:333] 18.7 17.4 18 19.3 20.6 17.8 19.6 17.6 21.2 21.1 ...
+ $ nadadeira: num [1:333] 181 186 195 193 190 181 195 182 191 198 ...
+ $ peso     : num [1:333] 3750 3800 3250 3450 3650 ...
+ $ sexo     : chr [1:333] "Macho" "Femea" "Femea" "Femea" ...</code></pre>
+</div>
+</div>
+<p>O objeto <code>pinguins</code> foi importado formato tibble. Esta é uma versão versão adaptada dos data frames em R que oferece algumas vantagens em relação aos data frames tradicionais, mas em geral podemos trabalhar com eles da mesma forma que fizemos co mdata frames no capítulo anterior.</p>
+<p>Ao observar o <code>str()</code>, é importante verificarmos por exemplo:</p>
+<ul>
+<li><p>Se o número de linhas e colunas está correto;</p></li>
+<li><p>Se o tipo de variável (caracteres, numéricas) está correto.</p></li>
+</ul>
+<p>Diversas funções já conhecidas podem nos dar algumas informações sobre o conjunto de dados. Para isso, podemos:</p>
+<ol type="1">
+<li><p>Digitar o nome do objeto ou utilizar a função <code>View()</code> para visualizá-lo (pelo menos as primeiras linhas);</p></li>
+<li><p>utilizar <code>head()</code> ou <code>tail()</code> para visualizar as primeiras linhas e últimas linhas do objeto.</p></li>
+<li><p>Utilizar <code>colnames()</code> para verificar os nomes das colunas (variáveis).</p></li>
+<li><p>Utilizar <code>ncol()</code>, <code>nrow()</code>, ou <code>dim()</code> para verificar o número de linhas e colunas</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pinguins <span class="co"># visualiza o objeto pinguins no console</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(pinguins) <span class="co"># abre o conjunto de dados em uma aba</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pinguins) <span class="co"># ver as primeiras observações</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(pinguins)<span class="co"># ver as últimas observações</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(pinguins) <span class="co"># ver nomes das colunas</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(pinguins) <span class="co"># número de colunas</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(pinguins) <span class="co"># número de linhas</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(pinguins) <span class="co"># Dimensões do objeto (linhas e colunas)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Podemos utilizar a função <code>table()</code> para ter informações mais detalhadas sobre variáveis categóricas. Abaixo vamos:</p>
+<ol type="1">
+<li><p>Contar quantas observações (linhas) temos para cada espécie;</p></li>
+<li><p>Contar quantas observações temos para cada espécie e sexo:</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pinguins<span class="sc">$</span>especie)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  Adelia Barbicha   Gentoo 
+     146       68      119 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(pinguins, <span class="fu">table</span>(especie, sexo)) <span class="co"># ou table(pinguins$especie, pinguins$sexo)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          sexo
+especie    Femea Macho
+  Adelia      73    73
+  Barbicha    34    34
+  Gentoo      58    61</code></pre>
+</div>
+</div>
+<p>A função <code>summary()</code> fornece um resumo sobre a planilha:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pinguins) <span class="co"># resumo da planilha</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   especie              ilha             bico_comp       bico_prof    
+ Length:333         Length:333         Min.   :32.10   Min.   :13.10  
+ Class :character   Class :character   1st Qu.:39.50   1st Qu.:15.60  
+ Mode  :character   Mode  :character   Median :44.50   Median :17.30  
+                                       Mean   :43.99   Mean   :17.16  
+                                       3rd Qu.:48.60   3rd Qu.:18.70  
+                                       Max.   :59.60   Max.   :21.50  
+   nadadeira        peso          sexo          
+ Min.   :172   Min.   :2700   Length:333        
+ 1st Qu.:190   1st Qu.:3550   Class :character  
+ Median :197   Median :4050   Mode  :character  
+ Mean   :201   Mean   :4207                     
+ 3rd Qu.:213   3rd Qu.:4775                     
+ Max.   :231   Max.   :6300                     </code></pre>
+</div>
+</div>
+<p>No <em>summary</em> ou sumário da planilha podemos ver um resumo de cada variável do conjunto de dados. Para variáveis contínuas, Podemos observar medidas descritivas das variáveis contínuas, como valor mínimo e máximo, quartis, média e mediana.</p>
+</section>
+<section id="alterando-classe-de-variáveis" class="level3" data-number="3.2.8">
+<h3 data-number="3.2.8" class="anchored" data-anchor-id="alterando-classe-de-variáveis"><span class="header-section-number">3.2.8</span> Alterando classe de variáveis</h3>
+<p>Vamos transformar as variavies categóricas em fatores com a função <code>as.factor()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pinguins)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [333 × 7] (S3: tbl_df/tbl/data.frame)
+ $ especie  : chr [1:333] "Adelia" "Adelia" "Adelia" "Adelia" ...
+ $ ilha     : chr [1:333] "Torgersen" "Torgersen" "Torgersen" "Torgersen" ...
+ $ bico_comp: num [1:333] 39.1 39.5 40.3 36.7 39.3 38.9 39.2 41.1 38.6 34.6 ...
+ $ bico_prof: num [1:333] 18.7 17.4 18 19.3 20.6 17.8 19.6 17.6 21.2 21.1 ...
+ $ nadadeira: num [1:333] 181 186 195 193 190 181 195 182 191 198 ...
+ $ peso     : num [1:333] 3750 3800 3250 3450 3650 ...
+ $ sexo     : chr [1:333] "Macho" "Femea" "Femea" "Femea" ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pinguins<span class="sc">$</span>especie <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pinguins<span class="sc">$</span>especie)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>pinguins<span class="sc">$</span>ilha <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pinguins<span class="sc">$</span>ilha)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>pinguins<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pinguins<span class="sc">$</span>sexo)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pinguins) <span class="co"># as variaveis modificadas agora são fatores</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [333 × 7] (S3: tbl_df/tbl/data.frame)
+ $ especie  : Factor w/ 3 levels "Adelia","Barbicha",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ ilha     : Factor w/ 3 levels "Biscoe","Dream",..: 3 3 3 3 3 3 3 3 3 3 ...
+ $ bico_comp: num [1:333] 39.1 39.5 40.3 36.7 39.3 38.9 39.2 41.1 38.6 34.6 ...
+ $ bico_prof: num [1:333] 18.7 17.4 18 19.3 20.6 17.8 19.6 17.6 21.2 21.1 ...
+ $ nadadeira: num [1:333] 181 186 195 193 190 181 195 182 191 198 ...
+ $ peso     : num [1:333] 3750 3800 3250 3450 3650 ...
+ $ sexo     : Factor w/ 2 levels "Femea","Macho": 2 1 1 1 2 1 2 1 2 2 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pinguins)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     especie           ilha       bico_comp       bico_prof       nadadeira  
+ Adelia  :146   Biscoe   :163   Min.   :32.10   Min.   :13.10   Min.   :172  
+ Barbicha: 68   Dream    :123   1st Qu.:39.50   1st Qu.:15.60   1st Qu.:190  
+ Gentoo  :119   Torgersen: 47   Median :44.50   Median :17.30   Median :197  
+                                Mean   :43.99   Mean   :17.16   Mean   :201  
+                                3rd Qu.:48.60   3rd Qu.:18.70   3rd Qu.:213  
+                                Max.   :59.60   Max.   :21.50   Max.   :231  
+      peso         sexo    
+ Min.   :2700   Femea:165  
+ 1st Qu.:3550   Macho:168  
+ Median :4050              
+ Mean   :4207              
+ 3rd Qu.:4775              
+ Max.   :6300              </code></pre>
+</div>
+</div>
+<p>Observe que agora temos mais informações sobre as variáveis categóricas.</p>
+</section>
+</section>
+<section id="dados-faltantes" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="dados-faltantes"><span class="header-section-number">3.3</span> Dados faltantes</h2>
+<p>Dados faltantes são valores ausentes em um conjunto de dados, que podem ocorrer por diversas razões, como erros na coleta de dados, falhas técnicas, respostas não fornecidas por participantes em uma pesquisa, entre outros. Eles podem ser representados por células vazias em uma planilha ou por algum termo (por exemplo, “NA”). deve-se ter cuidado ao importar esses dados no R para que sejam lidos como dados faltantes e nào como texto.</p>
+<p>Vamos ler a planilha <code>dados_problemas</code>. Se você observar o conjunto de dados antes de importar, verá que a coluna diâmetro apresenta dados faltantes representados por uma célula vazia, enquanto a coluna sementes apresenta dados faltantes representados pela sigla “NA”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dados_prob <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"dados_problemas"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dados_prob)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [60 × 3] (S3: tbl_df/tbl/data.frame)
+ $ especie : chr [1:60] "citrif" "citrif" "citrif" "citrif" ...
+ $ diametro: num [1:60] 1.58 1.67 1.6 1.43 1.49 1.35 1.42 1.4 1.51 1.53 ...
+ $ sementes: chr [1:60] "220" "276" "180" "112" ...</code></pre>
+</div>
+</div>
+<p>Repare que a coluna <code>sementes</code>, que deveria ter sido numérica, apareceu como uma coluna de caracteres.<br>
+Vamos observar os valores com mais detalhes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dados_prob<span class="sc">$</span>sementes</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "220" "276" "180" "112" "172" "200" "176" "196" "128" "252" "164" "176"
+[13] "188" "192" "220" "200" "216" "244" "228" "208" "42"  "36"  "52"  "37" 
+[25] "30"  "16"  "13"  "18"  "16"  "31"  "16"  "4"   "16"  "12"  "47"  "20" 
+[37] "31"  "13"  "21"  "21"  "204" "200" "156" "224" "220" "200" "216" "176"
+[49] "216" "420" "180" "184" "152" "NA"  "192" "188" "304" "344" "NA"  "340"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dados_prob<span class="sc">$</span>diametro</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1.58  1.67  1.60  1.43  1.49  1.35  1.42  1.40  1.51  1.53  1.42  1.55
+[13]    NA  1.37  1.55  1.34  1.48  1.49  1.55  1.53  0.66  0.82  0.76  0.77
+[25]  0.74  0.81  0.85  0.78  0.73  0.81  0.76  0.81  0.81  0.71  0.77 79.00
+[37]  0.79  0.76  0.76  0.98  2.42  2.29  2.38  2.26  2.40  2.43  2.33  2.30
+[49]  2.25  2.51  2.01  2.18  2.26  2.30  2.21  2.25  2.28  2.14  2.15  2.10</code></pre>
+</div>
+</div>
+<p>Observe que na coluna <code>sementes</code> alguns valores apareceram como “NA” escrito. Isso ocorre por que na planilha foi utilizado o termo “NA” para indicar dados faltantes. Nesse caso, o “NA” aparece entre aspas. Observe que na coluna <code>diametro</code>, há também um dado faltante, mas ele foi interpretado de forma correta.</p>
+<p>Podemos converter a coluna em numérica da seguinte forma:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dados_prob<span class="sc">$</span>sementes <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dados_prob<span class="sc">$</span>sementes)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>dados_prob<span class="sc">$</span>sementes</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 220 276 180 112 172 200 176 196 128 252 164 176 188 192 220 200 216 244 228
+[20] 208  42  36  52  37  30  16  13  18  16  31  16   4  16  12  47  20  31  13
+[39]  21  21 204 200 156 224 220 200 216 176 216 420 180 184 152  NA 192 188 304
+[58] 344  NA 340</code></pre>
+</div>
+</div>
+<p>Ao fazer isso, os valores que não eram numéricos foram transformados em valores faltantes por coerção.<br>
+<br>
+Para indicar para a função <code>read_excel()</code> que os dados faltantes também são representados pelo texto “NA”, podemos importar da seguinte forma:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>dados_prob <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"dados_problemas"</span>, <span class="at">na =</span> <span class="st">"NA"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dados_prob<span class="sc">$</span>diametro</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1.58  1.67  1.60  1.43  1.49  1.35  1.42  1.40  1.51  1.53  1.42  1.55
+[13]    NA  1.37  1.55  1.34  1.48  1.49  1.55  1.53  0.66  0.82  0.76  0.77
+[25]  0.74  0.81  0.85  0.78  0.73  0.81  0.76  0.81  0.81  0.71  0.77 79.00
+[37]  0.79  0.76  0.76  0.98  2.42  2.29  2.38  2.26  2.40  2.43  2.33  2.30
+[49]  2.25  2.51  2.01  2.18  2.26  2.30  2.21  2.25  2.28  2.14  2.15  2.10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>dados_prob<span class="sc">$</span>sementes</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 220 276 180 112 172 200 176 196 128 252 164 176 188 192 220 200 216 244 228
+[20] 208  42  36  52  37  30  16  13  18  16  31  16   4  16  12  47  20  31  13
+[39]  21  21 204 200 156 224 220 200 216 176 216 420 180 184 152  NA 192 188 304
+[58] 344  NA 340</code></pre>
+</div>
+</div>
+<p>Os valores faltantes podem causar problemas na hora de analisar os dados. Algumas funções podem apresentar argumentos para remover os NAs ao calcular a média:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dados_prob<span class="sc">$</span>sementes) <span class="co">#Resultado: NA</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dados_prob<span class="sc">$</span>sementes, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co">#Rremove o valor faltante e calcula a média</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 147.5172</code></pre>
+</div>
+</div>
+<p>É possível também remover todas as observações que apresentam dados faltantes. Deve-se fazer isso com cautela, levando em conta a intenção de omitir os dados faltantes, pois ao fazer isso podemos remover informação de outras colunas que não são dados faltantes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>dados_prob_naomit <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(dados_prob)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>dados_prob_naomit</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 57 × 3
+   especie diametro sementes
+   &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+ 1 citrif      1.58      220
+ 2 citrif      1.67      276
+ 3 citrif      1.6       180
+ 4 citrif      1.43      112
+ 5 citrif      1.49      172
+ 6 citrif      1.35      200
+ 7 citrif      1.42      176
+ 8 citrif      1.4       196
+ 9 citrif      1.51      128
+10 citrif      1.53      252
+# ℹ 47 more rows</code></pre>
+</div>
+</div>
+<p>Aqui, nós criamos um novo objeto chamado <code>dados_prob_naomit</code>, que exclui todas as linhas que apresentam dados daltantes.</p>
+</section>
+<section id="problemas-de-digitação-dos-valores" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="problemas-de-digitação-dos-valores"><span class="header-section-number">3.4</span> Problemas de digitação dos valores</h2>
+<section id="erros-de-digitação-de-valores-numéricos" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="erros-de-digitação-de-valores-numéricos"><span class="header-section-number">3.4.1</span> Erros de digitação de valores numéricos</h3>
+<p>Devido à problemas de digitação, podemos ver alguns problemas nos valores. Observe por exemplo o diâmetro dos figos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados_prob<span class="sc">$</span>diametro)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  0.660   0.810   1.510   2.841   2.230  79.000       1 </code></pre>
+</div>
+</div>
+<p>Podemos observar que o valor máximo destoa das outras estatísticas descritivas. Vamos fazer um gráfico simples para ilustrar isso. Obs.: Estatísticas descritivas e análise gráfica são discutidos nos próximos 2 capítulos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dados_prob<span class="sc">$</span>diametro)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="c03_Import_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Este gráfico de dispersão mostra os valores de diâmetro em função de um índice (o número da linha da observação). Vemos que entre o valor 30 e 40, apareceu um valor extremo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(dados_prob<span class="sc">$</span>diametro <span class="sc">&gt;</span><span class="dv">70</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 36</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>dados_prob<span class="sc">$</span>diametro[dados_prob<span class="sc">$</span>diametro <span class="sc">&gt;</span><span class="dv">70</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA 79</code></pre>
+</div>
+</div>
+<p>com a função <code>which()</code>, vimos que o elemento 36 foi o valor que foi maior que 70. Nesse caso, ele foi digitado errado, e foi digitado o número 79 em vez de 0.79.</p>
+</section>
+<section id="erros-de-digitação-em-caracteres" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="erros-de-digitação-em-caracteres"><span class="header-section-number">3.4.2</span> Erros de digitação em caracteres</h3>
+<p>Vamos observar as abreviações de nomes de espécies:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dados_prob<span class="sc">$</span>especie)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+citrif  obfol  Obfol   obus 
+    20     19      1     20 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(dados_prob<span class="sc">$</span>especie)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "citrif" "obus"   "obfol"  "Obfol" </code></pre>
+</div>
+</div>
+<p>Tanto com a função <code>table()</code> como a função <code>unique()</code> demonstratam que <code>obfol</code> parece ter sido digitado erroneamente com maiúsculo. No caso de <code>table()</code>, ainda podemos ver que a digitação errônea aconteceu somente uma vez.<br>
+A correção pode ser feita diretamente no R, ou pode ser realizada no aplicativo de edição de planilhas.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-wickham2023" class="csl-entry" role="listitem">
+Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). <em>R for data science: import, tidy, transform, visualize, and model data</em> (2nd edition). O’Reilly Media, Inc.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./c02_IntroR.html" class="pagination-link" aria-label="Introdução ao R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introdução ao R</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./c04_EstDescritiva.html" class="pagination-link" aria-label="Estatísticas descritivas">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estatísticas descritivas</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

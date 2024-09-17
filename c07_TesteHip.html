@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R - 7&nbsp; Testes de hipóteses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./c08_ModLinearReg.html" rel="next">
+<link href="./c06_Graficos.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c07_TesteHip.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c01_Instal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Instalando o R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c02_IntroR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introdução ao R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c03_Import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjuntos de dados e importação</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c04_EstDescritiva.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estatísticas descritivas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c05_DistProbabilidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Distribuições de Probabilidade</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c06_Graficos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gráficos e análise exploratória de dados</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c07_TesteHip.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c08_ModLinearReg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos lineares e regressão</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c09_ModLinearANOVA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Modelos lineares: ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c10_GLMs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c11_Multivar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Estatística multivariada</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c12_Tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Introdução ao Tidyverse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c13_Progr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Programação, strings e dados relacionais</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c14_Datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./czz_Referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#teste-t" id="toc-teste-t" class="nav-link active" data-scroll-target="#teste-t"><span class="header-section-number">7.1</span> Teste-t</a>
+  <ul class="collapse">
+  <li><a href="#teste-t-para-a-comparação-de-duas-amostras." id="toc-teste-t-para-a-comparação-de-duas-amostras." class="nav-link" data-scroll-target="#teste-t-para-a-comparação-de-duas-amostras."><span class="header-section-number">7.1.1</span> Teste-t para a comparação de duas amostras.</a></li>
+  <li><a href="#teste-t-pareado" id="toc-teste-t-pareado" class="nav-link" data-scroll-target="#teste-t-pareado"><span class="header-section-number">7.1.2</span> Teste-t pareado</a></li>
+  <li><a href="#teste-t-para-uma-média" id="toc-teste-t-para-uma-média" class="nav-link" data-scroll-target="#teste-t-para-uma-média"><span class="header-section-number">7.1.3</span> Teste-t para uma média</a></li>
+  <li><a href="#exemplo" id="toc-exemplo" class="nav-link" data-scroll-target="#exemplo"><span class="header-section-number">7.1.4</span> Exemplo</a></li>
+  <li><a href="#teste-unilateral-vs-teste-bilateral" id="toc-teste-unilateral-vs-teste-bilateral" class="nav-link" data-scroll-target="#teste-unilateral-vs-teste-bilateral"><span class="header-section-number">7.1.5</span> Teste unilateral vs teste bilateral</a></li>
+  <li><a href="#premissas-do-teste-t" id="toc-premissas-do-teste-t" class="nav-link" data-scroll-target="#premissas-do-teste-t"><span class="header-section-number">7.1.6</span> Premissas do teste-t</a></li>
+  <li><a href="#avaliando-as-premissas-do-teste-t" id="toc-avaliando-as-premissas-do-teste-t" class="nav-link" data-scroll-target="#avaliando-as-premissas-do-teste-t"><span class="header-section-number">7.1.7</span> Avaliando as premissas do teste-t</a></li>
+  <li><a href="#testes-não-paramétricos" id="toc-testes-não-paramétricos" class="nav-link" data-scroll-target="#testes-não-paramétricos"><span class="header-section-number">7.1.8</span> Testes não-paramétricos</a></li>
+  </ul></li>
+  <li><a href="#teste-de-qui-quadrado" id="toc-teste-de-qui-quadrado" class="nav-link" data-scroll-target="#teste-de-qui-quadrado"><span class="header-section-number">7.2</span> Teste de qui-quadrado</a>
+  <ul class="collapse">
+  <li><a href="#teste-de-aderênciaconcordância" id="toc-teste-de-aderênciaconcordância" class="nav-link" data-scroll-target="#teste-de-aderênciaconcordância"><span class="header-section-number">7.2.1</span> Teste de aderência/concordância</a></li>
+  <li><a href="#teste-de-independênciacontingência" id="toc-teste-de-independênciacontingência" class="nav-link" data-scroll-target="#teste-de-independênciacontingência"><span class="header-section-number">7.2.2</span> Teste de independência/contingência</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>O termo “teste de hipóteses” se refere à utilização de regras para rejeitar ou não uma hipótese estatística com base em elementos de nossas amostras. Consideramos uma hipótese nula que não há diferença entre os elementos observados <span class="math inline">\(H_0: \theta = \theta_0\)</span>. A partir desta hipótese, estabelecemos uma hipótese alternativa. No exemplo temos a hipótese de que há diferenças entre os elementos observados <span class="math inline">\(H_a:\theta\neq\theta_0\)</span> <span class="citation" data-cites="mello2013">(<a href="czz_Referencias.html#ref-mello2013" role="doc-biblioref">Mello &amp; Peternelli, 2013</a>)</span>.</p>
+<p>Ao se definir as hipóteses, escolhemos um nível de probabilidade para as conclusões ou um nível de significância. Este processo é sujeito a erros, sendo esses chamados de <strong>erro tipo I</strong>, que é a rejeição de uma <span class="math inline">\(H_0\)</span> verdadeira, com probabilidade <span class="math inline">\(\alpha\)</span>, ou aceitar uma <span class="math inline">\(H_0\)</span> falsa, conhecido como <strong>erro tipo II</strong>, e expresso pela probabilidade <span class="math inline">\(\beta\)</span> <span class="citation" data-cites="tonhascajr1991">(<a href="czz_Referencias.html#ref-tonhascajr1991" role="doc-biblioref">Tonhasca Jr, 1991</a>)</span>. Neste sentido, <span class="math inline">\(\alpha\)</span> é a significância do teste, ou seja, a probabilidade de se rejeitar a hipótese nula sendo esta verdadeira, enquanto <span class="math inline">\(1-\beta\)</span> é o poder do teste, ou seja, a probabilidade de se rejeitar a hipótese nula sendo ela falsa <span class="citation" data-cites="gotelli2016 tonhascajr1991">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>; <a href="czz_Referencias.html#ref-tonhascajr1991" role="doc-biblioref">Tonhasca Jr, 1991</a>)</span>. Deste modo, temos a seguinte tabela de decisão:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 37%">
+<col style="width: 39%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">Manter <span class="math inline">\(H_0\)</span></th>
+<th style="text-align: center;">Rejeitar <span class="math inline">\(H_0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_0\)</span> verdadeira</td>
+<td style="text-align: center;">Decisão correta (<span class="math inline">\(1-\alpha\)</span>)</td>
+<td style="text-align: center;">Erro tipo I (<span class="math inline">\(\alpha\)</span>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_0\)</span> falsa</td>
+<td style="text-align: center;">Erro tipo II (<span class="math inline">\(\beta\)</span>)</td>
+<td style="text-align: center;">Decisão correta (<span class="math inline">\(1 - \beta\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<section id="teste-t" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="teste-t"><span class="header-section-number">7.1</span> Teste-t</h2>
+<section id="teste-t-para-a-comparação-de-duas-amostras." class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="teste-t-para-a-comparação-de-duas-amostras."><span class="header-section-number">7.1.1</span> Teste-t para a comparação de duas amostras.</h3>
+<p>Vamos importar o conjunto de dados <code>artropodes</code>, que apresenta a abundância de artrópodes coletados com armadilhas pitfall em um fragmento florestal e na matriz do fragmento.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>art <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"artropodes"</span>) <span class="co">#importar dados</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(art)<span class="co">#estrutura do objeto</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [16 × 2] (S3: tbl_df/tbl/data.frame)
+ $ ambiente  : chr [1:16] "fragmento" "fragmento" "fragmento" "fragmento" ...
+ $ abundancia: num [1:16] 30 56 46 45 65 74 44 71 95 102 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>art <span class="co">#visualizar o conjunto de dados</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 2
+   ambiente  abundancia
+   &lt;chr&gt;          &lt;dbl&gt;
+ 1 fragmento         30
+ 2 fragmento         56
+ 3 fragmento         46
+ 4 fragmento         45
+ 5 fragmento         65
+ 6 fragmento         74
+ 7 fragmento         44
+ 8 fragmento         71
+ 9 matriz            95
+10 matriz           102
+11 matriz            86
+12 matriz           110
+13 matriz           128
+14 matriz            95
+15 matriz            87
+16 matriz            56</code></pre>
+</div>
+</div>
+<p>Neste conjunto de dados temos uma variável categórica indicando o ambiente me uma variável contínua com a abundância de artrópodes em cada unidade amostral. Utilizamos o operador “<code>~</code>” para criar fórmulas. No exemplo, faremos um gráfico de boxplot comparando os ambientes (<a href="#fig-bplot_ambientes" class="quarto-xref">Figura&nbsp;<span>7.1</span></a>) e um teste-t para comparar se há diferenças entre as médias de abundância artrópodes nos ambientes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art) <span class="co">#boxplot: parece haver diferenças entre grupos</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art) <span class="co">#teste-t não pareado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  abundancia by ambiente
+t = -4.4927, df = 12.852, p-value = 0.0006224
+alternative hypothesis: true difference in means between group fragmento and group matriz is not equal to 0
+95 percent confidence interval:
+ -60.73835 -21.26165
+sample estimates:
+mean in group fragmento    mean in group matriz 
+                 53.875                  94.875 </code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-bplot_ambientes" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bplot_ambientes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c07_TesteHip_files/figure-html/fig-bplot_ambientes-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bplot_ambientes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.1: gráfico de boxplot comparando a abundância de artrópodes em dois ambientes.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>pelo resultado, vemos que há diferença significativa entre a média da abundˆancia nos ambientes analizados: t(12.85) = -4,49; p = 0,0006.</p>
+</section>
+<section id="teste-t-pareado" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="teste-t-pareado"><span class="header-section-number">7.1.2</span> Teste-t pareado</h3>
+<p>No teste t pareado, as amostras são dependentes. Podemos utilizá-lo quando, por exemplo, aplicamos dois tratamentos diferentes em uma mesma amostra e queremos observar se houve diferença entre os tratamentos.</p>
+<p>No exemplo, vamos comparar o tamanho corpóreo de galhadores e parasitas que ocorrem em uma mesma espécie de plantas hospedeiras. Para cada hospedeiro, temos o tamanho em milímetros do galhador e do parasita associado (<a href="#fig-bplot_gal1" class="quarto-xref">Figura&nbsp;<span>7.2</span></a>) e o teste-t não pareado abaixo indicam que as abundâncias são similares. No entanto, observamos nos valores do conjunto de dadosque para cada rio, o número de invertebrados na nascente é maior que o número na foz:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gal <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"galhadores"</span>) <span class="co"># importar os dados</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gal <span class="co">#observar os dados</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 × 3
+   hospedeiro galhador parasita
+   &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+ 1 A              1.44     1.26
+ 2 B              1.34     1.12
+ 3 C              1.31     1.26
+ 4 D              1.78     1.58
+ 5 E              1.33     1.06
+ 6 F              1.98     1.68
+ 7 G              1.86     1.4 
+ 8 H              1.8      1.39
+ 9 I              1.87     1.82
+10 J              2.26     1.71
+11 K              2.15     1.37
+12 L              1.27     1.09
+13 M              1.86     1.35</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(gal[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]) <span class="co">#observar se há diferença entre os grupos</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(gal<span class="sc">$</span>galhador, gal<span class="sc">$</span>parasita) <span class="co">#teste-t não pareado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  gal$galhador and gal$parasita
+t = 2.7743, df = 21.885, p-value = 0.0111
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.08071393 0.55928607
+sample estimates:
+mean of x mean of y 
+ 1.711538  1.391538 </code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-bplot_gal1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bplot_gal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c07_TesteHip_files/figure-html/fig-bplot_gal1-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bplot_gal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.2: gráfico de boxplot comparando galhadores e parasitas
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Como as amostras são pareadas, pois cada observação (cada linha) representa um hospedeiro e o galhador e parasita associado ao mesmo hospedeiro, podemos utilizar o teste-t pareado. Realizamos osso pois os galhadores e parasitas podem ter tamanhos diferentes simplesmente pelos hospedeiros apresentarem condições diferentes que causem diferenças nos tamanhos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(gal<span class="sc">$</span>galhador, gal<span class="sc">$</span>parasita, <span class="at">paired =</span> <span class="cn">TRUE</span>) <span class="co"># teste t pareado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  gal$galhador and gal$parasita
+t = 5.4359, df = 12, p-value = 0.0001511
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 0.1917387 0.4482613
+sample estimates:
+mean difference 
+           0.32 </code></pre>
+</div>
+</div>
+<p>Neste caso observamos uma diferença significativa entre as médias a uma significância de 5%: t(12) = 5,43, p = 0,00015.</p>
+<p>Podemos utilizar um boxplot ligando os pontos entre os valores para cada hospedeiro facilmente utilizando o <code>ggpubr</code> (<a href="#fig-bplot_gal2" class="quarto-xref">Figura&nbsp;<span>7.3</span></a>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggplot2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpaired</span>(gal, <span class="at">cond1 =</span> <span class="st">"galhador"</span>, <span class="at">cond2 =</span> <span class="st">"parasita"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-bplot_gal2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bplot_gal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c07_TesteHip_files/figure-html/fig-bplot_gal2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bplot_gal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.3: gráfico de boxplot pareado comparando galhadores e parasitas,
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Pela visualização dos dados, fica claro que os parasitas são menores que os galhadores associados a um mesmo hospedeiro.</p>
+</section>
+<section id="teste-t-para-uma-média" class="level3" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="teste-t-para-uma-média"><span class="header-section-number">7.1.3</span> Teste-t para uma média</h3>
+<p>O teste t para média de uma amostra pode ser utilizado para medir a probabilidade de a média da amostra em questão ter apresentado o valor observado <span class="math inline">\(\overline{x}\)</span> ou algo mais extremo, dada a média da população <span class="math inline">\(\mu_{0}\)</span>. Sendo assim testamos as seguintes hipóteses:</p>
+<center>
+<span class="math inline">\(H_{0}: \overline{x} = \mu_{0}\)</span>
+</center>
+<center>
+<span class="math inline">\(H_{1}: \overline{x} \neq \mu_{0}\)</span>
+</center>
+</section>
+<section id="exemplo" class="level3" data-number="7.1.4">
+<h3 data-number="7.1.4" class="anchored" data-anchor-id="exemplo"><span class="header-section-number">7.1.4</span> Exemplo</h3>
+<p>Na literatura observamos que indivíduos de uma determinada espécie apresentam 5 cm de comprimento. Ao realizar uma amostragem de 8 indivíduos desta espécie, obtemos os seguintes valores: 2.9, 2.6, 5.8, 3.7, 5.2, 0.1, 5.0 e 5.0. Para testar a afirmação encontrada na literatura, podemos elaborar as seguintes hipóteses:</p>
+<center>
+<span class="math inline">\(H_{0}: \overline{x} = 5\)</span>
+</center>
+<center>
+<span class="math inline">\(H_{1}: \overline{x} \neq 5\)</span>
+</center>
+<p>Testaremos a hipótese nula com nível de significância <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p>Para obter o valor-t, utilizamos a seguinte fórmula:</p>
+<center>
+<span class="math inline">\(t=\frac{\bar x-\mu_{0}}{s/\sqrt{n}}\)</span>
+</center>
+<p>Assim, podemos calcular:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="fl">2.9</span>, <span class="fl">2.6</span>, <span class="fl">5.8</span>, <span class="fl">3.7</span>, <span class="fl">5.2</span>, <span class="fl">0.1</span>, <span class="fl">5.0</span>, <span class="fl">5.0</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(val) <span class="co"># média</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.7875</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(val) <span class="co"># desvio padrão</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.881821</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>t.val <span class="ot">=</span> (<span class="fu">mean</span>(val) <span class="sc">-</span> <span class="dv">5</span>) <span class="sc">/</span> (<span class="fu">sd</span>(val)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(val)))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>t.val <span class="co">#valor-t observado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.82242</code></pre>
+</div>
+</div>
+<p>Com os cálculos acima, encontramos o valor-t observado. Precisamos saber se este valor é maior ou igual do que o valor-t limite com significância <span class="math inline">\(\alpha = 0.05\)</span>. Para isso temos que saber os graus de liberdade, que para este teste é calculado como <span class="math inline">\(gl = n - 1 = 7\)</span>.</p>
+<p>Podemos discutir isso olhando uma tabela da distribuição t (http://www.ttable.org), ou utilizando a função para quantis da distribuição t <code>qt()</code>. Como a significância é de 5% e o teste é bicaudal, utilizamos o valor de 2.5% para descobrir o valor t alvo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, <span class="at">df =</span> <span class="dv">7</span>) <span class="co"># 0.025 = significância; df = graus de liberdade </span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.364624</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">7</span>)<span class="co"># ou qt(0.025, df = 7, lower.tail = F) - valor para a outra cauda</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.364624</code></pre>
+</div>
+</div>
+<p>Como o valor-t obtido não é maior do que o valor-t alvo, <strong>falhamos em rejeitar a hipótese nula</strong>, assim assumimos que não há diferenças significativas entre a média das observações e a média populacional.</p>
+<p>O valor - p para o valor de t obtido pode ser calculado com:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(t.val, <span class="at">df =</span> <span class="dv">7</span>, <span class="at">lower.tail =</span> T)<span class="sc">*</span><span class="dv">2</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1111736</code></pre>
+</div>
+</div>
+<p>O teste realizado anteriormente pode ser reproduzido utilizando a função t.test:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(val, <span class="co"># valores</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mu =</span> <span class="dv">5</span>, <span class="co"># média da população</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">"two.sided"</span>) <span class="co"># teste bicaudal</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  val
+t = -1.8224, df = 7, p-value = 0.1112
+alternative hypothesis: true mean is not equal to 5
+95 percent confidence interval:
+ 2.214258 5.360742
+sample estimates:
+mean of x 
+   3.7875 </code></pre>
+</div>
+</div>
+<p>Neste caso a média da amostra (3.7875) não foi significativamente diferente (p &gt; 0.05) da média da população (<span class="math inline">\(\mu\)</span> = 5): t(7) = -1.8224, p = 0.1112</p>
+</section>
+<section id="teste-unilateral-vs-teste-bilateral" class="level3" data-number="7.1.5">
+<h3 data-number="7.1.5" class="anchored" data-anchor-id="teste-unilateral-vs-teste-bilateral"><span class="header-section-number">7.1.5</span> Teste unilateral vs teste bilateral</h3>
+<p>O teste t pode ser usado para testar se o valor difere da média (teste bilateral), ou se ele é maior (ou menor) que esta média. Neste caso dizemos que este teste é unilateral (ou <em>one-sided</em>). Se testarmos a hipótese alternativa de que a média de uma amostra é maior que a média da população, elaboramos as seguintes hipóteses:</p>
+<center>
+<span class="math inline">\(H_{0}: \overline{x} \leq \mu_{0}\)</span>
+</center>
+<center>
+<span class="math inline">\(H_{1}: \overline{x} &gt; \mu_{0}\)</span>
+</center>
+<p>Na <a href="#fig-teste_hip" class="quarto-xref">Figura&nbsp;<span>7.4</span></a>, podemos visualizar graficamente o que é a <strong>significância (</strong><span class="math inline">\(\alpha\)</span>), o <strong>valor t alvo</strong>, o <strong>valor t observado</strong> e o <strong>valor p</strong> em um teste bilateral e unilateral:</p>
+<div id="fig-teste_hip" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-teste_hip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/teste de hipótese.jpg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-teste_hip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.4: Representação gráfica da interpretação de um teste de hipótese (teste t) bilateral e unilateral
+</figcaption>
+</figure>
+</div>
+<p>Vamos testar a hipótese de que a média da amostra (val) é MENOR que a média da população:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(val, <span class="at">mu =</span> <span class="dv">5</span>, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  val
+t = -1.8224, df = 7, p-value = 0.05559
+alternative hypothesis: true mean is less than 5
+95 percent confidence interval:
+     -Inf 5.048009
+sample estimates:
+mean of x 
+   3.7875 </code></pre>
+</div>
+</div>
+<p>Neste caso, observamos que a média da amostra (3.7875) é menor do que a média da população (<span class="math inline">\(\mu\)</span> = 5), entretanto a diferença não é significativa (p &gt; 0.05): t(7) = -1.82, p = 0.056</p>
+</section>
+<section id="premissas-do-teste-t" class="level3" data-number="7.1.6">
+<h3 data-number="7.1.6" class="anchored" data-anchor-id="premissas-do-teste-t"><span class="header-section-number">7.1.6</span> Premissas do teste-t</h3>
+<ul>
+<li>Dados coletados seguem uma escala contínua ou ordinal.</li>
+<li>Dados amostrados aleatoriamente e amostra é representativa da população.</li>
+<li>Os dados apresentam distribuição normal.</li>
+<li>Tamanho amostral suficientemente grande.</li>
+<li>Homogeneidade de variâncias.</li>
+</ul>
+</section>
+<section id="avaliando-as-premissas-do-teste-t" class="level3" data-number="7.1.7">
+<h3 data-number="7.1.7" class="anchored" data-anchor-id="avaliando-as-premissas-do-teste-t"><span class="header-section-number">7.1.7</span> Avaliando as premissas do teste-t</h3>
+<p>Podmeos aplicar diversosmétodos para avaliar se os dados não violam as premissas para o teste-t dentre as principais premissas temos:</p>
+<section id="normalidade" class="level4" data-number="7.1.7.1">
+<h4 data-number="7.1.7.1" class="anchored" data-anchor-id="normalidade"><span class="header-section-number">7.1.7.1</span> Normalidade</h4>
+<p>O teste-t assume a premissa de normalidade dos resíduos. Isso pode ser avaliado de maneira visual utilizando gráficos quantil-quantil, que comparam os quantis observados com os quantis teóricos para a distribuição normal (<a href="#fig-qqplot" class="quarto-xref">Figura&nbsp;<span>7.5</span></a>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(<span class="fu">lm</span>(abundancia<span class="sc">~</span>ambiente, <span class="at">data =</span> art))) <span class="co">#gráfico quantil-quantil</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(<span class="fu">lm</span>(abundancia<span class="sc">~</span>ambiente, <span class="at">data =</span> art))) <span class="co">#adicionar linha de tendência</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-qqplot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qqplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c07_TesteHip_files/figure-html/fig-qqplot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qqplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.5: gráfico quantil-quantil para avaliar os pressupostos de normalidade.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>O observação de linearidade dos pontos em relação à reta sugere que os dados sejam normalmente distribuídos.<br>
+</p>
+<p>Obs: no próximo capítulo iremos ver em mais detalhes a utilização da função <code>lm()</code> para ajustar modelos lineares.</p>
+<p>Existem diferentes testes que podem ser utilizados para verificar normalidade. Um exemplo é o teste de Shapiro-Wilk:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(<span class="fu">lm</span>(abundancia<span class="sc">~</span>ambiente, <span class="at">data =</span> art)))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  residuals(lm(abundancia ~ ambiente, data = art))
+W = 0.97236, p-value = 0.8753</code></pre>
+</div>
+</div>
+<p>O teste indicou que não há diferença significativa entre a distribuição dos dados e uma distribuição normal a uma significância de 5% (p &gt; 0.05).</p>
+<p>Embora muitas vezes utilizados, os testes de normalidade tendem a ser sensíveis ao tamanho amostral, assim a análise visual e compreensão das distribuições teóricas que podem ter gerado os dados são mais indicados na hora de escolher o teste. Além disso, o teste-t se mostra robusto a desvios à normalidade <span class="citation" data-cites="tsagris2021">(<a href="czz_Referencias.html#ref-tsagris2021" role="doc-biblioref">Tsagris &amp; Pandis, 2021</a>)</span>.</p>
+</section>
+<section id="homogeneidade-de-variâncias" class="level4" data-number="7.1.7.2">
+<h4 data-number="7.1.7.2" class="anchored" data-anchor-id="homogeneidade-de-variâncias"><span class="header-section-number">7.1.7.2</span> Homogeneidade de variâncias</h4>
+<p>O teste-t tradicional assume que as variâncias das amostras sejam iguais. Isso pode ser testado utilizando a função var.test:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    F test to compare two variances
+
+data:  abundancia by ambiente
+F = 0.53976, num df = 7, denom df = 7, p-value = 0.4346
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.1080626 2.6960678
+sample estimates:
+ratio of variances 
+         0.5397631 </code></pre>
+</div>
+</div>
+<p>De acordo com o teste, a razão entre as variâncias não difere significativamente de 1, ou seja, as variâncias não diferem significativamente.</p>
+<p>A função t.test pode ser utilizada para realizar o teste-t clássico (var.equal = TRUE) ou o teste-t de Welch, que ajusta os graus de liberdade quando as variâncias não são iguais, e deve ser usado nesse caso (var.equal = FALSE):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art) <span class="co">#teste-t de Welch</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  abundancia by ambiente
+t = -4.4927, df = 12.852, p-value = 0.0006224
+alternative hypothesis: true difference in means between group fragmento and group matriz is not equal to 0
+95 percent confidence interval:
+ -60.73835 -21.26165
+sample estimates:
+mean in group fragmento    mean in group matriz 
+                 53.875                  94.875 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art, <span class="at">var.equal =</span> <span class="cn">TRUE</span>) <span class="co"># teste-t tradicional</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two Sample t-test
+
+data:  abundancia by ambiente
+t = -4.4927, df = 14, p-value = 0.0005062
+alternative hypothesis: true difference in means between group fragmento and group matriz is not equal to 0
+95 percent confidence interval:
+ -60.57301 -21.42699
+sample estimates:
+mean in group fragmento    mean in group matriz 
+                 53.875                  94.875 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="testes-não-paramétricos" class="level3" data-number="7.1.8">
+<h3 data-number="7.1.8" class="anchored" data-anchor-id="testes-não-paramétricos"><span class="header-section-number">7.1.8</span> Testes não-paramétricos</h3>
+<p>Quando os dados violam os pressupostos de normalidade, muitas vezes é sugerida a utilização de testes não paramétricos <span class="citation" data-cites="tsagris2021">(entretanto veja <a href="czz_Referencias.html#ref-tsagris2021" role="doc-biblioref">Tsagris &amp; Pandis, 2021</a>)</span>. Um exemplo de teste não-paramétrico alternativo ao teste-t para duas amostras é o teste de Mann-Whitney:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
+compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  abundancia by ambiente
+W = 3.5, p-value = 0.00323
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+<p>No caso de dados pareados, temos o teste de Wilcoxon, que também pode ser feito utilizando a função <em>wilcox.test</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(gal<span class="sc">$</span>galhador, gal<span class="sc">$</span>parasita, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in wilcox.test.default(gal$galhador, gal$parasita, paired = TRUE):
+cannot compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  gal$galhador and gal$parasita
+V = 91, p-value = 0.001651
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="teste-de-qui-quadrado" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="teste-de-qui-quadrado"><span class="header-section-number">7.2</span> Teste de qui-quadrado</h2>
+<p>O teste de qui-quadrado (<span class="math inline">\(X^2\)</span>) é utilizado para comparar frequências observadas a frequências esperadas. O teste de qui-quadrado é considerado um teste <strong>não paramétrico</strong>, pois ele não depende da estimativa de parâmetros populacionais (média e variância).</p>
+<section id="teste-de-aderênciaconcordância" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="teste-de-aderênciaconcordância"><span class="header-section-number">7.2.1</span> Teste de aderência/concordância</h3>
+<p>Neste tipo de teste, observamos o quanto que um modelo probabilístico se adequa aos dados observados</p>
+<p>Podemos usar como exemplo o experimento de Mendel. O cruzamento entre heterozigotos de ervilhas lisas amarelas (YyRr x YyRr) teve o seguinte resultado. De acordo com as leis de Mendel, obteríamos as seguintes proporções esperadas para as ervilhas amarelas lisas: verdes lisas: amarelas rugosas: verdes rugosas - 9:3:3:1</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>ervilhas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  Fenótipos <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Amarela Lisa"</span>, <span class="st">"Verde lisa"</span>, <span class="st">"Amarela Rugosa"</span>, <span class="st">"Verde Rugosa"</span>),</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Freq_obs =</span> <span class="fu">c</span>(<span class="dv">320</span>, <span class="dv">110</span>, <span class="dv">101</span>, <span class="dv">35</span>),</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Prop_esp =</span> <span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>ervilhas</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Fenótipos Freq_obs Prop_esp
+1   Amarela Lisa      320        9
+2     Verde lisa      110        3
+3 Amarela Rugosa      101        3
+4   Verde Rugosa       35        1</code></pre>
+</div>
+</div>
+<p>Podemos calcular a frequência esperada a partir das proporções esperadas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>Freq_esp <span class="ot">&lt;-</span> <span class="fu">sum</span>(ervilhas<span class="sc">$</span>Freq_obs)<span class="sc">/</span><span class="fu">sum</span>(ervilhas<span class="sc">$</span>Prop_esp)<span class="sc">*</span>ervilhas<span class="sc">$</span>Prop_esp</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>ervilhas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(ervilhas, Freq_esp)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>ervilhas</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Fenótipos Freq_obs Prop_esp Freq_esp
+1   Amarela Lisa      320        9  318.375
+2     Verde lisa      110        3  106.125
+3 Amarela Rugosa      101        3  106.125
+4   Verde Rugosa       35        1   35.375</code></pre>
+</div>
+</div>
+<p>O valor de qui-quadrado é calculado como:</p>
+<center>
+<span class="math inline">\(X^2 = \sum(\frac{(observado-esperado)^2}{esperado})\)</span>
+</center>
+<p>Sendo assim o valor de <span class="math inline">\(X^2\)</span> pode ser calculado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(((ervilhas<span class="sc">$</span>Freq_obs <span class="sc">-</span> ervilhas<span class="sc">$</span>Freq_esp)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>ervilhas<span class="sc">$</span>Freq_esp)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4012564</code></pre>
+</div>
+</div>
+<p>Podemos calcular o <span class="math inline">\(X^2\)</span> utilizando a função chisq.test():</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>prop <span class="ot">&lt;-</span> ervilhas<span class="sc">$</span>Prop_esp<span class="sc">/</span><span class="fu">sum</span>(ervilhas<span class="sc">$</span>Prop_esp) <span class="co">#cálculo da probabilidade esperada de obter cada valor : (9, 3, 3, 1)/16</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>prop</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5625 0.1875 0.1875 0.0625</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(ervilhas<span class="sc">$</span>Freq_obs, <span class="at">p =</span> prop) <span class="co"># teste de qui-quadrado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  ervilhas$Freq_obs
+X-squared = 0.40126, df = 3, p-value = 0.94</code></pre>
+</div>
+</div>
+<p>Com este teste, podemos observar que a frequência observada não é significativamente diferente da frequência observada.</p>
+</section>
+<section id="teste-de-independênciacontingência" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="teste-de-independênciacontingência"><span class="header-section-number">7.2.2</span> Teste de independência/contingência</h3>
+<p>O teste de qui-quadrado pode ser usado para testar a independência entre duas variáveis medidas nas mesmas unidades de um experimento.</p>
+<p><em>Exemplo</em>: Ao realizar um experimento para testar se uma espécie de aranhas se abriga mais debaixo das pedras durante momentos de mais ou menos luz, foi analisado o tipo de ambiente que os animais foram encontrados (coberto ou aberto) durante o dia ou durante a noite. com isso, pode-se construir a seguinte tabela de contingência:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">Coberto</th>
+<th style="text-align: center;">Aberto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Escuro</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">29</td>
+</tr>
+<tr class="even">
+<td>Claro</td>
+<td style="text-align: center;">33</td>
+<td style="text-align: center;">25</td>
+</tr>
+</tbody>
+</table>
+<p>Podemos criar esta tabela no R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>aranhas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Coberto =</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">33</span>), <span class="at">Aberto =</span>  <span class="fu">c</span>(<span class="dv">29</span>,<span class="dv">25</span>), <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"Escuro"</span>, <span class="st">"Claro"</span>))</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>aranhas</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Coberto Aberto
+Escuro      10     29
+Claro       33     25</code></pre>
+</div>
+</div>
+<p>Para observar graficamente a quantidade de indivíduos em cada um dos conjuntos, podemos criar um gráfico em mosaico (<a href="#fig-mosaico" class="quarto-xref">Figura&nbsp;<span>7.6</span></a>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(aranhas, <span class="at">main =</span> <span class="cn">NULL</span> ,<span class="at">ylab =</span> <span class="st">"Ambiente"</span>, <span class="at">xlab =</span> <span class="st">"Luminosidade"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-mosaico" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mosaico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c07_TesteHip_files/figure-html/fig-mosaico-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mosaico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7.6: gráfico em mosaico para dados de aranhas
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Vamos realizar o teste de independência entre as duas variáveis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(aranhas)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  aranhas
+X-squared = 8.0081, df = 1, p-value = 0.004657</code></pre>
+</div>
+</div>
+<p>Sendo assim, rejeitamos a hipótese de independência entre as variáveis. Ou seja, quando está escura, as aranhas preferem o ambiente aberto, e quando está claro, elas preferem o ambiente fechado.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-gotelli2016" class="csl-entry" role="listitem">
+Gotelli, N. J., &amp; Ellison, A. M. (2016). <em>Princípios de estatística em ecologia</em>. Artmed.
+</div>
+<div id="ref-mello2013" class="csl-entry" role="listitem">
+Mello, M. P., &amp; Peternelli, L. A. (2013). <em>Conhecendo o R: uma visão mais que estatística</em>. Editora UFV.
+</div>
+<div id="ref-tonhascajr1991" class="csl-entry" role="listitem">
+Tonhasca Jr, A. (1991). The three <span>"</span>capital sins<span>"</span> of statistics used in biology. <em>Ciência e Cultura</em>, <em>43</em>(6), 417422. <a href="https://message:%3C1527538750.417090.1562784042935@mail.yahoo.com%3E">message:%3C1527538750.417090.1562784042935@mail.yahoo.com%3E</a>
+</div>
+<div id="ref-tsagris2021" class="csl-entry" role="listitem">
+Tsagris, M., &amp; Pandis, N. (2021). Normality test: Is it really necessary? <em>American Journal of Orthodontics and Dentofacial Orthopedics</em>, <em>159</em>(4), 548–549. <a href="https://doi.org/10.1016/j.ajodo.2021.01.003">https://doi.org/10.1016/j.ajodo.2021.01.003</a>
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./c06_Graficos.html" class="pagination-link" aria-label="Gráficos e análise exploratória de dados">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gráficos e análise exploratória de dados</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./c08_ModLinearReg.html" class="pagination-link" aria-label="Modelos lineares e regressão">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos lineares e regressão</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

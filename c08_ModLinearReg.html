@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R - 8&nbsp; Modelos lineares e regressão</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./c09_ModLinearANOVA.html" rel="next">
+<link href="./c07_TesteHip.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c08_ModLinearReg.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos lineares e regressão</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c01_Instal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Instalando o R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c02_IntroR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introdução ao R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c03_Import.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjuntos de dados e importação</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c04_EstDescritiva.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estatísticas descritivas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c05_DistProbabilidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Distribuições de Probabilidade</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c06_Graficos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gráficos e análise exploratória de dados</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c07_TesteHip.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c08_ModLinearReg.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos lineares e regressão</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c09_ModLinearANOVA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Modelos lineares: ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c10_GLMs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c11_Multivar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Estatística multivariada</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c12_Tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Introdução ao Tidyverse</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c13_Progr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Programação, strings e dados relacionais</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c14_Datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./czz_Referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#modelos-lineares---regressão-linear" id="toc-modelos-lineares---regressão-linear" class="nav-link active" data-scroll-target="#modelos-lineares---regressão-linear"><span class="header-section-number">8.1</span> Modelos lineares - regressão linear</a></li>
+  <li><a href="#regressão-linear-simples" id="toc-regressão-linear-simples" class="nav-link" data-scroll-target="#regressão-linear-simples"><span class="header-section-number">8.2</span> Regressão linear simples</a>
+  <ul class="collapse">
+  <li><a href="#hipóteses-testadas" id="toc-hipóteses-testadas" class="nav-link" data-scroll-target="#hipóteses-testadas"><span class="header-section-number">8.2.1</span> Hipóteses testadas</a></li>
+  </ul></li>
+  <li><a href="#informações-da-regressão" id="toc-informações-da-regressão" class="nav-link" data-scroll-target="#informações-da-regressão"><span class="header-section-number">8.3</span> Informações da regressão</a></li>
+  <li><a href="#diagnóstico-do-modelo" id="toc-diagnóstico-do-modelo" class="nav-link" data-scroll-target="#diagnóstico-do-modelo"><span class="header-section-number">8.4</span> Diagnóstico do modelo</a></li>
+  <li><a href="#regressão-múltipla" id="toc-regressão-múltipla" class="nav-link" data-scroll-target="#regressão-múltipla"><span class="header-section-number">8.5</span> Regressão múltipla</a>
+  <ul class="collapse">
+  <li><a href="#visualização-do-modelo" id="toc-visualização-do-modelo" class="nav-link" data-scroll-target="#visualização-do-modelo"><span class="header-section-number">8.5.1</span> Visualização do modelo</a></li>
+  </ul></li>
+  <li><a href="#comparação-de-modelos" id="toc-comparação-de-modelos" class="nav-link" data-scroll-target="#comparação-de-modelos"><span class="header-section-number">8.6</span> Comparação de modelos</a>
+  <ul class="collapse">
+  <li><a href="#comparação-de-modelos-com-a-função-anova" id="toc-comparação-de-modelos-com-a-função-anova" class="nav-link" data-scroll-target="#comparação-de-modelos-com-a-função-anova"><span class="header-section-number">8.6.1</span> Comparação de modelos com a função <code>anova()</code></a></li>
+  <li><a href="#comparando-modelos-por-utilizando-o-critério-de-informação-de-akaike-aic" id="toc-comparando-modelos-por-utilizando-o-critério-de-informação-de-akaike-aic" class="nav-link" data-scroll-target="#comparando-modelos-por-utilizando-o-critério-de-informação-de-akaike-aic"><span class="header-section-number">8.6.2</span> Comparando modelos por utilizando o Critério de Informação de Akaike (AIC)</a></li>
+  <li><a href="#seleção-de-modelos-com-step" id="toc-seleção-de-modelos-com-step" class="nav-link" data-scroll-target="#seleção-de-modelos-com-step"><span class="header-section-number">8.6.3</span> Seleção de modelos com <code>step()</code></a></li>
+  </ul></li>
+  <li><a href="#multicolinearidade" id="toc-multicolinearidade" class="nav-link" data-scroll-target="#multicolinearidade"><span class="header-section-number">8.7</span> Multicolinearidade</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos lineares e regressão</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="modelos-lineares---regressão-linear" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="modelos-lineares---regressão-linear"><span class="header-section-number">8.1</span> Modelos lineares - regressão linear</h2>
+<p>Modelos são utilizados para se fornecer um resumo simples de um conjunto de dados <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>. Podemos usar modelos para explicar relações entre variáveis.</p>
+<p>Podemos descrever a relação entre <em>x</em> e <em>y</em> no exemplo abaixo (<a href="#fig-dispxy" class="quarto-xref">Figura&nbsp;<span>8.1</span></a>):</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-dispxy" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dispxy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c08_ModLinearReg_files/figure-html/fig-dispxy-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dispxy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.1: gráfico de dispersão mostrando a relação entre as variáveis x e y.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>No exemplo acima, estamos tentando encontrar uma relação entre duas variáveis:</p>
+<ul>
+<li><p><strong>Variáveis preditoras</strong> (<span class="math inline">\(x\)</span>): variáveis quantitativas, também chamadas de variáveis dependentes.</p></li>
+<li><p><strong>Variável resposta</strong> (<span class="math inline">\(y\)</span>): uma variável quantitativa a qual estamos interessados em descrever o efeito de x sobre ela. Também chamada de variável independente.</p></li>
+</ul>
+<p>Análises de regressão são utilizadas quando queremos modelar a relação entre uma variável <span class="math inline">\(Y\)</span> (variável resposta) e uma ou mais variáveis preditoras <span class="citation" data-cites="faraway2009">(<a href="czz_Referencias.html#ref-faraway2009" role="doc-biblioref">Faraway, 2009</a>)</span>.</p>
+<p>Podemos observar que há uma relação positiva entre as variáveis x e y. Sempre que há um incremento (aumento) em x, temos um aumento em y. O tipo de relação observada entre essas variáveis parece ser <strong>linear</strong>, ou seja, podemos explicar a relação entre x e y com uma função linear do tipo:</p>
+<center>
+<span class="math inline">\(Y = B_0 + B_1.X +\epsilon\)</span>
+</center>
+<p>Na função acima <span class="math inline">\(B_0\)</span> representa o <strong>intercepto</strong>, ou o valor de <span class="math inline">\(Y\)</span> para <span class="math inline">\(X = 0\)</span>. <span class="math inline">\(B_1\)</span> representa a <strong>inclinação da reta</strong>, ou seja, sendo a taxa que <span class="math inline">\(Y\)</span> irá aumentar em relação a <span class="math inline">\(X\)</span>. A variável <span class="math inline">\(\epsilon\)</span> representa o erro, ou seja, o quanto os pontos se afastam da reta (<a href="#fig-dispxyreg" class="quarto-xref">Figura&nbsp;<span>8.2</span></a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-dispxyreg" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dispxyreg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c08_ModLinearReg_files/figure-html/fig-dispxyreg-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dispxyreg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.2: gráfico de dispersão mostrando a relação entre as variáveis x e y, incluindo a linha de tendência (vermelho) e resíduos (azul).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Na figura acima, temos a reta que cruza o eixo x no valor 6.7 (<span class="math inline">\(B_0\)</span>) e tem uma inclinação de 0.69 (<span class="math inline">\(B_1\)</span>). Os traços em azul mostram a diferença entre os valores observados e os preditos pela reta (<span class="math inline">\(\epsilon\)</span>), que são chamados de <strong>resíduos</strong>.</p>
+</section>
+<section id="regressão-linear-simples" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="regressão-linear-simples"><span class="header-section-number">8.2</span> Regressão linear simples</h2>
+<p>Vamos utilizar regressão linear para verificar se o comprimento do ovipositor de vespas está relacionado com o tamanho dos inflorescências de <em>Ficus</em> nas quais elas ovipõem.</p>
+<p>No conjunto de dados <code>oviposicao</code>, temos medições de duas variáveis (2 colunas) de valores contínuos: o ovipositor em milímetros e o diâmetro da inflorescência em centímetros.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ovip <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"oviposicao"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ovip <span class="co">#visualizar os dados no console</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 2
+   tamanho ovipositor
+     &lt;dbl&gt;      &lt;dbl&gt;
+ 1    0.36       1   
+ 2    0.55       1.02
+ 3    0.65       1.03
+ 4    0.61       0.99
+ 5    0.66       0.99
+ 6    0.65       1.21
+ 7    0.75       1.18
+ 8    0.74       1.21
+ 9    0.91       1.14
+10    0.75       1.11
+# ℹ 12 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#podemos usar: </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ovip) <span class="co">#para ver as primeiras linhas</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ovip) <span class="co"># para ver o nome das variáveis (nome das colunas)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ovip) <span class="co">#para observar o n. linhas e n. de colunas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Vamos observar em um gráfico de dispersão a relação entre as variáveis <code>ovipositor</code> e <code>diametro</code> (<a href="#fig-ovip" class="quarto-xref">Figura&nbsp;<span>8.3</span></a>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ovipositor <span class="sc">~</span> tamanho, <span class="at">data =</span> ovip)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ovip" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ovip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c08_ModLinearReg_files/figure-html/fig-ovip-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ovip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.3: Relação o diâmetro da infrutescência e o comprimento do ovipositor do parasita associado.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Parece haver correlação entre as variáveis. Vamos fazer uma análise de <strong>correlação</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(ovip<span class="sc">$</span>ovipositor, ovip<span class="sc">$</span>tamanho)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  ovip$ovipositor and ovip$tamanho
+t = 10.629, df = 20, p-value = 1.124e-09
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.8180054 0.9673984
+sample estimates:
+      cor 
+0.9217296 </code></pre>
+</div>
+</div>
+<p>Há uma correlação forte e positiva entre as variáveis (r = 0.92, p &lt; 10e-8), o que indica que as duas se relacionam positivamente.</p>
+<p>Obs: o valor-p está em notação científica. Você pode transformar a notação:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(<span class="fl">1.124e-09</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "0.000000001124"</code></pre>
+</div>
+</div>
+<p>Vamos realizar uma análise de <strong>regressão linear</strong> para testar se o tamanho do ovipositor da espécie de vespa associada está relacionado com o tamanho da inflorescência.</p>
+<p>A regressão é um tipo de <strong>modelo linear</strong> no qual testamos o efeito de variáveis contínuas sobre uma variável resposta que também é contínua. Este tipo de análise pode ser realizada utilizando a função <code>lm()</code> para ajustar um modelo linear (“linear model”).</p>
+<p>Neste caso, vamos considerar a variável ovipositorcomo variável resposta (no eixo y) e tamanho como variável preditora (no eixo x) em um modelo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(ovipositor <span class="sc">~</span> tamanho, <span class="at">data=</span> ovip)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>modelo</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ovipositor ~ tamanho, data = ovip)
+
+Coefficients:
+(Intercept)      tamanho  
+     0.7646       0.4868  </code></pre>
+</div>
+</div>
+<p>Criando esse modelo, calculamos os seguintes coeficientes: o valor do intercepto (<span class="math inline">\(B_0\)</span>) e o valor da inclinação da reta (<span class="math inline">\(B_1\)</span>). Assim, podemos fazer o gráfico com a linha de regressão para o melhor modelo (<a href="#fig-ovip_reg" class="quarto-xref">Figura&nbsp;<span>8.4</span></a>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>modelo<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="co">#intercepto</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept) 
+  0.7645629 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>modelo<span class="sc">$</span>coefficients[<span class="dv">2</span>] <span class="co">#inclinação</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  tamanho 
+0.4868174 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ovipositor <span class="sc">~</span> tamanho, <span class="at">data=</span> ovip)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(modelo<span class="sc">$</span>coefficients[<span class="dv">1</span>],modelo<span class="sc">$</span>coefficients[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">"red"</span>) <span class="co">#podemos utilizar os valoes coeficientes B0 e B1 calculados</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#ou também podemos utilizar o modelo diretamente</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(modelo, <span class="at">col =</span> <span class="st">"grey"</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ovip_reg" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ovip_reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c08_ModLinearReg_files/figure-html/fig-ovip_reg-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ovip_reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.4: gráfico de dispersão com linha de tendência do modelo para a relação entre ovipositor da vespa e tamanho da inflorescência que ela ocupa.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="hipóteses-testadas" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="hipóteses-testadas"><span class="header-section-number">8.2.1</span> Hipóteses testadas</h3>
+<p>Na regressão linear, ajustamos uma linha reta para explicar os valorses de <span class="math inline">\(Y\)</span> em função de <span class="math inline">\(X\)</span>. Nossa hipótese é que há alguma relação entre as variáveis. Consequentemente estamos criando uma hipótese sobre a inclinação da reta. Assim temos:</p>
+<center>
+<span class="math inline">\(H_0:Y_i=B_0+\epsilon_i\)</span>
+</center>
+<center>
+<span class="math inline">\(H_1:Y_i=B_0+B_1X_i+\epsilon_i\)</span>
+</center>
+<p>Testamos a hipótese da inclinação da reta (<span class="math inline">\(B_1\)</span>) ser ou não ser igual a 0.</p>
+</section>
+</section>
+<section id="informações-da-regressão" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="informações-da-regressão"><span class="header-section-number">8.3</span> Informações da regressão</h2>
+<p>Podemos utilizar a função <code>summary()</code> para obter informações sobre a regressão:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ovipositor ~ tamanho, data = ovip)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.131908 -0.047273 -0.005062  0.052697  0.129006 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.76456    0.04596   16.63 3.52e-13 ***
+tamanho      0.48682    0.04580   10.63 1.12e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.06976 on 20 degrees of freedom
+Multiple R-squared:  0.8496,    Adjusted R-squared:  0.8421 
+F-statistic:   113 on 1 and 20 DF,  p-value: 1.124e-09</code></pre>
+</div>
+</div>
+<p>Neste resumo, temos as seguintes informações:</p>
+<ul>
+<li><strong>Call</strong>: fórmula utilizada para a regressão.</li>
+<li><strong>Residuals</strong>: estatística descritiva dos resíduos.</li>
+<li><strong>Coefficients</strong>: valor dos coeficientes no caso intercept = <span class="math inline">\(B_0\)</span> e tamanho = <span class="math inline">\(B_1\)</span>.</li>
+<li>Outros dados incluem o erro padrão dos resíduos, graus de liberdade, O <span class="math inline">\(R^2\)</span> e <span class="math inline">\(R^2\)</span> ajustado, e informações sobre o teste de hipótese do modelo linear (estatística f e valor-p).</li>
+</ul>
+<p>Outro valor que estamos interessados é o <strong>coeficiente de determinação</strong> (<span class="math inline">\(R^2\)</span>). Um valor de <span class="math inline">\(R^2\)</span> de 0.85 como observado indica que 85% da variação de <span class="math inline">\(y\)</span> é explicada por <span class="math inline">\(x\)</span>. Assim, é uma medida de o quanto o modelo explica nossos dados e a parte da variação que não é explicada.</p>
+<p>Qual é o tamanho de ovipositor previsto quando otamanho da inflorescência é 1,5 cm? Podemo calcualr utilizando a equação <span class="math inline">\(Y = B_0+B_1x\)</span>, sendo que <span class="math inline">\(Y=0,76+0,49\cdot1,5=1,495\)</span>. Isso pede ser calculado utilizando a função predict:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="fu">data.frame</span>(<span class="at">tamanho =</span> <span class="fl">1.5</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+1.494789 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#múltiplos tamanhos</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>tamanhos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">tamanho =</span> <span class="fu">c</span>(<span class="fl">0.7</span>,<span class="fl">0.9</span>,<span class="dv">1</span>,<span class="fl">1.5</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, tamanhos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1        2        3        4 
+1.105335 1.202699 1.251380 1.494789 </code></pre>
+</div>
+</div>
+<p>Obs: quando previmos os valores de <span class="math inline">\(y\)</span> para o intervalo conhecido da variável <span class="math inline">\(x\)</span>, estamos fazendo uma <strong>interpolação</strong>. Caso desejássemos prever os resultados para um valor fora desse intervalo, fazemos uma <strong>extrapolação</strong>. A extrapolação exige uma abordagem mais cuidadosa devido à incerteza envolvida em prever além dos dados conhecidos <span class="citation" data-cites="gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>)</span>.</p>
+</section>
+<section id="diagnóstico-do-modelo" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="diagnóstico-do-modelo"><span class="header-section-number">8.4</span> Diagnóstico do modelo</h2>
+<p>A regressão linear, como todos os modelos lineares, tem as seguintes premissas:</p>
+<ul>
+<li>As amostras são independentes.</li>
+<li>Os dados se encaixam em um modelo linear.</li>
+<li>Os resíduos estão homogeneamente distribuídos ao longo do eixo <span class="math inline">\(x\)</span></li>
+<li>Os resíduos apresentam distribuição normal.</li>
+</ul>
+<p>O diagnóstico de modelos lineares também pode ser realizado com a função <code>plot()</code> (<a href="#fig-diag" class="quarto-xref">Figura&nbsp;<span>8.5</span></a>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#criar uma matriz de 4 janelas gráficas na mesma figura</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo) <span class="co">#plotar os 4 gráficos de diagnóstico de modelos</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-diag" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c08_ModLinearReg_files/figure-html/fig-diag-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.5: gráficos de diagnóstico do modelo.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Os 4 gráficos que observamos são:</p>
+<ol type="1">
+<li>Gráfico de dispersão entre os resíduo e os valores ajustado, que permite verificar a distribuição dos dados ao longo do eixo <span class="math inline">\(x\)</span>. Neste gráfico, os pontos devem estar aleatoriamente distribuídos.</li>
+<li>Gráfico quantil-quantil dos resíduos, que permite analisar a distribuição dos quantis observadoss com quantis teóricos de uma distribuição normal. Neste gráfico, os pontos devem estar próximos à linha.</li>
+<li>Gráfico de dispersão da raiz quadrada dos resíduos padronizado pelos valores ajustados, que permite verificar a homogeneidade das variâncias. Neste gráfico, os pontos devem estar aleatoriamente distribuídos.</li>
+<li>Distância de Cook das observações, que permite avaliar se há valores extremos que podem influenciar a análise. Neste gráfico, os valores extremos ultrapassam a linha pontilhada (distâncias de Cook).</li>
+</ol>
+<p>Abaixo temos um exemplo de como os gráficos de diagnóstico do modelo ficariam no caso de haver violações na normalidade da distribuição dos resíduos (<a href="#fig-diag1b" class="quarto-xref">Figura&nbsp;<span>8.6</span></a>). Para mais informações sobre a avaliação dos resíduos de regressão, consultar <span class="citation" data-cites="jones2022">Jones et al. (<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">2022</a>)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-diag1b" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-diag1b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c08_ModLinearReg_files/figure-html/fig-diag1b-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-diag1b-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.6: exeplo de diagnóstico de modelo quando há violação da normalidade dos resíduos.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Caso estejamos interessados, podemos realizar um teste de hipóteses para confirmar se a distribuição dos resíduos é normal:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(modelo<span class="sc">$</span>residuals)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  modelo$residuals
+W = 0.97832, p-value = 0.8878</code></pre>
+</div>
+</div>
+<p>O teste de normalidade Shapiro-Wilk mostra que a distribuição dos resíduos observada não difere significativamente de uma distribuição normal a uma significância de 0.05 (5%).</p>
+</section>
+<section id="regressão-múltipla" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="regressão-múltipla"><span class="header-section-number">8.5</span> Regressão múltipla</h2>
+<p>Em uma regressão linear múltipla analisamos a relação de uma variável resposta (<span class="math inline">\(Y\)</span>) com mais de uma variável preditora (<span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span> … <span class="math inline">\(X_p\)</span>):</p>
+<center>
+<span class="math inline">\(Y=B_0+B_1X_1+B_2X_2+...+B_iX_i+\epsilon\)</span>
+</center>
+<p>Para estudar modelos lineares de regressão múltipla utilizaremos o conjunto de dados <code>figos</code>. Neste conjunto, temos dados de abundância de polinizadores, sementes e parasitas em inflorescências de figos. Neste sistema, as vespas polinizadoras (polinizadores), apesar de realizarem a polinização, ocupam algums flores para gerar sua prole. Além disso, vespas parasitas podem ocupar as flores, ocupando flores que se transformariam em sementes ou parasitar polinizadores. O número de flores e prole de vespas pode ser</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co">#abrir pacote readxl</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>figos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"figos"</span>) <span class="co">#cria objeto chamado peixes com o conjunto de dados</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(figos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+   diam sementes polinizadores parasitas
+  &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;
+1  1.58      220           117        14
+2  1.67      276            86        20
+3  1.6       180           150        20
+4  1.43      112            51         8
+5  1.49      172           108        24
+6  1.35      200           132         8</code></pre>
+</div>
+</div>
+<p>Vamos observar a relação entre as variáveis contínuas analisadas fazendo uma matriz de gráficos de dispersão (<a href="#fig-pairs" class="quarto-xref">Figura&nbsp;<span>8.7</span></a>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(figos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-pairs" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pairs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c08_ModLinearReg_files/figure-html/fig-pairs-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pairs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.7: matriz de gráficos de dispersão para os dados de figos
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Olhando a figura, podemos ver que parece existir alguma relação entre as variáveis.</p>
+<p>Primeiramente, vamos realizar uma regressão múltipla para determinar o efeito de cada uma das variáveis sobre a quantidade de sementes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sementes <span class="sc">~</span> diam <span class="sc">+</span> polinizadores <span class="sc">+</span> parasitas, <span class="at">data =</span> figos)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = sementes ~ diam + polinizadores + parasitas, data = figos)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-73.122 -28.278   0.247  28.065  60.558 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)   -76.5226   115.4120  -0.663   0.5121  
+diam          181.7844    80.1752   2.267   0.0303 *
+polinizadores  -0.0949     0.1539  -0.617   0.5418  
+parasitas       0.8165     0.6137   1.331   0.1927  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 36.01 on 32 degrees of freedom
+Multiple R-squared:  0.2599,    Adjusted R-squared:  0.1905 
+F-statistic: 3.745 on 3 and 32 DF,  p-value: 0.02058</code></pre>
+</div>
+</div>
+<p>Podemos observar que o total de sementes parece estar relacionado com o diâmetro da inflorescência. As demais variáveis parecem não estar relacionadas com a produção de sementes na inflorescência. O diagnóstico do modelo indica que o modelo linear ajustou bem aos dados (<a href="#fig-diag2" class="quarto-xref">Figura&nbsp;<span>8.8</span></a>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-diag2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-diag2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c08_ModLinearReg_files/figure-html/fig-diag2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-diag2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.8: diagnóstico do modelo para dados de figos.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="visualização-do-modelo" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="visualização-do-modelo"><span class="header-section-number">8.5.1</span> Visualização do modelo</h3>
+<p>O modelo pode ser visualizado com um gráfico de dispersão incluindo as variáveis de interesse. No exemplo anterior utilizamos as funções <code>plot()</code> e <code>abline()</code> para criar o gráfico. Entretanto, como temos aqui múltiplas variáveis, a alternativa mais prática é: (1) verificar as predições do modelo da variável resposta para os valores das variávieis preditoras que estamos interessados e (2) plotar um gráfico de dispersão incluindo a linha de tendência prevista pelo modelo. Isso pode ser feito facilmente com o pacote <code>ggeffects</code> <strong>(<a href="#fig-modelo_sem" class="quarto-xref">Figura&nbsp;<span>8.9</span></a>).</strong></p>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)<span class="co">#carregar o pacote</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#verificar os valores previstos pelo modelo com ggpredict.</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#A tabela mostra, para cada valor de área (em acres), a abundância de peixes prevista pelo modelo</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>modelo1.pred.area <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(modelo1, <span class="at">terms =</span>  <span class="st">"diam"</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>modelo1.pred.area</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">#plotar o gráfico incluindo também os dados observados</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo1.pred.area, <span class="at">rawdata =</span> <span class="cn">TRUE</span>) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
+  random variation to the location of data points and avoid overplotting.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#criar gráfico do modelo para a variável "área", utilizando também a variável "NO3"</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>modelo1.pred.area.no3 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(modelo1, <span class="at">terms =</span>  <span class="fu">c</span>(<span class="st">"diam"</span>, <span class="st">"parasitas"</span>))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo1.pred.area.no3, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
+  random variation to the location of data points and avoid overplotting.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#neste caso, NO3 é incluído como fator. Podemos observar que nas maiores concentrações de NO3, a quantidade prevista de peixes é maior.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-modelo_sem" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-modelo_sem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<pre><code># Predicted values of sementes
+
+diam | Predicted |         95% CI
+---------------------------------
+1.20 |    135.63 |  90.48, 180.77
+1.40 |    171.98 | 155.67, 188.29
+1.60 |    208.34 | 183.29, 233.39
+1.80 |    244.70 | 188.81, 300.58
+
+Adjusted for:
+* polinizadores = 137.97
+*     parasitas =   8.69</code></pre>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-modelo_sem" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-modelo_sem-1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-modelo_sem-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c08_ModLinearReg_files/figure-html/fig-modelo_sem-1.png" class="img-fluid figure-img" data-ref-parent="fig-modelo_sem" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-modelo_sem-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) preditor: diâmetro
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-modelo_sem" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-modelo_sem-2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-modelo_sem-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c08_ModLinearReg_files/figure-html/fig-modelo_sem-2.png" class="img-fluid figure-img" data-ref-parent="fig-modelo_sem" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-modelo_sem-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) preditor: diâmetro e parasitas
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modelo_sem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.9: gráfico de dispersão incluindo o ajuste do modelo para riqueza de figos e variáveis preditoras.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="comparação-de-modelos" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="comparação-de-modelos"><span class="header-section-number">8.6</span> Comparação de modelos</h2>
+<section id="comparação-de-modelos-com-a-função-anova" class="level3" data-number="8.6.1">
+<h3 data-number="8.6.1" class="anchored" data-anchor-id="comparação-de-modelos-com-a-função-anova"><span class="header-section-number">8.6.1</span> Comparação de modelos com a função <code>anova()</code></h3>
+<p>Podemos comparar diferentes modelos aninhados com a função <code>anova()</code>. Vamos remover uma das variáveis menos significativas do modelo para ver se temos uma melhora significativa nele.</p>
+<p>Para isso, utilizaremos a função <code>update()</code> vamos atualizar o modelo1 de forma a remover a variável polinizadores:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sementes <span class="sc">~</span> diam <span class="sc">+</span> parasitas, <span class="at">data =</span> figos)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ou</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo1, .<span class="sc">~</span>.<span class="sc">-</span>polinizadores)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Os dois comandos acima fazem a mesma coisa. Na notação utilizando a função <code>update()</code>, atualizamos o modelo1, o sinal “<code>. ~ .</code>” indica que mantemos as variáveis que apresentava antes e “-polinizadores” indica a remoção de polinizadores do modelo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo2, modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: sementes ~ diam + parasitas
+Model 2: sementes ~ diam + polinizadores + parasitas
+  Res.Df   RSS Df Sum of Sq      F Pr(&gt;F)
+1     33 41988                           
+2     32 41495  1    493.09 0.3803 0.5418</code></pre>
+</div>
+</div>
+<p>Podemos ver que os modelos não são significativamente diferentes (F = 0,38; P = 0.54) desta forma, damos preferência ao modelo mais simples (com menos variáveis), ou seja, o modelo2.</p>
+<p><strong>Atenção</strong>: para a comparação de modelos com ANOVA, os modelos devem ser aninhados, ou seja, as variáveis dependentes devem ser incuídas uma a uma.</p>
+</section>
+<section id="comparando-modelos-por-utilizando-o-critério-de-informação-de-akaike-aic" class="level3" data-number="8.6.2">
+<h3 data-number="8.6.2" class="anchored" data-anchor-id="comparando-modelos-por-utilizando-o-critério-de-informação-de-akaike-aic"><span class="header-section-number">8.6.2</span> Comparando modelos por utilizando o Critério de Informação de Akaike (AIC)</h3>
+<p>O critério de informação de Akaike é uma medida baseada na teoria da informação que pode ser usado para comparar modelos. Este critério mede o equilíbrio entre o acréscimo de variáveis em um modelo e o quanto esse acréscimo explica melhor o modelo. Utilizando este critério, podemos comparar os diversos modelos de forma a decidir qual explica melhor a variação da variável resposta. Este critério penaliza o acréscimo de variáveis pouco inflormativas em um modelo. Para mais informações sobre o AIC, consulte <span class="citation" data-cites="aho2014">Aho et al. (<a href="czz_Referencias.html#ref-aho2014" role="doc-biblioref">2014</a>)</span>.</p>
+<p>Vamos criar outros modelos removendo variáveis pouco significativas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="co">#já criado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = sementes ~ diam + polinizadores + parasitas, data = figos)
+
+Coefficients:
+  (Intercept)           diam  polinizadores      parasitas  
+     -76.5226       181.7844        -0.0949         0.8165  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="co">#já criado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = sementes ~ diam + parasitas, data = figos)
+
+Coefficients:
+(Intercept)         diam    parasitas  
+   -81.2701     175.4205       0.9298  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo2, .<span class="sc">~</span>.<span class="sc">-</span>parasitas)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>modelo.nulo <span class="ot">&lt;-</span> <span class="fu">lm</span>(sementes <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> figos) <span class="co"># modelo vazio</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># quanto menor o valor de Akaike, melhor o modelo</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo1, modelo2, modelo3, modelo.nulo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            df      AIC
+modelo1      5 365.9563
+modelo2      4 364.3816
+modelo3      3 365.0810
+modelo.nulo  2 370.7899</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages('wiqid') #se o pacote não foi instalado</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wiqid)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: HDInterval</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: mcmcOutput</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AICtable</span>(<span class="fu">AIC</span>(modelo1, modelo2, modelo3, modelo.nulo)) <span class="co"># tabela do AIC</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            df     AIC Delta ModelLik ModelWt
+modelo2      4 364.382 0.000    1.000   0.454
+modelo3      3 365.081 0.699    0.705   0.320
+modelo1      5 365.956 1.575    0.455   0.207
+modelo.nulo  2 370.790 6.408    0.041   0.018</code></pre>
+</div>
+</div>
+<p>Neste caso, modelo2 apresentou o menor AIC, entretanto os odelos 1,2 e 3 foram igualmente bons (<span class="math inline">\(\Delta AIC\)</span> &lt; 2), e melhores que o modelo nulo, n oqual a variável respsota foi testada em função de uma constante.</p>
+</section>
+<section id="seleção-de-modelos-com-step" class="level3" data-number="8.6.3">
+<h3 data-number="8.6.3" class="anchored" data-anchor-id="seleção-de-modelos-com-step"><span class="header-section-number">8.6.3</span> Seleção de modelos com <code>step()</code></h3>
+<p>Podemos aselecionar automaticamente um modelo otimizado por AIC utilizando a função step, partindo do modelo mais complexo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>modelo.select <span class="ot">&lt;-</span> <span class="fu">step</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Start:  AIC=261.79
+sementes ~ diam + polinizadores + parasitas
+
+                Df Sum of Sq   RSS    AIC
+- polinizadores  1     493.1 41988 260.22
+- parasitas      1    2295.6 43790 261.73
+&lt;none&gt;                       41495 261.79
+- diam           1    6666.2 48161 265.16
+
+Step:  AIC=260.22
+sementes ~ diam + parasitas
+
+            Df Sum of Sq   RSS    AIC
+&lt;none&gt;                   41988 260.22
+- parasitas  1    3269.4 45257 260.92
+- diam       1    6312.2 48300 263.26</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo.select)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = sementes ~ diam + parasitas, data = figos)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-65.020 -31.119   1.822  29.634  63.681 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept) -81.2701   114.0685  -0.712   0.4812  
+diam        175.4205    78.7581   2.227   0.0329 *
+parasitas     0.9298     0.5800   1.603   0.1185  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 35.67 on 33 degrees of freedom
+Multiple R-squared:  0.2511,    Adjusted R-squared:  0.2057 
+F-statistic: 5.532 on 2 and 33 DF,  p-value: 0.008477</code></pre>
+</div>
+</div>
+<p>O algoritmo foi removendo as variáveis menos explicativas até chegar ao modelo que apresentou o melhor AIC. O modelo selecionado automaticamente a partir do modelo completo (modelo1). Vamos visualizar este modelo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo.select)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = sementes ~ diam + parasitas, data = figos)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-65.020 -31.119   1.822  29.634  63.681 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept) -81.2701   114.0685  -0.712   0.4812  
+diam        175.4205    78.7581   2.227   0.0329 *
+parasitas     0.9298     0.5800   1.603   0.1185  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 35.67 on 33 degrees of freedom
+Multiple R-squared:  0.2511,    Adjusted R-squared:  0.2057 
+F-statistic: 5.532 on 2 and 33 DF,  p-value: 0.008477</code></pre>
+</div>
+</div>
+<p>O método de seleção automático utilizando <code>step()</code> deve se rutilizado com cautela. Este modelo selecionado automaticamente pode ser considerado um ponto de partida interessante, entretanto é necessário cautela e conhecimento do sistema estudado para avaliar pela inclusão ou remoção de variáveis. Para uma discussão sobre tais métodos, veja <span class="citation" data-cites="magnusson2003">Magnusson (<a href="czz_Referencias.html#ref-magnusson2003" role="doc-biblioref">2003</a>)</span> .</p>
+</section>
+</section>
+<section id="multicolinearidade" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="multicolinearidade"><span class="header-section-number">8.7</span> Multicolinearidade</h2>
+<p>Uma das premissas dos modelos lineares é a independência dos preditores. Em uma regressão múltipla, quando temos duas ou mais variáveis preditoras correlacionadas, chamamos esse fenômeo de colinearidade. Quando dois ou mais preditores são correlacionados, podemos ter estimativas instáveis dos parâmetros no modelo.Vamos testar se há colinearidade esntre as variáveis analisadas.</p>
+<p>A possibilidade de colinearidade pode ser levantada quando há existência de uma alta correlação oentre variáveis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(figos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    diam   sementes polinizadores  parasitas
+diam          1.00000000  0.4390444    0.02717289  0.3280142
+sementes      0.43904445  1.0000000   -0.14976790  0.3721390
+polinizadores 0.02717289 -0.1497679    1.00000000 -0.2737100
+parasitas     0.32801421  0.3721390   -0.27371004  1.0000000</code></pre>
+</div>
+</div>
+<p>O pacote <code>performance</code> pode ser utilizado para checar a existência de multicolinearidade, avaliando ofator de inflação da variância (variance inflation factor - VIF):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("performance") #se o pacote ainda não tiver instalado</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_collinearity</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Check for Multicollinearity
+
+Low Correlation
+
+          Term  VIF   VIF 95% CI Increased SE Tolerance Tolerance 95% CI
+          diam 1.14 [1.01, 2.66]         1.07      0.88     [0.38, 0.99]
+ polinizadores 1.10 [1.00, 3.60]         1.05      0.91     [0.28, 1.00]
+     parasitas 1.23 [1.04, 2.28]         1.11      0.81     [0.44, 0.96]</code></pre>
+</div>
+</div>
+<p>O VIF na faixa de 1 indica a inexistência de colinearidade, entre as variáveis, enquanto um valor entre 1 e 5 indicam colinearidade moderada. Um índice de 5 indica alta colinearidade entre variáveis.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-aho2014" class="csl-entry" role="listitem">
+Aho, K., Derryberry, D., &amp; Peterson, T. (2014). Model selection for ecologists: the worldviews of AIC and BIC. <em>Ecology</em>, <em>95</em>(3), 631–636. <a href="https://doi.org/10.1890/13-1452.1">https://doi.org/10.1890/13-1452.1</a>
+</div>
+<div id="ref-faraway2009" class="csl-entry" role="listitem">
+Faraway, J. J. (2009). <em>Linear Models with R</em>. Boca Raton.
+</div>
+<div id="ref-gotelli2016" class="csl-entry" role="listitem">
+Gotelli, N. J., &amp; Ellison, A. M. (2016). <em>Princípios de estatística em ecologia</em>. Artmed.
+</div>
+<div id="ref-jones2022" class="csl-entry" role="listitem">
+Jones, E., Harden, S., &amp; Crawley, M. J. (2022). <em>The R book</em> (Third edition). Wiley.
+</div>
+<div id="ref-magnusson2003" class="csl-entry" role="listitem">
+Magnusson, W. E. (2003). <em>Estatistica Sem Matematica</em>. Não definido.
+</div>
+<div id="ref-wickham2023" class="csl-entry" role="listitem">
+Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). <em>R for data science: import, tidy, transform, visualize, and model data</em> (2nd edition). O’Reilly Media, Inc.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./c07_TesteHip.html" class="pagination-link" aria-label="Testes de hipóteses">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./c09_ModLinearANOVA.html" class="pagination-link" aria-label="Modelos lineares: ANOVA">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Modelos lineares: ANOVA</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
