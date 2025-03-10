@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R - 6&nbsp; Gráficos e análise exploratória de dados</title>
+<title>6&nbsp; Gráficos e análise exploratória de dados – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -135,13 +135,13 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c06_Graficos.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gráficos e análise exploratória de dados</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -299,7 +299,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gráficos e análise exploratória de dados</span></h1>
+<h1 class="title"><span id="sec-capgraficos" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Gráficos e análise exploratória de dados</span></span></h1>
 </div>
 
 
@@ -340,7 +340,7 @@ div.csl-indent {
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#criar tabela com estatísticas descritivas para todas as variáveis numéricas</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> . <span class="sc">|</span> especie , <span class="at">data =</span> pinguins[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>)])</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-tabela_pinguins" class="cell quarto-float anchored">
+<div id="tbl-tabela_pinguins" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tabela_pinguins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabela&nbsp;6.1: estatísticas descritivas para o conjunto de dados “pinguins”
@@ -473,7 +473,7 @@ Tabela&nbsp;6.1: estatísticas descritivas para o conjunto de dados “pinguins�
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bico_comp <span class="sc">~</span> bico_prof, <span class="at">data =</span> pinguins)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-disp1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-disp1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-disp1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-disp1-1.png" class="img-fluid figure-img" width="672">
@@ -497,7 +497,7 @@ Figura&nbsp;6.1: gráfico de dispersão entre o comprimento do bico (mm) e a pro
 Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-shapes" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-shapes" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-shapes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-shapes-1.png" class="img-fluid figure-img" width="672">
@@ -536,7 +536,7 @@ Figura&nbsp;6.2: formatos de pontos disponíveis visualizados com o pacote ggpub
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Para colorir com as cores que queremos, colocamos col = cores[as.factor(pinguins$especie)]:</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bico_comp <span class="sc">~</span> bico_prof, <span class="at">data =</span> pinguins, <span class="at">col =</span> cores[<span class="fu">as.factor</span>(pinguins<span class="sc">$</span>especie)])</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-disper_col" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-disper_col" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-disper_col-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-disper_col-1.png" class="img-fluid figure-img" width="672">
@@ -563,7 +563,7 @@ Figura&nbsp;6.3: gráfico de dispersão colorido por espécie
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> pontos, <span class="co"># pontos</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)  <span class="co"># legenda sem caixa</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-legenda" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-legenda" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-legenda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-legenda-1.png" class="img-fluid figure-img" width="672">
@@ -579,7 +579,7 @@ Figura&nbsp;6.4: gráfico de dispersão incluindo legendas e diferentes formatos
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bico_comp <span class="sc">~</span> bico_prof, <span class="at">data =</span> pinguins, <span class="at">subset =</span> especie <span class="sc">==</span> <span class="st">"Adelia"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-subset" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-subset" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-subset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-subset-1.png" class="img-fluid figure-img" width="672">
@@ -601,7 +601,7 @@ Figura&nbsp;6.5: gráfico de dispersão com as dimensções dos bicos de pinguin
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>?hist <span class="co"># help da função hist</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pinguins<span class="sc">$</span>peso) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-hist1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-hist1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hist1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-hist1-1.png" class="img-fluid figure-img" width="672">
@@ -617,7 +617,7 @@ Figura&nbsp;6.6: histograma da variável peso_g
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pinguins<span class="sc">$</span>peso, <span class="at">col =</span> <span class="st">"grey"</span>, <span class="at">breaks =</span> <span class="dv">30</span>) <span class="co">#mudando o número de barras</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-hist2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-hist2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hist2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-hist2-1.png" class="img-fluid figure-img" width="672">
@@ -659,7 +659,7 @@ Figura&nbsp;6.7: histograma alterando o número de categorias.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(pinguins[,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>]) <span class="co"># diagrama de caixas das variáveis numéricas de iris</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-box1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-box1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-box1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-box1-1.png" class="img-fluid figure-img" width="672">
@@ -675,7 +675,7 @@ Figura&nbsp;6.8: gráfico do tipo boxplot para as variáveis numéricas do conju
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(peso <span class="sc">~</span> especie, <span class="at">data=</span>pinguins, <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>)) <span class="co"># incluindo 'col' para mudar as cores das caixas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-box2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-box2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-box2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-box2-1.png" class="img-fluid figure-img" width="672">
@@ -709,7 +709,7 @@ Figura&nbsp;6.9: boxplot de peso em função da espécie para o conjunto de dado
 <div aria-describedby="fig-pie_bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-pie_bar" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-pie_bar-1" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<div id="fig-pie_bar-1" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-pie_bar-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-pie_bar-1.png" id="fig-pie_bar-1" class="img-fluid figure-img" data-ref-parent="fig-pie_bar" width="672">
@@ -721,7 +721,7 @@ Figura&nbsp;6.9: boxplot de peso em função da espécie para o conjunto de dado
 </div>
 </div>
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-pie_bar" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-pie_bar-2" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<div id="fig-pie_bar-2" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-pie_bar-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-pie_bar-2.png" id="fig-pie_bar-2" class="img-fluid figure-img" data-ref-parent="fig-pie_bar" width="672">
@@ -753,7 +753,7 @@ Figura&nbsp;6.10: gráfico de pizza (a) e gráficos de barras (b).
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(nadadeira <span class="sc">~</span> especie, <span class="at">data=</span>pinguins, <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>)) <span class="co"># boxplot Petal.Length~Species</span></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(peso <span class="sc">~</span> especie, <span class="at">data=</span>pinguins, <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>)) <span class="co"># boxplot Petal.Width~Species</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-box_mfrow" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-box_mfrow" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-box_mfrow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-box_mfrow-1.png" class="img-fluid figure-img" width="672">
@@ -776,7 +776,7 @@ Figura&nbsp;6.11: juntando 4 gráficos em uma figura.
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="fu">as.factor</span>(pinguins<span class="sc">$</span>especie), <span class="co"># colorir por espécie</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower.panel =</span> <span class="cn">NULL</span>) <span class="co"># plotar somente o painel superior</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-pairs" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-pairs" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pairs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-pairs-1.png" class="img-fluid figure-img" width="672">
@@ -813,7 +813,7 @@ Figura&nbsp;6.12: diagrama de gráficos de dispersão.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pinguins)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-ggplot" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-ggplot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ggplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-ggplot-1.png" class="img-fluid figure-img" width="672">
@@ -829,7 +829,7 @@ Figura&nbsp;6.13: primeira camada do ggplot.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pinguins, <span class="fu">aes</span>(<span class="at">x =</span> nadadeira, <span class="at">y =</span> peso))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-ggplot_aes" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-ggplot_aes" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ggplot_aes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-ggplot_aes-1.png" class="img-fluid figure-img" width="672">
@@ -846,7 +846,7 @@ Figura&nbsp;6.14: adicionando a estética com aes()
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pinguins, <span class="fu">aes</span>(<span class="at">x =</span> nadadeira, <span class="at">y =</span> peso))<span class="sc">+</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-ggplot_point" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-ggplot_point" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ggplot_point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-ggplot_point-1.png" class="img-fluid figure-img" width="672">
@@ -878,7 +878,7 @@ Figura&nbsp;6.15: adicionando camada com pontos com geom_point()
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-ggplot_av" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-ggplot_av" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ggplot_av-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-ggplot_av-1.png" class="img-fluid figure-img" width="672">
@@ -904,7 +904,7 @@ Figura&nbsp;6.16: alterando parâmetros do gráfico do ggplot2.
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-ggplot_av2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-ggplot_av2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ggplot_av2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-ggplot_av2-1.png" class="img-fluid figure-img" width="672">
@@ -931,7 +931,7 @@ Figura&nbsp;6.17: alterando parâmetros do gráfico do ggplot2. Linha de regress
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(sexo<span class="sc">~</span>ilha, <span class="at">scales =</span><span class="st">"free"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-ggplot_facet" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-ggplot_facet" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ggplot_facet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-ggplot_facet-1.png" class="img-fluid figure-img" width="672">
@@ -962,7 +962,7 @@ Figura&nbsp;6.18: gráficos separados por facetas.
 <div aria-describedby="fig-hist_ggplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hist_ggplot" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-hist_ggplot-1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-hist_ggplot-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-hist_ggplot-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-hist_ggplot-1.png" class="img-fluid figure-img" data-ref-parent="fig-hist_ggplot" width="672">
@@ -974,7 +974,7 @@ Figura&nbsp;6.18: gráficos separados por facetas.
 </div>
 </div>
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hist_ggplot" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-hist_ggplot-2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-hist_ggplot-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-hist_ggplot-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-hist_ggplot-2.png" class="img-fluid figure-img" data-ref-parent="fig-hist_ggplot" width="672">
@@ -988,7 +988,7 @@ Figura&nbsp;6.18: gráficos separados por facetas.
 </div>
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hist_ggplot" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div id="fig-hist_ggplot-3" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-hist_ggplot-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-hist_ggplot-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-hist_ggplot-3.png" class="img-fluid figure-img" data-ref-parent="fig-hist_ggplot" width="672">
@@ -1029,7 +1029,7 @@ Figura&nbsp;6.19: histograma com o pacote ggplot2.
 <div aria-describedby="fig-ggplot_bp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ggplot_bp" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-ggplot_bp-1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-ggplot_bp-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-ggplot_bp-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-ggplot_bp-1.png" class="img-fluid figure-img" data-ref-parent="fig-ggplot_bp" width="672">
@@ -1041,7 +1041,7 @@ Figura&nbsp;6.19: histograma com o pacote ggplot2.
 </div>
 </div>
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ggplot_bp" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-ggplot_bp-2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-ggplot_bp-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-ggplot_bp-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-ggplot_bp-2.png" class="img-fluid figure-img" data-ref-parent="fig-ggplot_bp" width="672">
@@ -1055,7 +1055,7 @@ Figura&nbsp;6.19: histograma com o pacote ggplot2.
 </div>
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ggplot_bp" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div id="fig-ggplot_bp-3" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-ggplot_bp-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-ggplot_bp-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-ggplot_bp-3.png" class="img-fluid figure-img" data-ref-parent="fig-ggplot_bp" width="672">
@@ -1083,7 +1083,7 @@ Figura&nbsp;6.20: boxplot com ggplot2.
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr) <span class="co"># se não tiver instalado, install.packages("ggpubr")</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbarplot</span>(<span class="at">data =</span> pinguins, <span class="at">x =</span> <span class="st">"especie"</span>, <span class="at">y =</span> <span class="st">"peso"</span>, <span class="at">add =</span> <span class="st">"mean_sd"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-bar_ggpubr" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-bar_ggpubr" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bar_ggpubr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c06_Graficos_files/figure-html/fig-bar_ggpubr-1.png" class="img-fluid figure-img" width="672">
@@ -1325,18 +1325,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1368,7 +1357,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1376,7 +1387,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

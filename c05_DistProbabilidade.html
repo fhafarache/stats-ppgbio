@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R - 5&nbsp; Distribuições de Probabilidade</title>
+<title>5&nbsp; Distribuições de Probabilidade – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -125,7 +125,7 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -163,13 +163,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c05_DistProbabilidade.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Distribuições de Probabilidade</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -358,13 +358,13 @@ window.Quarto = {
 <pre><code>[1] 0.05399097</code></pre>
 </div>
 </div>
-<p>Podemos usar essa função para calcular e fazer um gráfico com a curva normal. Observe o exemplo abaixo, no qual fazemos um gráfico com valores entre -3 e 3, e a probabilidade de observá-los. Com isso, temos a formação de uma curva normal <a href="#fig-fdpnormal" class="quarto-xref">Figura&nbsp;<span>5.1</span></a> .</p>
+<p>Podemos usar essa função para calcular e fazer um gráfico com a curva normal. Observe o exemplo abaixo, no qual fazemos um gráfico com valores entre -3 e 3, e a probabilidade de observá-los. Com isso, temos a formação de uma curva normal (<a href="#fig-fdpnormal" class="quarto-xref">Figura&nbsp;<span>5.1</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>z.scores <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>,<span class="fl">0.1</span>) <span class="co">#gerar valores de -3 a 3, de 0.1 em 0.1</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>valor.d <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(z.scores,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># densidades de prpbabilidades dos valores-z</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(z.scores,valor.d, <span class="at">type =</span> <span class="st">"l"</span>) <span class="co">#gráfico com as probabilidades observadas para os valores entre -3 e 3: forma a curva normal padrão </span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-fdpnormal" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-fdpnormal" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fdpnormal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c05_DistProbabilidade_files/figure-html/fig-fdpnormal-1.png" class="img-fluid figure-img" width="672">
@@ -401,7 +401,7 @@ Figura&nbsp;5.1: Gráfico de densidade de probabilidades de uma distribuição n
 </div>
 </div>
 <p>Assim, podemos visualizar na <a href="#fig-normal_dqp" class="quarto-xref">Figura&nbsp;<span>5.2</span></a> os resultados obtidos pela função <code>dnorm()</code>, <code>qnorm()</code> e <code>pnorm()</code> na distribuição normal.</p>
-<div id="fig-normal_dqp" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-normal_dqp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-normal_dqp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figuras/Fig_pnorm_dnorm.jpg" class="img-fluid figure-img">
@@ -468,7 +468,7 @@ Figura&nbsp;5.2: Distribuição normal, mostrando as funções para calcular a d
 </div>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>,bindist) <span class="co">#gráfico da distribuição binomial</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-binomial" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-binomial" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-binomial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c05_DistProbabilidade_files/figure-html/fig-binomial-1.png" class="img-fluid figure-img" width="672">
@@ -524,7 +524,7 @@ Figura&nbsp;5.3: gráfico da distribuição binomial para x = 1:10, p = 0,5 e n 
 <div aria-describedby="fig-poisson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-poisson" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-poisson-1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-poisson-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-poisson-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c05_DistProbabilidade_files/figure-html/fig-poisson-1.png" class="img-fluid figure-img" data-ref-parent="fig-poisson" width="672">
@@ -536,7 +536,7 @@ Figura&nbsp;5.3: gráfico da distribuição binomial para x = 1:10, p = 0,5 e n 
 </div>
 </div>
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-poisson" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-poisson-2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-poisson-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-poisson-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c05_DistProbabilidade_files/figure-html/fig-poisson-2.png" class="img-fluid figure-img" data-ref-parent="fig-poisson" width="672">
@@ -609,60 +609,60 @@ Figura&nbsp;5.4: Gráfico ilustrando a distribuição de Poisson com diferentes 
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>n10s2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">10</span>,<span class="dv">2</span>) <span class="co">#rnorm(n, mean = 0, sd = 1)</span></span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(n10s2) <span class="co">#deve se aproximar à média</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.867616</code></pre>
+<pre><code>[1] 10.4122</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(n10s2) <span class="co"># deve se aproximar ao sd</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.918911</code></pre>
+<pre><code>[1] 1.957398</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#obs: quanto maior o n, esperamos que média e sd se aproximem dos valores teóricos</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(n10s2) <span class="co">#ordenar o vetor n10s2 do menor valor para o maior</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1]  6.687291  6.711833  6.712995  6.734025  6.830608  6.869464  6.875737
-  [8]  7.080853  7.090713  7.211670  7.227722  7.358137  7.434354  7.476775
- [15]  7.645010  7.754499  7.755412  7.781758  7.835957  7.880751  8.108418
- [22]  8.194718  8.285085  8.294084  8.296559  8.469021  8.501805  8.566899
- [29]  8.619480  8.733052  8.761832  8.762677  8.765574  8.777484  8.823018
- [36]  8.870860  8.947351  9.013373  9.055807  9.203997  9.265759  9.335332
- [43]  9.435899  9.507145  9.587375  9.592484  9.638933  9.659189  9.743458
- [50]  9.844236 10.032401 10.035780 10.299468 10.344233 10.442811 10.455977
- [57] 10.480067 10.484196 10.486238 10.594383 10.624579 10.652871 10.658852
- [64] 10.675430 10.703043 10.814025 10.823355 10.835224 10.844763 10.922979
- [71] 10.925804 11.005784 11.108468 11.114490 11.117469 11.119923 11.374106
- [78] 11.374236 11.418167 11.425561 11.439434 11.500629 11.500805 11.561769
- [85] 11.650955 11.818365 11.844355 11.928979 11.966708 12.023514 12.265493
- [92] 12.357703 12.367548 12.504316 12.685664 12.950835 13.140960 14.291655
- [99] 14.592587 15.558127</code></pre>
+<pre><code>  [1]  6.459487  6.809896  7.083060  7.520994  7.587709  7.839159  7.861333
+  [8]  7.935646  8.040231  8.050289  8.080540  8.133581  8.288524  8.296108
+ [15]  8.343559  8.480407  8.517435  8.604744  8.701348  8.722519  8.735824
+ [22]  8.743251  8.868815  8.927190  8.954838  8.966937  8.979855  9.083439
+ [29]  9.117628  9.161822  9.230509  9.257013  9.277729  9.491889  9.550579
+ [36]  9.573570  9.613579  9.734544  9.749313  9.789114  9.840479  9.858259
+ [43]  9.897165  9.905165  9.923809  9.943175  9.946947  9.977448 10.002503
+ [50] 10.018179 10.021534 10.066066 10.076699 10.095803 10.238161 10.386427
+ [57] 10.400063 10.530344 10.645382 10.671311 10.748034 10.798584 10.804478
+ [64] 10.839063 10.906204 11.082950 11.131803 11.220229 11.287499 11.293823
+ [71] 11.324895 11.398621 11.410598 11.419801 11.421841 11.600378 11.622854
+ [78] 11.737645 11.989690 12.013548 12.096282 12.210095 12.303303 12.485733
+ [85] 12.745268 12.800649 12.841747 12.907063 12.911095 12.955906 13.196887
+ [92] 13.364616 13.419377 13.619394 14.218187 14.505657 14.643975 14.727126
+ [99] 15.279982 15.325967</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(n10s2,<span class="dv">2</span>)<span class="co"># arredondar os valores para duas casas decimais para facilitar a visualização</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1] 10.82 15.56  7.84 13.14 10.48 12.69 12.95  8.19  8.78  9.51  8.50  8.30
- [13]  7.43 10.70 11.84  9.74  9.44  7.76  9.64  6.71  7.08 11.50 11.42  6.73
- [25] 14.59 10.59  8.76 10.93 11.50  9.59  9.20 10.66 10.48  7.21  8.57 10.84
- [37] 10.44  7.78 10.65 11.97 10.81  8.29 10.68 11.01  7.36  7.23 12.37 11.82
- [49] 10.04 10.30  9.01  9.84 11.37 11.12 10.49  8.29 12.02 10.03 11.11  6.88
- [61]  7.48  9.66  8.95  6.83  7.65  6.69  8.73 11.44  8.77 10.92 10.62 10.34
- [73]  8.62 11.43  6.87 14.29 12.50 11.65 11.93 12.27 12.36  9.06  8.47  8.11
- [85] 10.84 11.12 11.37  9.59 11.56  7.09  8.87  7.75 11.11  9.34  8.82  8.76
- [97]  7.88  6.71  9.27 10.46</code></pre>
+<pre><code>  [1] 10.84  8.98 12.75 11.29 10.00 10.80 12.49 13.20 12.30 12.84 11.41 14.51
+ [13]  7.86  8.30 10.40  8.05  9.08  8.87  8.95 14.73  9.73  8.74 10.02  9.94
+ [25] 10.39  9.16 15.28  8.97 10.07  8.48  8.52  8.34  8.29 11.42  9.84  9.23
+ [37]  9.95 12.91  8.13  9.86  6.46 10.10 11.29  7.94  8.04 11.32  8.08  9.12
+ [49] 11.08 11.62  7.59 11.13 13.36 10.24 11.22 14.64  9.26 10.80 12.91  9.92
+ [61]  8.60 13.62 12.21 12.96 10.65  9.28  6.81 11.40 13.42  9.55 12.10 11.60
+ [73] 10.67  8.74  7.84 15.33  7.52  9.91  9.61 11.42  9.49 10.75  8.72  8.70
+ [85]  9.57 10.91 14.22 10.08  9.79  9.98  9.90  8.93 10.53 11.99 10.02 12.80
+ [97] 12.01 11.74  9.75  7.08</code></pre>
 </div>
 </div>
 <p><strong>Utilizando outras distribuições</strong>: existem funções para gerar dados aleatórios a partir de outras distribuições de probabilidade, como a <code>runif()</code> para a distribuição uniforme e a <code>rpois()</code> para a distribuição de poisson.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">20</span>) <span class="co"># uniforme n = 50, min =10, max = 20</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 15.00583 12.07812 15.22252 13.28950 11.44656 15.70273 15.67932 13.82065
- [9] 11.78751 18.92995 16.09067 15.29339 11.88739 13.68023 11.53509 15.03474
-[17] 14.52821 18.36239 12.78802 14.47932 11.31796 15.26834 16.75945 19.38018
-[25] 18.65725 12.58448 11.88836 19.16082 12.09071 15.72135 17.72791 15.70626
-[33] 17.37896 18.87157 14.71124 19.04408 15.31759 16.31831 19.40848 12.47465
-[41] 13.08060 12.14161 10.09023 15.21227 17.92330 10.15260 11.14320 18.53364
-[49] 15.97156 18.66458</code></pre>
+<pre><code> [1] 14.08772 16.99589 19.51146 15.88572 18.19064 18.13951 14.07591 19.36631
+ [9] 17.59069 19.50401 16.31756 12.60969 12.24764 15.29351 18.33972 19.77560
+[17] 13.75983 16.97444 13.74917 10.81735 16.60823 11.21783 16.05870 18.94030
+[25] 15.93116 18.97090 17.95468 11.46950 15.61050 11.79312 11.89132 15.57896
+[33] 17.52983 16.09419 19.74389 15.15081 10.98375 18.80050 10.44055 13.62507
+[41] 18.06270 19.05831 13.45874 14.03122 13.20875 15.74077 17.19176 13.64704
+[49] 16.58497 17.74224</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">50</span>, <span class="dv">4</span>) <span class="co"># poisson n = 50, lambda = 4</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  6  5  2  2  4  1  4  8  6  4  6  4  5  3  0  3  8 11  4  2  3  4  3  6  4
-[26]  7  3  6  3  3  2  6  2  5  5  3  3  3  5 10  3  8  4  3  4  2  6  2  4  2</code></pre>
+<pre><code> [1] 7 4 3 2 5 3 1 2 2 5 3 3 7 4 4 4 3 4 4 3 0 7 2 4 7 4 3 7 2 7 3 3 1 3 5 5 4 7
+[39] 1 4 2 7 5 1 4 4 4 2 5 1</code></pre>
 </div>
 </div>
 
@@ -858,18 +858,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -901,7 +890,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -909,7 +920,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

@@ -281,6 +281,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</h1>
+<p class="subtitle lead">Versão 2025-03-10</p>
 </div>
 
 
@@ -311,15 +312,18 @@ div.csl-indent {
 
 <section id="prefácio" class="level1 unnumbered">
 <h1 class="unnumbered">Prefácio</h1>
-<p>Esta apostila tem por objetivo servir de referência prática para a disciplina “Estatística Aplicada à Biodiversidade”, do IF Goiano Campus Rio Verde. Nela, estão inclusas as instruções para a análise dos dados utilizando o ambiente R. De forma a familiarizar-se com o conteúdo teórico, utilize as referências indicadas <span class="citation" data-cites="magnusson2003 zar2010 gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>; <a href="czz_Referencias.html#ref-magnusson2003" role="doc-biblioref">Magnusson, 2003</a>; <a href="czz_Referencias.html#ref-zar2010" role="doc-biblioref">Zar, 2010</a>)</span>. Para documentos mais extensivos sobre análise estatística em R, verifique as referências <span class="citation" data-cites="leps2020">Lepš &amp; Šmilauer (<a href="czz_Referencias.html#ref-leps2020" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="venables2020">Venables et al. (<a href="czz_Referencias.html#ref-venables2020" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="jones2022">Jones et al. (<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">2022</a>)</span> e <span class="citation" data-cites="dasilvaetalr2022">(<a href="czz_Referencias.html#ref-dasilvaetalr2022" role="doc-biblioref">Da Silva et al., 2022</a>)</span>.</p>
-<p>Os códigos digitados em R são exibidos destacados no texto e, quando pertinente, os resultados são apresentados logo abaixo do código, como no exemplo abaixo:</p>
+<p>Esta apostila tem como objetivo servir de referência prática para a disciplina “Estatística Aplicada à Biodiversidade”, do IF Goiano – Campus Rio Verde. O material busca introduzir os estudantes à análise de dados utilizando o ambiente R, além de familiarizá-los com sua linguagem.</p>
+<p>A proposta é ensinar os fundamentos da linguagem R, apresentando suas principais estruturas de dados e funções, e como manipulá-las utilizando o R básico. Como este material é voltado para o ensino de estatística, alguns pacotes e recursos adicionais são utilizados para simplificar determinadas análises.</p>
+<p>Também são apresentados pacotes voltados à ciência de dados, especialmente os do ecossistema <code>tidyverse</code>, que oferecem ferramentas eficientes para filtragem, transformação e análise de grandes conjuntos de dados. Em particular, será utilizado com frequência o pacote <code>ggplot2</code>, que possibilita a criação de gráficos sofisticados de maneira acessível.</p>
+<p>Tendo em vista que esta apostila é voltada para a prática no ambiente R, recomenda-se, para aprofundamento teórico, a consulta às referências indicadas na disciplina <span class="citation" data-cites="magnusson2003 zar2010 gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>; <a href="czz_Referencias.html#ref-magnusson2003" role="doc-biblioref">Magnusson, 2003</a>; <a href="czz_Referencias.html#ref-zar2010" role="doc-biblioref">Zar, 2010</a>)</span>. Em relação à utilização do ambiente R, este texto consiste em uma introdução, e, para documentos mais extensos sobre análise estatística em R, recomenda-se a leitura de <span class="citation" data-cites="leps2020">Lepš &amp; Šmilauer (<a href="czz_Referencias.html#ref-leps2020" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="venables2020">Venables et al. (<a href="czz_Referencias.html#ref-venables2020" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="jones2022">Jones et al. (<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">2022</a>)</span> e <span class="citation" data-cites="dasilvaetalr2022">Da Silva et al. (<a href="czz_Referencias.html#ref-dasilvaetalr2022" role="doc-biblioref">2022</a>)</span>.</p>
+<p>Os códigos digitados em R são exibidos com destaque ao longo do texto e, quando pertinente, os resultados são apresentados logo abaixo do código, como no exemplo a seguir:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 </div>
 </div>
-<p>Esta apostila foi escrita em Quarto. Para saberm mais sobre a paltaforma, visite: <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
+<p>Esta apostila foi escrita utilizando a plataforma Quarto. Para saber mais sobre a plataforma, visite: <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">

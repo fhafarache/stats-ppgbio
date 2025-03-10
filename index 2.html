@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Fernando H. A. Farache">
 
-<title>11&nbsp; Estatística multivariada – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
+<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,8 +85,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./c12_Tidyverse.html" rel="next">
-<link href="./c10_GLMs.html" rel="prev">
+<link href="./c01_Instal.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -137,7 +137,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c11_Multivar.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Estatística multivariada</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Prefácio</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -167,7 +167,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Prefácio</span></a>
   </div>
 </li>
@@ -233,7 +233,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./c11_Multivar.html" class="sidebar-item-text sidebar-link active">
+  <a href="./c11_Multivar.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Estatística multivariada</span></span></a>
   </div>
 </li>
@@ -271,15 +271,7 @@ div.csl-indent {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#métodos-de-ordenação" id="toc-métodos-de-ordenação" class="nav-link active" data-scroll-target="#métodos-de-ordenação"><span class="header-section-number">11.1</span> Métodos de ordenação</a>
-  <ul class="collapse">
-  <li><a href="#análise-de-componentes-principais-pca" id="toc-análise-de-componentes-principais-pca" class="nav-link" data-scroll-target="#análise-de-componentes-principais-pca"><span class="header-section-number">11.1.1</span> Análise de Componentes Principais (PCA)</a></li>
-  </ul></li>
-  <li><a href="#métodos-de-classificação" id="toc-métodos-de-classificação" class="nav-link" data-scroll-target="#métodos-de-classificação"><span class="header-section-number">11.2</span> Métodos de classificação</a>
-  <ul class="collapse">
-  <li><a href="#análise-de-agrupamento-cluster-analysis" id="toc-análise-de-agrupamento-cluster-analysis" class="nav-link" data-scroll-target="#análise-de-agrupamento-cluster-analysis"><span class="header-section-number">11.2.1</span> Análise de agrupamento (Cluster analysis)</a></li>
-  </ul></li>
-  <li><a href="#testes-de-hipótese-em-análise-multivariada" id="toc-testes-de-hipótese-em-análise-multivariada" class="nav-link" data-scroll-target="#testes-de-hipótese-em-análise-multivariada"><span class="header-section-number">11.3</span> Testes de hipótese em análise multivariada</a></li>
+  <li><a href="#prefácio" id="toc-prefácio" class="nav-link active" data-scroll-target="#prefácio">Prefácio</a></li>
   </ul>
 </nav>
     </div>
@@ -288,14 +280,26 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Estatística multivariada</span></h1>
+<h1 class="title">Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fernando H. A. Farache </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">17 de setembro de 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -305,295 +309,40 @@ div.csl-indent {
 </header>
 
 
-<p>Os métodos de estatística multivariada podem ser utilizados para observarmos estrutura nos dados. O grande desafio é buscar padrões gerais que possam ser transpostos para outros conjuntos de dados. A as técnicas demonstradas aqui necessitam ser aplicadas interpretadas com cautela, para evitar interpretações errôneas <span class="citation" data-cites="crawley2013">(<a href="czz_Referencias.html#ref-crawley2013" role="doc-biblioref">Crawley, 2013</a>)</span>.</p>
-<section id="métodos-de-ordenação" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="métodos-de-ordenação"><span class="header-section-number">11.1</span> Métodos de ordenação</h2>
-<p>As técnicas de ordenação criam novas variáveis (chamadas <strong>eixos principais</strong>) por meio das quais as amostras recebem escores ou são organizadas. Desta forma, partimos com um conjunto maior de variáveis para um conjunto menor de variáveis que resumem os padrões mais importantes observados nos dados <span class="citation" data-cites="gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>)</span>.</p>
-<section id="análise-de-componentes-principais-pca" class="level3" data-number="11.1.1">
-<h3 data-number="11.1.1" class="anchored" data-anchor-id="análise-de-componentes-principais-pca"><span class="header-section-number">11.1.1</span> Análise de Componentes Principais (PCA)</h3>
-<p>A ideia da análise de componentes principais é encontrar uma combinação linear de diversas variáveis para capturar o máximo da variação possível <span class="citation" data-cites="crawley2013">(<a href="czz_Referencias.html#ref-crawley2013" role="doc-biblioref">Crawley, 2013</a>)</span>. Este método é utilizado para reduzir a dimensionalidade dos dados. A análise dos componentes principais é bem-sucedida quando temos fortes intercorrelações entre os dados originais <span class="citation" data-cites="gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>)</span>.</p>
-<p>No conjunto de dados <code>comunidades</code>, temos a comunidade de vespas associadas a diferentes espécies de figueiras As três primeiras colunas representam as amostras, hospedeiros e áreas, enquanto as colunas 4 em diante representam as abundâncias de cada uma das espécies representadas por letras e números.</p>
+<section id="prefácio" class="level1 unnumbered">
+<h1 class="unnumbered">Prefácio</h1>
+<p>Esta apostila tem por objetivo servir de referência prática para a disciplina “Estatística Aplicada à Biodiversidade”, do IF Goiano Campus Rio Verde. Nela, estão inclusas as instruções para a análise dos dados utilizando o ambiente R. De forma a familiarizar-se com o conteúdo teórico, utilize as referências indicadas <span class="citation" data-cites="magnusson2003 zar2010 gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>; <a href="czz_Referencias.html#ref-magnusson2003" role="doc-biblioref">Magnusson, 2003</a>; <a href="czz_Referencias.html#ref-zar2010" role="doc-biblioref">Zar, 2010</a>)</span>. Para documentos mais extensivos sobre análise estatística em R, verifique as referências <span class="citation" data-cites="leps2020">Lepš &amp; Šmilauer (<a href="czz_Referencias.html#ref-leps2020" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="venables2020">Venables et al. (<a href="czz_Referencias.html#ref-venables2020" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="jones2022">Jones et al. (<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">2022</a>)</span> e <span class="citation" data-cites="dasilvaetalr2022">(<a href="czz_Referencias.html#ref-dasilvaetalr2022" role="doc-biblioref">Da Silva et al., 2022</a>)</span>.</p>
+<p>Os códigos digitados em R são exibidos destacados no texto e, quando pertinente, os resultados são apresentados logo abaixo do código, como no exemplo abaixo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>comun <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"comunidades"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(comun) <span class="co">#dimensões do objeto: 25 linhas e 39 colunas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 25 39</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(comun) <span class="co">#nomes das colunas (variáveis)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "amostra"    "hospedeiro" "local"      "Pe1"        "Pe2"       
- [6] "Pe7"        "Pe9"        "Ae1a"       "Ae1b"       "Ae3a"      
-[11] "Ae3b"       "Ae3c"       "Fi2"        "Fi6"        "Fi9"       
-[16] "An2"        "An3"        "Sy1"        "Sy2"        "Sy3"       
-[21] "Sy5"        "He1"        "He2"        "He7"        "Ic1"       
-[26] "Ic2"        "If3"        "If6"        "Ii7"        "Ic09"      
-[31] "Ic15"       "Ic17"       "Ic22"       "Ic26"       "Ic27"      
-[36] "Ph1"        "Ph2"        "Ph4"        "Na1"       </code></pre>
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 </div>
 </div>
-<p>As colunas 4 a 39 colunas apresentam as espécies que estamos interessados, e cada uma das linhas apresenta uma amostra.</p>
-<p>Vamos extrair as colunas 4 a 39 e realizar a análise dos componentes principais. Utilizaremos a função <code>prcomp()</code>. Tendo em vista que a variância das abundâncias podem diferir entre as espécies, optamos incluir o argumento <code>scale = TRUE</code>. Assim, a variável será colocada em escala, com média igual a 0 e desvio padrão igual a 1.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pca.comun <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(comun[,<span class="dv">4</span><span class="sc">:</span><span class="dv">39</span>], <span class="at">scale=</span><span class="cn">TRUE</span>) <span class="co"># objeto com a análise dos componentes principais.</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca.comun)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Importance of components:
-                          PC1    PC2    PC3     PC4     PC5     PC6     PC7
-Standard deviation     2.5400 2.3393 1.9132 1.68489 1.59477 1.48896 1.46515
-Proportion of Variance 0.1792 0.1520 0.1017 0.07886 0.07065 0.06158 0.05963
-Cumulative Proportion  0.1792 0.3312 0.4329 0.51174 0.58239 0.64398 0.70360
-                           PC8     PC9    PC10    PC11    PC12    PC13    PC14
-Standard deviation     1.29688 1.20065 1.15508 1.05916 0.92857 0.91999 0.87747
-Proportion of Variance 0.04672 0.04004 0.03706 0.03116 0.02395 0.02351 0.02139
-Cumulative Proportion  0.75032 0.79037 0.82743 0.85859 0.88254 0.90605 0.92744
-                          PC15    PC16   PC17    PC18    PC19   PC20    PC21
-Standard deviation     0.77723 0.75026 0.6893 0.58614 0.49796 0.4327 0.31782
-Proportion of Variance 0.01678 0.01564 0.0132 0.00954 0.00689 0.0052 0.00281
-Cumulative Proportion  0.94422 0.95986 0.9730 0.98260 0.98948 0.9947 0.99749
-                          PC22    PC23    PC24      PC25
-Standard deviation     0.21200 0.19738 0.08024 2.394e-16
-Proportion of Variance 0.00125 0.00108 0.00018 0.000e+00
-Cumulative Proportion  0.99874 0.99982 1.00000 1.000e+00</code></pre>
-</div>
-</div>
-<p>Foram criados 25 componentes principais, sendo que o primeiro explica 17,92% da variância nos dados. A linha Cumulative Proportion mostra a proporção cumulativa que é explicada por cada um dos componentes criados. Desta forma, os componentes PC1 a PC8 explicam 75% da variação total.</p>
-<section id="scree-plots-gráficos-de-declive" class="level4" data-number="11.1.1.1">
-<h4 data-number="11.1.1.1" class="anchored" data-anchor-id="scree-plots-gráficos-de-declive"><span class="header-section-number">11.1.1.1</span> Scree plots (gráficos de declive)</h4>
-<p>Na etapa anterior, criamos um objeto de PCA, e observaremos como cada um dos componentes principais criados explicaram a variação dos dados. No exemplo o componente principal 1 (PC1) explica 16,7% da variância dos dados. Esses valores podem ser plotados em um gráfico:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pca.comun)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Podemos melhorar a visualização com o pacote <code>factoextra</code> ( <a href="#fig-screeplot" class="quarto-xref">Figura&nbsp;<span>11.1</span></a>). Caso não esteja instalado, utilizar o comando <code>install.packages("factoextra")</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: ggplot2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_eig</span>(pca.comun, <span class="at">addlabels =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-screeplot" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-screeplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c11_Multivar_files/figure-html/fig-screeplot-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-screeplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;11.1: gráfico de declive (scree plot) para PCA dos dados pgfull.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Esse gráfico mostra a proporção da variância explicada por cada um dos componentes principais.</p>
-</section>
-<section id="biplots" class="level4" data-number="11.1.1.2">
-<h4 data-number="11.1.1.2" class="anchored" data-anchor-id="biplots"><span class="header-section-number">11.1.1.2</span> Biplots</h4>
-<p>Podemos fazer gráficos mostrando os dois componentes principais (PC1 e PC2, ou até mesmo os demais componentes). Neste gráfico, as setas vermelhas representam cada uma das variáveis e os pontos (números) representam cada uma das observações (<a href="#fig-biplot" class="quarto-xref">Figura&nbsp;<span>11.2</span></a>).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot</span>(pca.comun)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-biplot" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-biplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c11_Multivar_files/figure-html/fig-biplot-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-biplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;11.2: gráfico de biplot para PCA dos dados de comunidades
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Quanto mais longa é uma das setas, mais ela está relacionada com cada uma das variáveis. A visualização com a função biplot é um pouco difícil. então podemos utilizar o pacote <code>factoextra</code> para fazer a visualização somente das variáveis (<a href="#fig-biplot2" class="quarto-xref">Figura&nbsp;<span>11.3</span></a>).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_var</span>(pca.comun, <span class="at">repel =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-biplot2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-biplot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c11_Multivar_files/figure-html/fig-biplot2-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-biplot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;11.3: gráfico de biplot para PCA dos dados de comunidades no pacote factoextra.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Agora vamos sofisticar o gráfico utilizando a função <code>fviz_pca()</code>, incluindo os argumentos <code>col.ind</code> para colorir os pontos pela variável “hospedeiro” e <code>addEllipses</code> para criar elipses para cada grupo de hospedeiros ( <a href="#fig-pca_comunidade" class="quarto-xref">Figura&nbsp;<span>11.4</span></a>).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca</span>(pca.comun, </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">col.ind =</span> comun<span class="sc">$</span>hospedeiro, <span class="co"># colorir observações pela variável "hospedeiro"</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">geom.ind =</span> <span class="st">"point"</span>,<span class="co"># utilizar somente pontos para as observações, sem adicionar números</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">addEllipses =</span> <span class="cn">TRUE</span>)<span class="co"># adicionar elipses para cada grupo</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-pca_comunidade" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-pca_comunidade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c11_Multivar_files/figure-html/fig-pca_comunidade-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pca_comunidade-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;11.4: análise dos componentes principais para os dados da comunidade
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Podemos observar que os pontos se agruparam por espécie hospedeira, que foi usada para definir o formato e cor dos pontos. As setas correspondem às espécies que mais ocorreram em cada hospedeiro, e espécies compartilhadas aperecem menos relacionadas com os grupos de pontos.</p>
-</section>
-</section>
-</section>
-<section id="métodos-de-classificação" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="métodos-de-classificação"><span class="header-section-number">11.2</span> Métodos de classificação</h2>
-<p>Enquanto os métodos de ordenação objetivamos separar amostras ao longo de gradientes ambientais ou eixos biológicos, o objeto da classificação é agrupar objetos similares em classes similares <span class="citation" data-cites="gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>)</span>.</p>
-<section id="análise-de-agrupamento-cluster-analysis" class="level3" data-number="11.2.1">
-<h3 data-number="11.2.1" class="anchored" data-anchor-id="análise-de-agrupamento-cluster-analysis"><span class="header-section-number">11.2.1</span> Análise de agrupamento (Cluster analysis)</h3>
-<p>A análise de agrupamento é um conjunto de técnicas que busca agrupar as amostras. As técnicas de agrupamento hierárquico podem ser utilizadas para mostrar quais espécies são mais similares entre si agrupando-as em dendrogramas.</p>
-<p>Vamos realizar uma análise de agrupamento para observar se as as espécies de comunidades de vespas dem <code>comun</code> são agrupadas pelos hospedeiros. Primeiramente, iremos criar uma matriz de distâncias entre as nossas amostras, utilizando distâncias de Bray-Curtis.</p>
-<section id="organizar-os-dados" class="level4" data-number="11.2.1.1">
-<h4 data-number="11.2.1.1" class="anchored" data-anchor-id="organizar-os-dados"><span class="header-section-number">11.2.1.1</span> Organizar os dados</h4>
-<p>Para facilitar a visualização posterior, precisamos criar um conjunto de dados do tipo <strong>data.frame</strong> nos quais os nomes das linhas correspondam às etiquetas que queremos utilizar. Cada nome de linhas deve ser único.</p>
-<ul>
-<li><p>Criar um data frame <code>comun2</code>, a partir do tibble <code>comun</code> em um com a função <code>as.data.frame()</code>.</p></li>
-<li><p>Criar nomes para linhas para isso utilizaremos a função <code>paste()</code> para combinar:</p>
-<ul>
-<li><p>A coluna <code>amostra</code>, com o código da amostra;</p></li>
-<li><p>Coluna <code>hospedeiro</code>;</p></li>
-<li><p>Coluna <code>local</code>.</p></li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>comun2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(comun)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(comun2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  amostra hospedeiro local  Pe1 Pe2 Pe7 Pe9 Ae1a Ae1b Ae3a Ae3b Ae3c Fi2 Fi6
-1     A01        cit   PEC  447   0   0   0    0    0    0    0    0   0   0
-2     A02        cit   PEC  308   0   0   0    0    0    0    0    0   0   0
-3     A03        cit   PEC 1106   0   0   0    5    0    0    0    0   1   0
-4     A04        cit   PEC  192   0   0   0    3    0    0    0    0   0   0
-5     A05        cit   PEC   81   0   0   0    2    0    0    0    0   0   0
-6     A06        cit    RP   93   0   0   0    0   19    0    0    0   0   0
-  Fi9 An2 An3 Sy1 Sy2 Sy3 Sy5 He1 He2 He7 Ic1 Ic2 If3 If6 Ii7 Ic09 Ic15 Ic17
-1   0   0   0   1   0   0   0   0   3   0 244 236  42   0   0    0    0    0
-2   0   0   0   0   0   0   0   0   0   0  55  42  60   0   0   64    0    0
-3   0   0   0   0   0   0   0   0   0   0  64  82 526   0  30    0    0    0
-4   0   0   0   2   0   2   0   1   2   0 185   0 217   2   1   44    0    0
-5   0   0   0  11   0   0   0   0  14   0   3 110   3   0   4    0    0    0
-6   0   0   0   5   0   0   0   0   2   0 163 165 149   0  13    2    0    0
-  Ic22 Ic26 Ic27 Ph1 Ph2 Ph4 Na1
-1    0    0    0   2   0   0 114
-2    0    9    0   2   3   0 355
-3    0    0    0   1   8   0 405
-4    0    0    0   5  48   0 184
-5    0    0    0  16  10   0 147
-6    0    0    0   8   4   0 138</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>nome <span class="ot">&lt;-</span> <span class="fu">paste</span>(comun<span class="sc">$</span>amostra, comun<span class="sc">$</span>hospedeiro, comun<span class="sc">$</span>local, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(comun2) <span class="ot">&lt;-</span> nome</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(comun2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            amostra hospedeiro local  Pe1 Pe2 Pe7 Pe9 Ae1a Ae1b Ae3a Ae3b Ae3c
-A01_cit_PEC     A01        cit   PEC  447   0   0   0    0    0    0    0    0
-A02_cit_PEC     A02        cit   PEC  308   0   0   0    0    0    0    0    0
-A03_cit_PEC     A03        cit   PEC 1106   0   0   0    5    0    0    0    0
-A04_cit_PEC     A04        cit   PEC  192   0   0   0    3    0    0    0    0
-A05_cit_PEC     A05        cit   PEC   81   0   0   0    2    0    0    0    0
-A06_cit_RP      A06        cit    RP   93   0   0   0    0   19    0    0    0
-            Fi2 Fi6 Fi9 An2 An3 Sy1 Sy2 Sy3 Sy5 He1 He2 He7 Ic1 Ic2 If3 If6 Ii7
-A01_cit_PEC   0   0   0   0   0   1   0   0   0   0   3   0 244 236  42   0   0
-A02_cit_PEC   0   0   0   0   0   0   0   0   0   0   0   0  55  42  60   0   0
-A03_cit_PEC   1   0   0   0   0   0   0   0   0   0   0   0  64  82 526   0  30
-A04_cit_PEC   0   0   0   0   0   2   0   2   0   1   2   0 185   0 217   2   1
-A05_cit_PEC   0   0   0   0   0  11   0   0   0   0  14   0   3 110   3   0   4
-A06_cit_RP    0   0   0   0   0   5   0   0   0   0   2   0 163 165 149   0  13
-            Ic09 Ic15 Ic17 Ic22 Ic26 Ic27 Ph1 Ph2 Ph4 Na1
-A01_cit_PEC    0    0    0    0    0    0   2   0   0 114
-A02_cit_PEC   64    0    0    0    9    0   2   3   0 355
-A03_cit_PEC    0    0    0    0    0    0   1   8   0 405
-A04_cit_PEC   44    0    0    0    0    0   5  48   0 184
-A05_cit_PEC    0    0    0    0    0    0  16  10   0 147
-A06_cit_RP     2    0    0    0    0    0   8   4   0 138</code></pre>
-</div>
-</div>
-<p>Nesta etapa, criamos uma matriz de dados de comunidades, onde as linhas representam as amostras e as colunas representam as espécies.</p>
-<p>A partir desses dados, vamos:</p>
-<ul>
-<li><p>Calcular as distâncias entre as amostras utilizando o índice de Bray-Curtis, com a função <code>vegdist()</code>. <strong>Atenção:</strong> somente utilizar as colunas referentes às espécies, descartando as 3 primeiras colunas (amostra, hospedeiro e local).</p></li>
-<li><p>A partir da matriz de distâncias, realizar o agrupamento hierárquico pelo método de UPGMA (Unweighted Pair Group Method using Arithmetic averages), utilizando a função <code>hclust()</code>, com o argumento <code>method = "average"</code>.</p></li>
-<li><p>visualizar o agrupamento com a função <code>plot()</code> ( <a href="#fig-cluster" class="quarto-xref">Figura&nbsp;<span>11.5</span></a>).</p></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan) <span class="co"># carregar o pacote vegan</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: permute</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: lattice</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>This is vegan 2.6-8</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>comun.dist <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(comun2[,<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)], <span class="at">method =</span> <span class="st">"bray"</span>) <span class="co"># calcular distâncias</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>comun.clust <span class="ot">&lt;-</span> <span class="fu">hclust</span>(comun.dist, <span class="at">method =</span> <span class="st">"average"</span>) <span class="co"># Agrupamento hierárquico (UPGMA)</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(comun.clust, <span class="at">cex =</span> <span class="dv">1</span>) <span class="co"># Plotar o agrupamento hierárquico.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-cluster" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-cluster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c11_Multivar_files/figure-html/fig-cluster-1.png" class="img-fluid figure-img" width="1248">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cluster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;11.5: dendrograma obtido por UPGMA agrupando as observações de pinguins selecionadas
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>No agrupamento, podemos ver 3 grupos principais, representando os 3 hospedeiros (<em>cit</em>, <em>exi</em> e <em>cro</em>). As amostras de <em>cro</em> são mais similares às de <em>exi</em> do que às de <em>cit</em>.</p>
-</section>
-</section>
-</section>
-<section id="testes-de-hipótese-em-análise-multivariada" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="testes-de-hipótese-em-análise-multivariada"><span class="header-section-number">11.3</span> Testes de hipótese em análise multivariada</h2>
-<p>Podemos utilisar métodos de análise de variância permutacional (PERMANOVA) sobre a matriz de distância para observar o efeito de um fator sobre as distâncias entre as amostras. No exemplo do conjunto de dados de comunidades, vamos testar a hipótese de que a diferença entre as comunidades dse deve à diferenças entre hospedeiros e entre localidades. A PERMANOVA pode ser realizada com a função <code>adonis2()</code> do pacote <code>vegan</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>comun.permanova <span class="ot">&lt;-</span> <span class="fu">adonis2</span>(comun[,<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)] <span class="sc">~</span> hospedeiro <span class="sc">+</span> local, <span class="at">data =</span> comun, <span class="at">method =</span> <span class="st">"bray"</span>, <span class="at">permutations =</span> <span class="dv">1000</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>comun.permanova</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Permutation test for adonis under reduced model
-Permutation: free
-Number of permutations: 1000
-
-adonis2(formula = comun[, -(1:3)] ~ hospedeiro + local, data = comun, permutations = 1000, method = "bray")
-         Df SumOfSqs     R2     F   Pr(&gt;F)    
-Model     3   5.8422 0.6555 13.32 0.000999 ***
-Residual 21   3.0703 0.3445                   
-Total    24   8.9125 1.0000                   
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<p>Podemos observar que há uma clara relação entre o hospedeiro e a composição da comunidade, entretanto a relação com o local parece ser apenas marginal. É preciso interpretar com cautela esses resultados quando os dados não são balanceados, ou seja, quando não há número próximo de réplicas por grupos. No caso que apresentamos, poderíamos remover o as linhas da espécie <em>cro</em>, mantendo somente as espécies <em>cit</em> e <em>exi</em>, que apresentam cada uma 10 observações com 5 observações por localidade, resultando em um experimento balanceados</p>
+<p>Esta apostila foi escrita em Quarto. Para saberm mais sobre a paltaforma, visite: <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
-<div id="ref-crawley2013" class="csl-entry" role="listitem">
-Crawley, M. J. (2013). <em>The R book</em> (Second edition). Wiley.
+<div id="ref-dasilvaetalr2022" class="csl-entry" role="listitem">
+Da Silva, R. S., Souza, T. G., Paterno, G. B., Provete, D. B., &amp; Vancine, M. H. (2022). <em>Análises ecológicas no R</em> (Primeira edição). Nupeea.
 </div>
 <div id="ref-gotelli2016" class="csl-entry" role="listitem">
 Gotelli, N. J., &amp; Ellison, A. M. (2016). <em>Princípios de estatística em ecologia</em>. Artmed.
+</div>
+<div id="ref-jones2022" class="csl-entry" role="listitem">
+Jones, E., Harden, S., &amp; Crawley, M. J. (2022). <em>The R book</em> (Third edition). Wiley.
+</div>
+<div id="ref-leps2020" class="csl-entry" role="listitem">
+Lepš, J., &amp; Šmilauer, P. (2020). <em>Biostatistics with R: an introductory guide for field biologists</em>. Cambridge University Press.
+</div>
+<div id="ref-magnusson2003" class="csl-entry" role="listitem">
+Magnusson, W. E. (2003). <em>Estatistica Sem Matematica</em>. Não definido.
+</div>
+<div id="ref-venables2020" class="csl-entry" role="listitem">
+Venables, W. N., Smith, D. M., &amp; R Core Team. (2020). <em>An Introduction to R</em>. <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf</a>
+</div>
+<div id="ref-zar2010" class="csl-entry" role="listitem">
+Zar, J. H. (2010). <em>Biostatistical analysis</em> (5th ed). Prentice-Hall/Pearson.
 </div>
 </div>
 </section>
@@ -1165,13 +914,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./c10_GLMs.html" class="pagination-link" aria-label="Modelos lineares generalizados (GLMs)">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></span>
-      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./c12_Tidyverse.html" class="pagination-link" aria-label="Introdução ao Tidyverse">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Introdução ao Tidyverse</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./c01_Instal.html" class="pagination-link" aria-label="Instalando o R">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Instalando o R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

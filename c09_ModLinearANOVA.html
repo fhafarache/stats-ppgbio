@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R - 9&nbsp; Modelos lineares: ANOVA</title>
+<title>9&nbsp; Modelos lineares: ANOVA – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -125,7 +125,7 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -163,13 +163,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c09_ModLinearANOVA.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Modelos lineares: ANOVA</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -352,7 +352,7 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(sementes <span class="sc">~</span> especie, <span class="at">data =</span> fig_comp)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-figos" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-figos" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-figos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c09_ModLinearANOVA_files/figure-html/fig-figos-1.png" class="img-fluid figure-img" width="672">
@@ -393,7 +393,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sem.lm)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-sem_diag" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-sem_diag" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sem_diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c09_ModLinearANOVA_files/figure-html/fig-sem_diag-1.png" class="img-fluid figure-img" width="672">
@@ -453,7 +453,7 @@ obus-obfol   -202.6 -238.419217 -166.78078 0.0000000</code></pre>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ativ)<span class="sc">+</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tratamento, <span class="at">y =</span> movimento, <span class="at">fill =</span> sexo))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-ativ_bp" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-ativ_bp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ativ_bp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c09_ModLinearANOVA_files/figure-html/fig-ativ_bp-1.png" class="img-fluid figure-img" width="672">
@@ -486,8 +486,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="ancova" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="ancova"><span class="header-section-number">9.3</span> ANCOVA</h2>
-<p>A ANCOVA é uma extensão da ANOVA, onde incluímos fatores e variáveis contínuas (covariáveis) como variáveis preditoras. Assim, esse delineamento pode ser considerado como um híbrido entre ANOVA e regressão linear <span class="citation" data-cites="gotelliPrincipiosEstatisticaEm2016">(<a href="czz_Referencias.html#ref-gotelliPrincipiosEstatisticaEm2016" role="doc-biblioref"><strong>gotelliPrincipiosEstatisticaEm2016?</strong></a>)</span>.</p>
-<p>Para exemplificar, vamos utilizar o conjunto de dados <code>grilos</code>, adaptado de <span class="citation" data-cites="walker1962">(<a href="czz_Referencias.html#ref-walker1962" role="doc-biblioref"><strong>walker1962?</strong></a>)</span>, no qual foi estudado a canção de acasalamento de grilos. Neste conjunto, são apresentados os números de pulsos por segundo emitido por grilos machos das espécies <em>Oecanthus exclamationis</em> e <em>O. niveus</em> a diferentes temperaturas:</p>
+<p>A ANCOVA é uma extensão da ANOVA, onde incluímos fatores e variáveis contínuas (covariáveis) como variáveis preditoras. Assim, esse delineamento pode ser considerado como um híbrido entre ANOVA e regressão linear <span class="citation" data-cites="gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>)</span>.</p>
+<p>Para exemplificar, vamos utilizar o conjunto de dados <code>grilos</code>, adaptado de <span class="citation" data-cites="walker1962">Walker (<a href="czz_Referencias.html#ref-walker1962" role="doc-biblioref">1962</a>)</span>, no qual foi estudado a canção de acasalamento de grilos. Neste conjunto, são apresentados os números de pulsos por segundo emitido por grilos machos das espécies <em>Oecanthus exclamationis</em> e <em>O. niveus</em> a diferentes temperaturas:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>grilos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"grilos"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>grilos</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -515,7 +515,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temperatura, <span class="at">y =</span> Pulsos, <span class="at">col =</span> Especie))<span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-grilos_disp" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-grilos_disp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-grilos_disp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c09_ModLinearANOVA_files/figure-html/fig-grilos_disp-1.png" class="img-fluid figure-img" width="672">
@@ -593,7 +593,7 @@ Model 2: Pulsos ~ Temperatura * Especie
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(grilos.lm)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-grilos_diag" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-grilos_diag" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-grilos_diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c09_ModLinearANOVA_files/figure-html/fig-grilos_diag-1.png" class="img-fluid figure-img" width="672">
@@ -615,7 +615,7 @@ Figura&nbsp;9.5: diagnóstico do modelo grilos.lm.
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-grilos_reg1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-grilos_reg1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-grilos_reg1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c09_ModLinearANOVA_files/figure-html/fig-grilos_reg1-1.png" class="img-fluid figure-img" width="672">
@@ -634,15 +634,24 @@ Figura&nbsp;9.6: gráfico de dispersão entre o total de pulsos e temperatura pa
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>grilos.pred <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(grilos.lm, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Temperatura"</span>,  <span class="st">"Especie"</span>))</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(grilos.pred, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>grilos.pred <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(grilos.lm, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Temperatura"</span>,  <span class="st">"Especie"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Some of the focal terms are of type `character`. This may lead to
+  unexpected results. It is recommended to convert these variables to
+  factors before fitting the model.
+  The following variables are of type character: `Especie`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(grilos.pred, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
+  Please use `show_data` instead.</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
   random variation to the location of data points and avoid overplotting.</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-grilos_reg2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-grilos_reg2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-grilos_reg2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="c09_ModLinearANOVA_files/figure-html/fig-grilos_reg2-1.png" class="img-fluid figure-img" width="672">
@@ -662,6 +671,9 @@ Gotelli, N. J., &amp; Ellison, A. M. (2016). <em>Princípios de estatística em 
 </div>
 <div id="ref-jones2022" class="csl-entry" role="listitem">
 Jones, E., Harden, S., &amp; Crawley, M. J. (2022). <em>The R book</em> (Third edition). Wiley.
+</div>
+<div id="ref-walker1962" class="csl-entry" role="listitem">
+Walker, T. J. (1962). The Taxonomy and Calling Songs of United States Tree Crickets (Orthoptera: Gryllidae: Oecanthinae). I. The Genus Neoxabea and the niveus and varicornis Groups of the Genus Oecanthus1. <em>Annals of the Entomological Society of America</em>, <em>55</em>(3), 303–322. <a href="https://doi.org/10.1093/aesa/55.3.303">https://doi.org/10.1093/aesa/55.3.303</a>
 </div>
 </div>
 </section>
@@ -846,18 +858,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -889,7 +890,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -897,7 +920,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
