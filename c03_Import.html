@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R - 3&nbsp; Conjuntos de dados e importação</title>
+<title>3&nbsp; Conjuntos de dados e importação – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -134,13 +134,13 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c03_Import.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjuntos de dados e importação</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -289,6 +289,7 @@ div.csl-indent {
   <li><a href="#erros-de-digitação-de-valores-numéricos" id="toc-erros-de-digitação-de-valores-numéricos" class="nav-link" data-scroll-target="#erros-de-digitação-de-valores-numéricos"><span class="header-section-number">3.4.1</span> Erros de digitação de valores numéricos</a></li>
   <li><a href="#erros-de-digitação-em-caracteres" id="toc-erros-de-digitação-em-caracteres" class="nav-link" data-scroll-target="#erros-de-digitação-em-caracteres"><span class="header-section-number">3.4.2</span> Erros de digitação em caracteres</a></li>
   </ul></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">3.5</span> Conclusão</a></li>
   </ul>
 </nav>
     </div>
@@ -324,7 +325,7 @@ div.csl-indent {
 <li><p>Cada observação é representada por uma linha e cada linha representa uma observação;</p></li>
 <li><p>Cada valor está contido em uma única célula e cada célula contém somente um valor.</p></li>
 </ol>
-<div id="fig-varobval" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-varobval" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-varobval-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figuras/VariavelObsValor.jpg" class="img-fluid figure-img">
@@ -337,14 +338,14 @@ Figura&nbsp;3.1: Variáveis, observações e valores
 <p>Uma <strong>variável</strong> é uma característica de interesse medida nas unidades amostrais. Exemplos: peso, altura, sexo, espécie. As variáveis podem ser <strong>numéricas</strong> quando podem ser medidas em escala quantitativa. As variáveis numéricas podem ser divididas em contínuas, quando podem assumir valores reais dentro de uma escala, ou <strong>discretas</strong>, quando só podem assumir números inteiros. Além disso, as variáveis podem ser <strong>categóricas</strong> (ou qualitativas) quando expressam uma classificação de observações em algum agrupamento (por exemplo, sexo ou espécie). As variáveis categóricas podem ser ordinais quando existe uma ordem entre as categorias (por exemplo, ensino fundamental, médio e superior).</p>
 <p>Observe os conjuntos de dados abaixo (<a href="#tbl-varobs" class="quarto-xref">Tabela&nbsp;<span>3.1</span></a>):</p>
 <div class="cell">
-<div id="tbl-varobs" class="cell quarto-float anchored">
+<div id="tbl-varobs" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-varobs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabela&nbsp;3.1: formas diferentes de se exibir um mesmo conjunto de dados
 </figcaption>
 <div aria-describedby="tbl-varobs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-varobs-1" class="do-not-create-environment quarto-float anchored">
+<div id="tbl-varobs-1" class="do-not-create-environment quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-varobs-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) tabela a
@@ -396,7 +397,7 @@ Tabela&nbsp;3.1: formas diferentes de se exibir um mesmo conjunto de dados
 </div>
 </div>
 <div class="cell-output-display">
-<div id="tbl-varobs-2" class="do-not-create-environment quarto-float anchored">
+<div id="tbl-varobs-2" class="do-not-create-environment quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-varobs-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) tabela b
@@ -444,7 +445,7 @@ Tabela&nbsp;3.1: formas diferentes de se exibir um mesmo conjunto de dados
 <section id="criando-uma-pasta-de-trabalho" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="criando-uma-pasta-de-trabalho"><span class="header-section-number">3.2.1</span> Criando uma pasta de trabalho</h3>
 <p>Primeiramente, sempre que queremos começar uma nova análise, é interessante criar uma pasta de trabalho no computador, onde colocamos nossos conjuntos de dados, scripts, etc. No exemplo, foi criada uma pasta contendo somente o arquivo excel a ser importado e o script referente às análises <a href="#fig-dir_analise" class="quarto-xref">Figura&nbsp;<span>3.2</span></a> .</p>
-<div id="fig-dir_analise" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-dir_analise" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-dir_analise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figuras/Fig_pasta_arquivos.png" class="img-fluid figure-img">
@@ -458,7 +459,7 @@ Figura&nbsp;3.2: Organizando diretório para análises
 <section id="definindo-diretório-de-trabalho" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="definindo-diretório-de-trabalho"><span class="header-section-number">3.2.2</span> Definindo diretório de trabalho</h3>
 <p>Podemos definir pasta de trabalho no RStudio no menu <code>Session &gt; Set Working Directory &gt; Choose Directory…</code> e escolher a pasta de trabalho desejada (<a href="#fig-dir_trabalho" class="quarto-xref">Figura&nbsp;<span>3.3</span></a>)</p>
-<div id="fig-dir_trabalho" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-dir_trabalho" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-dir_trabalho-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figuras/Fig_setwd.png" class="img-fluid figure-img">
@@ -510,7 +511,7 @@ Figura&nbsp;3.3: Definindo diretório de trabalho
 <li><p>Criar um nome para o objeto em <code>Name</code>;</p></li>
 <li><p>Clicar no botão <code>Import</code>.</p></li>
 </ol>
-<div id="fig-excel_rstudio" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-excel_rstudio" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-excel_rstudio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figuras/Fig_read_excel.jpg" class="img-fluid figure-img">
@@ -824,6 +825,11 @@ citrif  obfol  Obfol   obus
 </div>
 <p>Tanto com a função <code>table()</code> como a função <code>unique()</code> demonstratam que <code>obfol</code> parece ter sido digitado erroneamente com maiúsculo. No caso de <code>table()</code>, ainda podemos ver que a digitação errônea aconteceu somente uma vez.<br>
 A correção pode ser feita diretamente no R, ou pode ser realizada no aplicativo de edição de planilhas.</p>
+</section>
+</section>
+<section id="conclusão" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">3.5</span> Conclusão</h2>
+<p>Neste capítulo, exploramos a organização e importação de conjuntos de dados no R, com foco na estruturação de dados de forma clara e eficiente, seguindo os princípios de&nbsp;<em>tidy data</em>. Aprendemos a importar dados de diferentes formatos, como arquivos Excel, utilizando pacotes como&nbsp;<code>readxl</code>, e a configurar o diretório de trabalho para facilitar o acesso aos arquivos. Também foram abordadas técnicas para visualizar e inspecionar dados após a importação, identificar e tratar valores faltantes (NAs) e corrigir erros de digitação em variáveis numéricas e categóricas. Essas práticas são essenciais para garantir a qualidade dos dados antes de prosseguir com análises mais avançadas, preparando o leitor para manipular e explorar conjuntos de dados no R.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
@@ -831,7 +837,6 @@ A correção pode ser feita diretamente no R, ou pode ser realizada no aplicativ
 Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). <em>R for data science: import, tidy, transform, visualize, and model data</em> (2nd edition). O’Reilly Media, Inc.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1014,18 +1019,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1057,7 +1051,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1065,7 +1081,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

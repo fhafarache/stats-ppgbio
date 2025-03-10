@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R - 4&nbsp; Estatísticas descritivas</title>
+<title>4&nbsp; Estatísticas descritivas – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -135,13 +135,13 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c04_EstDescritiva.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estatísticas descritivas</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -280,7 +280,10 @@ div.csl-indent {
   <li><a href="#função-aggregate" id="toc-função-aggregate" class="nav-link" data-scroll-target="#função-aggregate"><span class="header-section-number">4.2.3</span> Função <code>aggregate()</code></a></li>
   </ul></li>
   <li><a href="#tabelas-sofisticadas-com-table1" id="toc-tabelas-sofisticadas-com-table1" class="nav-link" data-scroll-target="#tabelas-sofisticadas-com-table1"><span class="header-section-number">4.3</span> Tabelas sofisticadas com <code>table1()</code></a></li>
-  <li><a href="#utilizando-o-tidyverse-para-calcular-estatísticas-descritivas" id="toc-utilizando-o-tidyverse-para-calcular-estatísticas-descritivas" class="nav-link" data-scroll-target="#utilizando-o-tidyverse-para-calcular-estatísticas-descritivas"><span class="header-section-number">4.4</span> Utilizando o <code>tidyverse</code> para calcular estatísticas descritivas</a></li>
+  <li><a href="#utilizando-o-tidyverse-para-calcular-estatísticas-descritivas" id="toc-utilizando-o-tidyverse-para-calcular-estatísticas-descritivas" class="nav-link" data-scroll-target="#utilizando-o-tidyverse-para-calcular-estatísticas-descritivas"><span class="header-section-number">4.4</span> Utilizando o <code>tidyverse</code> para calcular estatísticas descritivas</a>
+  <ul class="collapse">
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">4.4.1</span> Conclusão</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -450,7 +453,7 @@ Attaching package: 'table1'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#tabela de variaveis numericas por especie</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> bico_comp <span class="sc">+</span> bico_prof <span class="sc">+</span> nadadeira <span class="sc">+</span> peso <span class="sc">|</span> especie , <span class="at">data =</span> pinguins)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-pinguins" class="cell quarto-float anchored">
+<div id="tbl-pinguins" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-pinguins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Tabela&nbsp;4.1: estatísticas descritivas para o conjunto de dados “pinguins”
@@ -581,7 +584,10 @@ Tabela&nbsp;4.1: estatísticas descritivas para o conjunto de dados “pinguins�
 </section>
 <section id="utilizando-o-tidyverse-para-calcular-estatísticas-descritivas" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="utilizando-o-tidyverse-para-calcular-estatísticas-descritivas"><span class="header-section-number">4.4</span> Utilizando o <code>tidyverse</code> para calcular estatísticas descritivas</h2>
-<p>O tidyverse é um conjunto de pacotes versátil para ciência de dados e apresenta ferramentas sofixticadas para calcular estatísticas descritivas <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>. Para mais informações, consulte o capítulo “Introdução ao Tidyverse”.</p>
+<p>O tidyverse é um conjunto de pacotes versátil para ciência de dados e apresenta ferramentas sofixticadas para calcular estatísticas descritivas <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>. Para mais informações, consulte o <a href="c12_Tidyverse.html" class="quarto-xref"><span>Capítulo 12</span></a> .</p>
+<section id="conclusão" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">4.4.1</span> Conclusão</h3>
+<p>Neste capítulo, exploramos técnicas para calcular e interpretar estatísticas descritivas, essenciais para resumir e compreender conjuntos de dados. Utilizando o conjunto de dados “pinguins”, aprendemos a calcular medidas de posição (média, mediana) e dispersão (variância, desvio padrão), além de identificar quartis e percentis com a função&nbsp;<code>quantile()</code>. Também foram apresentadas funções como&nbsp;<code>tapply()</code>,&nbsp;<code>apply()</code>&nbsp;e&nbsp;<code>aggregate()</code>&nbsp;para calcular estatísticas descritivas de forma agrupada, permitindo análises de forma mais rápida por categorias, como espécie e sexo. Por fim, introduzimos o pacote&nbsp;<code>table1</code>&nbsp;para criar tabelas sofisticadas de estatísticas descritivas e destacamos a utilidade do&nbsp;<code>tidyverse</code>&nbsp;para análises mais avançadas.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
@@ -589,6 +595,7 @@ Tabela&nbsp;4.1: estatísticas descritivas para o conjunto de dados “pinguins�
 Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). <em>R for data science: import, tidy, transform, visualize, and model data</em> (2nd edition). O’Reilly Media, Inc.
 </div>
 </div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -771,18 +778,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -814,7 +810,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -822,7 +840,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

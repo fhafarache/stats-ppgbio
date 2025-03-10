@@ -288,6 +288,7 @@ window.Quarto = {
   <li><a href="#loops-com-for" id="toc-loops-com-for" class="nav-link" data-scroll-target="#loops-com-for"><span class="header-section-number">13.2.3</span> Loops com <code>for()</code></a></li>
   <li><a href="#função-return-e-print" id="toc-função-return-e-print" class="nav-link" data-scroll-target="#função-return-e-print"><span class="header-section-number">13.2.4</span> Função <code>return()</code> e <code>print()</code></a></li>
   </ul></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">13.3</span> Conclusão</a></li>
   </ul>
 </nav>
     </div>
@@ -321,11 +322,11 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>norm10d2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(norm10d2) <span class="co"># média</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 10.04513</code></pre>
+<pre><code>[1] 10.1073</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(norm10d2) <span class="co"># desvio padrão</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.056923</code></pre>
+<pre><code>[1] 2.066436</code></pre>
 </div>
 </div>
 <p>Como são valores aleatórios, a cada vez que forem gerados teremos um valor diferentes. Valores exatamente iguais para reproduzir os resultados podem ser conseguidos executando a função <code>set.seed(x)</code>, sendo x un valor qualquer, antes de gerar os dados aleatórios.</p>
@@ -333,11 +334,11 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">10</span>, <span class="at">lambda =</span> <span class="dv">10</span>) <span class="co"># gerar 10 valores a partir da distribuição de poisson com lambda = 10</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  7 19  8  4 19  9  9  7  8  7</code></pre>
+<pre><code> [1] 12 13 10  8 14 17  8 15 14 10</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="fl">0.5</span>) <span class="co">#distribuição binomial: total de sucessos em 10 rodadas de 10 jogadas de moedas  com 50% de probabilidade de sussesso (sussesso = tirar cara, por exemplo)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 7 7 6 5 6 4 9 5 5 3</code></pre>
+<pre><code> [1] 6 6 4 4 8 6 5 8 9 4</code></pre>
 </div>
 </div>
 <p>Utilizando valores aleatórios para simular um experimento. no exemplo abaixo (<a href="#fig-bp_random" class="quarto-xref">Figura&nbsp;<span>13.1</span></a>).</p>
@@ -357,8 +358,8 @@ window.Quarto = {
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados.aov)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-Grupo         2  194.6   97.30   22.14 3.94e-09 ***
-Residuals   147  646.0    4.39                     
+Grupo         2  115.6   57.82      12 1.48e-05 ***
+Residuals   147  708.1    4.82                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -370,10 +371,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 Fit: aov(formula = Comprimento ~ Grupo, data = dados)
 
 $Grupo
-                 diff        lwr      upr     p adj
-T1-Controle 0.2011614 -0.7915298 1.193853 0.8809572
-T2-Controle 2.5104590  1.5177678 3.503150 0.0000000
-T2-T1       2.3092976  1.3166064 3.301989 0.0000005</code></pre>
+                 diff       lwr      upr     p adj
+T1-Controle 0.8445309 -0.194741 1.883803 0.1355344
+T2-Controle 2.1352528  1.095981 3.174525 0.0000087
+T2-T1       1.2907219  0.251450 2.329994 0.0105733</code></pre>
 </div>
 <div class="cell-output-display">
 <div id="fig-bp_random" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -416,11 +417,11 @@ NULL</code></pre>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.298958</code></pre>
+<pre><code>[1] 1.007349</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dados)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(dados)) <span class="co"># Fórmula para calcular o erro padrão</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2904559</code></pre>
+<pre><code>[1] 0.2252501</code></pre>
 </div>
 </div>
 <p>A partir da fórmula usada para calcular o erro padrão, vamos criar uma função para realizar o cálculo. Podemos criar funções utilizado <code>function()</code>. Vamos criar uma função para calcular o erro padrão. A função terá somente um argumento <code>x</code>, o qual será o vetor sobre o qual será calculado o erro padrão. Neste passo, criaremos uma função chamada <code>ep()</code>. Entre os ‘<code>{}</code>’ incluímos o que a função irá realizar:</p>
@@ -431,7 +432,7 @@ NULL</code></pre>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ep</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2904559</code></pre>
+<pre><code>[1] 0.2252501</code></pre>
 </div>
 </div>
 <p>Acima criamos a fução <code>ep(x)</code>, que realizará o cálculo do erro padrão pela seguinte fórmula: <code>sd(x)/sqrt(length(x)</code>.</p>
@@ -494,10 +495,11 @@ NULL</code></pre>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>dados.na <span class="ot">&lt;-</span> <span class="fu">c</span>(dados, <span class="cn">NA</span>)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>dados.na</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] -3.32314562  0.73757987  0.74957919 -0.29646092 -1.40441700 -0.61328784
- [7]  1.80066845  0.60608207 -0.19869613 -0.48870006  0.56443164  2.18348359
-[13] -1.38309710 -1.22406907  0.69985669 -0.06002146  1.10702320  0.39176396
-[19] -1.29842690  1.23749446          NA</code></pre>
+<pre><code> [1]  1.482721194  1.188568070  0.367825312  1.042397321 -1.453497862
+ [6]  0.035343625  2.262873335 -0.113595217 -0.080325595  1.023155150
+[11]  1.699742289  1.077460268  0.075719672 -1.480380361 -0.896181395
+[16] -0.007962868 -0.079002555 -0.589822567  0.245253741 -0.384849682
+[21]           NA</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ep</span>(dados.na)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -521,7 +523,7 @@ NULL</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ep</span>(dados.na, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2904559</code></pre>
+<pre><code>[1] 0.2252501</code></pre>
 </div>
 </div>
 </section>
@@ -627,9 +629,13 @@ Figura&nbsp;13.2: Comparação da distribuição normal com distribuições t de
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="conclusão" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">13.3</span> Conclusão</h2>
+<p>Neste capítulo, exploramos conceitos fundamentais de programação em R, incluindo a criação de&nbsp;<strong>funções personalizadas</strong>, o uso de&nbsp;<strong>condicionais</strong>&nbsp;(<code>if</code>&nbsp;e&nbsp;<code>else</code>) para controlar o fluxo de execução, e a aplicação de&nbsp;<strong>loops</strong>&nbsp;(<code>for</code>) para automatizar tarefas repetitivas. Também discutimos como gerar&nbsp;<strong>dados aleatórios</strong>&nbsp;para simulações. Com esses conhecimentos, é possível automatizar processos, melhorar a eficiência do código e explorar cenários complexos por meio de simulações e análises iterativas.</p>
+
+
 </section>
 
 </main> <!-- /main -->

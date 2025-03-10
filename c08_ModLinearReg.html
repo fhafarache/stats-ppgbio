@@ -318,6 +318,7 @@ window.Quarto = {
   <li><a href="#seleção-de-modelos-com-step" id="toc-seleção-de-modelos-com-step" class="nav-link" data-scroll-target="#seleção-de-modelos-com-step"><span class="header-section-number">8.6.3</span> Seleção de modelos com <code>step()</code></a></li>
   </ul></li>
   <li><a href="#multicolinearidade" id="toc-multicolinearidade" class="nav-link" data-scroll-target="#multicolinearidade"><span class="header-section-number">8.7</span> Multicolinearidade</a></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">8.8</span> Conclusão</a></li>
   </ul>
 </nav>
     </div>
@@ -725,18 +726,26 @@ Figura&nbsp;8.8: diagnóstico do modelo para dados de figos.
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">#plotar o gráfico incluindo também os dados observados</span></span>
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo1.pred.area, <span class="at">rawdata =</span> <span class="cn">TRUE</span>) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
-  random variation to the location of data points and avoid overplotting.</code></pre>
+<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
+  Please use `show_data` instead.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#criar gráfico do modelo para a variável "área", utilizando também a variável "NO3"</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>modelo1.pred.area.no3 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(modelo1, <span class="at">terms =</span>  <span class="fu">c</span>(<span class="st">"diam"</span>, <span class="st">"parasitas"</span>))</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo1.pred.area.no3, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
   random variation to the location of data points and avoid overplotting.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#neste caso, NO3 é incluído como fator. Podemos observar que nas maiores concentrações de NO3, a quantidade prevista de peixes é maior.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#criar gráfico do modelo para a variável "área", utilizando também a variável "NO3"</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>modelo1.pred.area.no3 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(modelo1, <span class="at">terms =</span>  <span class="fu">c</span>(<span class="st">"diam"</span>, <span class="st">"parasitas"</span>))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo1.pred.area.no3, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
+  Please use `show_data` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
+  random variation to the location of data points and avoid overplotting.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#neste caso, NO3 é incluído como fator. Podemos observar que nas maiores concentrações de NO3, a quantidade prevista de peixes é maior.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="fig-modelo_sem" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-modelo_sem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -799,13 +808,13 @@ Figura&nbsp;8.9: gráfico de dispersão incluindo o ajuste do modelo para riquez
 <p>Podemos comparar diferentes modelos aninhados com a função <code>anova()</code>. Vamos remover uma das variáveis menos significativas do modelo para ver se temos uma melhora significativa nele.</p>
 <p>Para isso, utilizaremos a função <code>update()</code> vamos atualizar o modelo1 de forma a remover a variável polinizadores:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sementes <span class="sc">~</span> diam <span class="sc">+</span> parasitas, <span class="at">data =</span> figos)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ou</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo1, .<span class="sc">~</span>.<span class="sc">-</span>polinizadores)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(sementes <span class="sc">~</span> diam <span class="sc">+</span> parasitas, <span class="at">data =</span> figos)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ou</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo1, .<span class="sc">~</span>.<span class="sc">-</span>polinizadores)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Os dois comandos acima fazem a mesma coisa. Na notação utilizando a função <code>update()</code>, atualizamos o modelo1, o sinal “<code>. ~ .</code>” indica que mantemos as variáveis que apresentava antes e “-polinizadores” indica a remoção de polinizadores do modelo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo2, modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo2, modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -824,7 +833,7 @@ Model 2: sementes ~ diam + polinizadores + parasitas
 <p>O critério de informação de Akaike é uma medida baseada na teoria da informação que pode ser usado para comparar modelos. Este critério mede o equilíbrio entre o acréscimo de variáveis em um modelo e o quanto esse acréscimo explica melhor o modelo. Utilizando este critério, podemos comparar os diversos modelos de forma a decidir qual explica melhor a variação da variável resposta. Este critério penaliza o acréscimo de variáveis pouco inflormativas em um modelo. Para mais informações sobre o AIC, consulte <span class="citation" data-cites="aho2014">Aho et al. (<a href="czz_Referencias.html#ref-aho2014" role="doc-biblioref">2014</a>)</span>.</p>
 <p>Vamos criar outros modelos removendo variáveis pouco significativas:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="co">#já criado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="co">#já criado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -834,7 +843,7 @@ Coefficients:
   (Intercept)           diam  polinizadores      parasitas  
      -76.5226       181.7844        -0.0949         0.8165  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="co">#já criado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="co">#já criado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -844,11 +853,11 @@ Coefficients:
 (Intercept)         diam    parasitas  
    -81.2701     175.4205       0.9298  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo2, .<span class="sc">~</span>.<span class="sc">-</span>parasitas)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>modelo.nulo <span class="ot">&lt;-</span> <span class="fu">lm</span>(sementes <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> figos) <span class="co"># modelo vazio</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># quanto menor o valor de Akaike, melhor o modelo</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo1, modelo2, modelo3, modelo.nulo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="ot">&lt;-</span> <span class="fu">update</span>(modelo2, .<span class="sc">~</span>.<span class="sc">-</span>parasitas)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>modelo.nulo <span class="ot">&lt;-</span> <span class="fu">lm</span>(sementes <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> figos) <span class="co"># modelo vazio</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># quanto menor o valor de Akaike, melhor o modelo</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo1, modelo2, modelo3, modelo.nulo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            df      AIC
 modelo1      5 365.9563
@@ -856,15 +865,15 @@ modelo2      4 364.3816
 modelo3      3 365.0810
 modelo.nulo  2 370.7899</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages('wiqid') #se o pacote não foi instalado</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wiqid)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages('wiqid') #se o pacote não foi instalado</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wiqid)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: HDInterval</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: mcmcOutput</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AICtable</span>(<span class="fu">AIC</span>(modelo1, modelo2, modelo3, modelo.nulo)) <span class="co"># tabela do AIC</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AICtable</span>(<span class="fu">AIC</span>(modelo1, modelo2, modelo3, modelo.nulo)) <span class="co"># tabela do AIC</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            df     AIC Delta ModelLik ModelWt
 modelo2      4 364.382 0.000    1.000   0.454
@@ -879,7 +888,7 @@ modelo.nulo  2 370.790 6.408    0.041   0.018</code></pre>
 <h3 data-number="8.6.3" class="anchored" data-anchor-id="seleção-de-modelos-com-step"><span class="header-section-number">8.6.3</span> Seleção de modelos com <code>step()</code></h3>
 <p>Podemos aselecionar automaticamente um modelo otimizado por AIC utilizando a função step, partindo do modelo mais complexo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>modelo.select <span class="ot">&lt;-</span> <span class="fu">step</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>modelo.select <span class="ot">&lt;-</span> <span class="fu">step</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Start:  AIC=261.79
 sementes ~ diam + polinizadores + parasitas
@@ -898,7 +907,7 @@ sementes ~ diam + parasitas
 - parasitas  1    3269.4 45257 260.92
 - diam       1    6312.2 48300 263.26</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo.select)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo.select)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -923,7 +932,7 @@ F-statistic: 5.532 on 2 and 33 DF,  p-value: 0.008477</code></pre>
 </div>
 <p>O algoritmo foi removendo as variáveis menos explicativas até chegar ao modelo que apresentou o melhor AIC. O modelo selecionado automaticamente a partir do modelo completo (modelo1). Vamos visualizar este modelo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo.select)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo.select)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -954,7 +963,7 @@ F-statistic: 5.532 on 2 and 33 DF,  p-value: 0.008477</code></pre>
 <p>Uma das premissas dos modelos lineares é a independência dos preditores. Em uma regressão múltipla, quando temos duas ou mais variáveis preditoras correlacionadas, chamamos esse fenômeo de colinearidade. Quando dois ou mais preditores são correlacionados, podemos ter estimativas instáveis dos parâmetros no modelo.Vamos testar se há colinearidade esntre as variáveis analisadas.</p>
 <p>A possibilidade de colinearidade pode ser levantada quando há existência de uma alta correlação oentre variáveis:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(figos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(figos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                    diam   sementes polinizadores  parasitas
 diam          1.00000000  0.4390444    0.02717289  0.3280142
@@ -965,9 +974,9 @@ parasitas     0.32801421  0.3721390   -0.27371004  1.0000000</code></pre>
 </div>
 <p>O pacote <code>performance</code> pode ser utilizado para checar a existência de multicolinearidade, avaliando ofator de inflação da variância (variance inflation factor - VIF):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("performance") #se o pacote ainda não tiver instalado</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_collinearity</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("performance") #se o pacote ainda não tiver instalado</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">check_collinearity</span>(modelo1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Check for Multicollinearity
 
@@ -980,6 +989,10 @@ Low Correlation
 </div>
 </div>
 <p>O VIF na faixa de 1 indica a inexistência de colinearidade, entre as variáveis, enquanto um valor entre 1 e 5 indicam colinearidade moderada. Um índice de 5 indica alta colinearidade entre variáveis.</p>
+</section>
+<section id="conclusão" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">8.8</span> Conclusão</h2>
+<p>Neste capítulo, exploramos os fundamentos dos&nbsp;<strong>modelos lineares</strong>&nbsp;e da&nbsp;<strong>regressão linear</strong>, tanto simples quanto múltipla, para analisar relações entre variáveis. Aprendemos a ajustar modelos lineares utilizando a função&nbsp;<code>lm()</code>, interpretar coeficientes, avaliar a significância estatística e diagnosticar a adequação do modelo por meio de gráficos de resíduos e testes de normalidade. Também discutimos a importância de comparar modelos utilizando critérios como o&nbsp;<strong>AIC</strong>&nbsp;e a função&nbsp;<code>anova()</code>, além de abordar a seleção de modelos com a função&nbsp;<code>step()</code>. Por fim, destacamos a questão da&nbsp;<strong>multicolinearidade</strong>&nbsp;e como ela pode afetar a estabilidade dos modelos.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">

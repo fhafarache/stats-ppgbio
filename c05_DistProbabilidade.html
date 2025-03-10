@@ -312,6 +312,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#sequências-numéricas-e-repetições" id="toc-sequências-numéricas-e-repetições" class="nav-link" data-scroll-target="#sequências-numéricas-e-repetições"><span class="header-section-number">5.4.1</span> Sequências numéricas e repetições</a></li>
   </ul></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">5.5</span> Conclusão</a></li>
   </ul>
 </nav>
     </div>
@@ -609,62 +610,67 @@ Figura&nbsp;5.4: Gráfico ilustrando a distribuição de Poisson com diferentes 
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>n10s2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">10</span>,<span class="dv">2</span>) <span class="co">#rnorm(n, mean = 0, sd = 1)</span></span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(n10s2) <span class="co">#deve se aproximar à média</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 10.4122</code></pre>
+<pre><code>[1] 9.8902</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(n10s2) <span class="co"># deve se aproximar ao sd</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.957398</code></pre>
+<pre><code>[1] 2.059073</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#obs: quanto maior o n, esperamos que média e sd se aproximem dos valores teóricos</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(n10s2) <span class="co">#ordenar o vetor n10s2 do menor valor para o maior</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1]  6.459487  6.809896  7.083060  7.520994  7.587709  7.839159  7.861333
-  [8]  7.935646  8.040231  8.050289  8.080540  8.133581  8.288524  8.296108
- [15]  8.343559  8.480407  8.517435  8.604744  8.701348  8.722519  8.735824
- [22]  8.743251  8.868815  8.927190  8.954838  8.966937  8.979855  9.083439
- [29]  9.117628  9.161822  9.230509  9.257013  9.277729  9.491889  9.550579
- [36]  9.573570  9.613579  9.734544  9.749313  9.789114  9.840479  9.858259
- [43]  9.897165  9.905165  9.923809  9.943175  9.946947  9.977448 10.002503
- [50] 10.018179 10.021534 10.066066 10.076699 10.095803 10.238161 10.386427
- [57] 10.400063 10.530344 10.645382 10.671311 10.748034 10.798584 10.804478
- [64] 10.839063 10.906204 11.082950 11.131803 11.220229 11.287499 11.293823
- [71] 11.324895 11.398621 11.410598 11.419801 11.421841 11.600378 11.622854
- [78] 11.737645 11.989690 12.013548 12.096282 12.210095 12.303303 12.485733
- [85] 12.745268 12.800649 12.841747 12.907063 12.911095 12.955906 13.196887
- [92] 13.364616 13.419377 13.619394 14.218187 14.505657 14.643975 14.727126
- [99] 15.279982 15.325967</code></pre>
+<pre><code>  [1]  4.867282  5.894262  5.912166  6.214927  6.519175  6.651058  7.007894
+  [8]  7.241515  7.258974  7.266479  7.600252  7.773348  7.835326  7.856453
+ [15]  7.871426  7.921782  7.976995  8.033191  8.048054  8.231060  8.271332
+ [22]  8.279476  8.308276  8.326543  8.346655  8.429572  8.466911  8.473013
+ [29]  8.530006  8.621311  8.627169  8.651099  8.723054  8.798856  8.799444
+ [36]  8.821916  8.919793  8.997578  9.099572  9.246632  9.268650  9.302289
+ [43]  9.311168  9.415980  9.451895  9.458468  9.461984  9.500928  9.501946
+ [50]  9.540608  9.585757  9.620066  9.631839  9.807975 10.223305 10.225879
+ [57] 10.314895 10.370113 10.439919 10.444090 10.495260 10.512613 10.528510
+ [64] 10.539488 10.549891 10.606665 10.641223 10.655539 10.694743 10.767262
+ [71] 10.951997 11.067089 11.126600 11.200033 11.307302 11.315466 11.531403
+ [78] 11.614701 11.618274 11.647006 11.659525 11.679129 11.733561 12.022302
+ [85] 12.180262 12.194745 12.461433 12.620166 12.807279 12.825865 12.876045
+ [92] 12.978751 13.111629 13.190417 13.411605 13.659389 13.735698 14.100799
+ [99] 14.362727 14.440007</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(n10s2,<span class="dv">2</span>)<span class="co"># arredondar os valores para duas casas decimais para facilitar a visualização</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1] 10.84  8.98 12.75 11.29 10.00 10.80 12.49 13.20 12.30 12.84 11.41 14.51
- [13]  7.86  8.30 10.40  8.05  9.08  8.87  8.95 14.73  9.73  8.74 10.02  9.94
- [25] 10.39  9.16 15.28  8.97 10.07  8.48  8.52  8.34  8.29 11.42  9.84  9.23
- [37]  9.95 12.91  8.13  9.86  6.46 10.10 11.29  7.94  8.04 11.32  8.08  9.12
- [49] 11.08 11.62  7.59 11.13 13.36 10.24 11.22 14.64  9.26 10.80 12.91  9.92
- [61]  8.60 13.62 12.21 12.96 10.65  9.28  6.81 11.40 13.42  9.55 12.10 11.60
- [73] 10.67  8.74  7.84 15.33  7.52  9.91  9.61 11.42  9.49 10.75  8.72  8.70
- [85]  9.57 10.91 14.22 10.08  9.79  9.98  9.90  8.93 10.53 11.99 10.02 12.80
- [97] 12.01 11.74  9.75  7.08</code></pre>
+<pre><code>  [1] 11.73 10.61  9.62 12.83 14.36 10.53 13.66 12.98  9.46 11.65 10.51  9.50
+ [13]  9.46  7.26  6.65  8.27 10.66  8.82  8.43  5.91 10.77  9.63  7.60  8.63
+ [25]  7.24  9.81 12.18 10.69 11.66 10.23 13.74 10.22  8.92  8.33 10.44 11.62
+ [37] 11.13 14.44  8.35 12.19 11.07  7.86 13.11  7.01 11.53 10.37 11.32  9.31
+ [49]  9.27  9.00  9.54  7.87  7.84  8.72  9.10 10.50  8.28 13.41  7.77  9.30
+ [61]  8.80  7.92  8.47 10.44 14.10 11.20  8.53  8.05  9.59  8.62  9.25  9.42
+ [73]  7.27 11.61  8.80 12.46 12.62 11.68  9.50  4.87 10.64 10.55  9.45 13.19
+ [85]  6.52 10.54 10.31  7.98  8.23 12.81  8.31  6.21  8.65 11.31  5.89  8.03
+ [97] 12.02 10.95 12.88  8.47</code></pre>
 </div>
 </div>
 <p><strong>Utilizando outras distribuições</strong>: existem funções para gerar dados aleatórios a partir de outras distribuições de probabilidade, como a <code>runif()</code> para a distribuição uniforme e a <code>rpois()</code> para a distribuição de poisson.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">20</span>) <span class="co"># uniforme n = 50, min =10, max = 20</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 14.08772 16.99589 19.51146 15.88572 18.19064 18.13951 14.07591 19.36631
- [9] 17.59069 19.50401 16.31756 12.60969 12.24764 15.29351 18.33972 19.77560
-[17] 13.75983 16.97444 13.74917 10.81735 16.60823 11.21783 16.05870 18.94030
-[25] 15.93116 18.97090 17.95468 11.46950 15.61050 11.79312 11.89132 15.57896
-[33] 17.52983 16.09419 19.74389 15.15081 10.98375 18.80050 10.44055 13.62507
-[41] 18.06270 19.05831 13.45874 14.03122 13.20875 15.74077 17.19176 13.64704
-[49] 16.58497 17.74224</code></pre>
+<pre><code> [1] 10.04885 19.67330 16.37244 14.87405 17.02288 15.10511 11.62475 12.22147
+ [9] 16.65713 15.01895 19.01521 14.31312 16.43887 14.53306 19.58567 11.62740
+[17] 17.77159 14.85386 19.36671 18.21149 17.52915 10.79314 17.97204 11.66355
+[25] 14.16835 12.44387 10.55137 10.98915 14.22307 13.94848 17.77881 18.27306
+[33] 18.06606 14.67083 11.76626 14.86177 16.35711 11.94360 15.68897 10.14431
+[41] 10.49293 13.86416 16.30381 16.04345 19.17661 14.52001 16.99135 13.41050
+[49] 19.53947 17.18579</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">50</span>, <span class="dv">4</span>) <span class="co"># poisson n = 50, lambda = 4</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 7 4 3 2 5 3 1 2 2 5 3 3 7 4 4 4 3 4 4 3 0 7 2 4 7 4 3 7 2 7 3 3 1 3 5 5 4 7
-[39] 1 4 2 7 5 1 4 4 4 2 5 1</code></pre>
+<pre><code> [1] 2 7 6 0 9 3 2 5 2 5 7 3 2 4 5 3 2 6 2 8 4 5 3 4 6 3 4 9 3 6 4 6 1 1 4 5 7 6
+[39] 4 5 5 4 7 5 7 3 6 7 1 4</code></pre>
 </div>
 </div>
+</section>
+</section>
+<section id="conclusão" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">5.5</span> Conclusão</h2>
+<p>Neste capítulo, exploramos as principais distribuições de probabilidade, como a&nbsp;<strong>distribuição normal</strong>,&nbsp;<strong>binomial</strong>&nbsp;e&nbsp;<strong>Poisson</strong>, essenciais para modelar fenômenos aleatórios em estatística. Aprendemos a calcular probabilidades, densidades e quantis utilizando funções como&nbsp;<code>dnorm()</code>,&nbsp;<code>pnorm()</code>,&nbsp;<code>qnorm()</code>,&nbsp;e outras. Além disso, foram apresentadas técnicas para gerar sequências numéricas, repetições e dados aleatórios a partir de distribuições teóricas, utilizando funções como&nbsp;<code>seq()</code>,&nbsp;<code>rep()</code>,&nbsp;<code>rnorm()</code>,&nbsp;<code>runif()</code>&nbsp;e&nbsp;<code>rpois()</code>. Esses conceitos e ferramentas são fundamentais para simulações e análises estatísticas, permitindo ao leitor compreender e aplicar distribuições de probabilidade em contextos práticos.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
@@ -675,7 +681,6 @@ Gotelli, N. J., &amp; Ellison, A. M. (2016). <em>Princípios de estatística em 
 Mello, M. P., &amp; Peternelli, L. A. (2013). <em>Conhecendo o R: uma visão mais que estatística</em>. Editora UFV.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->

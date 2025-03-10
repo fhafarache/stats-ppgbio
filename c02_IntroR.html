@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R - 2&nbsp; Introdução ao R</title>
+<title>2&nbsp; Introdução ao R – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -134,13 +134,13 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c02_IntroR.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introdução ao R</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -314,6 +314,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#onde-os-objetos-foram-salvos" id="toc-onde-os-objetos-foram-salvos" class="nav-link" data-scroll-target="#onde-os-objetos-foram-salvos"><span class="header-section-number">2.12.1</span> Onde os objetos foram salvos?</a></li>
   </ul></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">2.13</span> Conclusão</a></li>
   </ul>
 </nav>
     </div>
@@ -356,7 +357,7 @@ div.csl-indent {
 <li><strong>Ambiente e história</strong>: onde ficam os objetos criados. “História”apresenta linhas de código recentemente utilizadas.</li>
 <li><strong>Output</strong>: Apresenta outras informações, como gráficos gerados, arquivos de ajuda, etc.</li>
 </ul>
-<div id="fig-rstudio_editor" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-rstudio_editor" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rstudio_editor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figuras/rstudio detalhes.jpg" class="img-fluid figure-img">
@@ -370,7 +371,7 @@ Figura&nbsp;2.1: Visão geral do RStudio
 <section id="criando-um-script" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="criando-um-script"><span class="header-section-number">2.2</span> Criando um script</h2>
 <p>Uma das melhores formas de registrar as análises realizadas para posteriormente executá-las novamente no R é salvando um script com todas as informações e incluindo os comentários após o “#” de forma a organizar e lembrar o que foi feito. O script pode ser salvo com a extensão .R. Abaixo temos um exemplo de script, utilizando o “#”, e também os símbolos de “<code>=</code>” e “<code>-</code>” de forma a delimitar blocos. Observe que tudo que está após os “#” fica realçado da mesma cor pela marcação de sintaxe (<a href="#fig-rstudio_script" class="quarto-xref">Figura&nbsp;<span>2.2</span></a>).</p>
-<div id="fig-rstudio_script" class="quarto-figure quarto-figure-left quarto-float anchored" data-fig-align="left">
+<div id="fig-rstudio_script" class="quarto-float quarto-figure quarto-figure-left anchored" data-fig-align="left">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rstudio_script-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figuras/novo_script.jpg" class="img-fluid quarto-figure quarto-figure-left figure-img">
@@ -411,7 +412,7 @@ Figura&nbsp;2.2: Criando um novo script. O caminho para a criação do script es
 </div>
 </div>
 <p>O resultado da digitação aparece como na <a href="#fig-resultado_soma" class="quarto-xref">Figura&nbsp;<span>2.3</span></a> .</p>
-<div id="fig-resultado_soma" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-resultado_soma" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-resultado_soma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figuras/console.jpg" class="img-fluid figure-img">
@@ -434,7 +435,7 @@ Figura&nbsp;2.3: Resultado da soma apresentado no console
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span> <span class="sc">%%</span> <span class="dv">5</span> <span class="co">#divisão modular</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ao executar o código acima, o resultado será exibido no console <a href="#fig-editor_console" class="quarto-xref">Figura&nbsp;<span>2.4</span></a></p>
-<div id="fig-editor_console" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-editor_console" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-editor_console-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figuras/editor_console.jpg" class="img-fluid figure-img">
@@ -1092,6 +1093,11 @@ F M
 <span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/fernandohfarache/Documents/AnalisesR"</span>) <span class="co">#definir diretório</span></span>
 <span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>() <span class="co">#verificar arquivos salvos no diretório</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+</section>
+<section id="conclusão" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">2.13</span> Conclusão</h2>
+<p>Neste capítulo, foram abordados os conceitos fundamentais para iniciar o uso da linguagem R, com foco na familiarização com a interface do RStudio e na execução de comandos básicos. Aprendemos a criar e manipular objetos, como vetores, matrizes, data frames e listas, além de explorar funções essenciais para operações matemáticas e análise de dados. Também foram introduzidas técnicas para selecionar e filtrar elementos em estruturas de dados, bem como para salvar scripts e objetos para uso futuro. Com esses conceitos introdutórios, o leitor está preparado para avançar em análises mais complexas, utilizando o R como ferramenta poderosa para manipulação e visualização de dados.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
@@ -1102,7 +1108,6 @@ Ernest, M., Brown, J., Valone, T., &amp; White, E. P. (2020). <em>Portal Project
 Gotelli, N. J. (2007). <em>Ecologia</em> (3. ed). Ed. Planta.
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1285,18 +1290,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1328,7 +1322,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1336,7 +1352,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
