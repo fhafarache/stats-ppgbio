@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; Conjuntos de dados utilizados neste trabalho – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
+<title>14&nbsp; Utilizando o R Commander – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,7 +30,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./czz_Referencias.html" rel="next">
+<link href="./c15_Datasets.html" rel="next">
 <link href="./c13_Progr.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -103,7 +83,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c14_Datasets.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c14_Rcmdr.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Utilizando o R Commander</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -217,8 +197,14 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./c14_Datasets.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></span></a>
+  <a href="./c14_Rcmdr.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Utilizando o R Commander</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c15_Datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -237,19 +223,23 @@ div.csl-indent {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#pinguins" id="toc-pinguins" class="nav-link active" data-scroll-target="#pinguins"><span class="header-section-number">14.1</span> pinguins</a></li>
-  <li><a href="#dados_problemas" id="toc-dados_problemas" class="nav-link" data-scroll-target="#dados_problemas"><span class="header-section-number">14.2</span> dados_problemas</a></li>
-  <li><a href="#artropodes" id="toc-artropodes" class="nav-link" data-scroll-target="#artropodes"><span class="header-section-number">14.3</span> artropodes</a></li>
-  <li><a href="#galhadores" id="toc-galhadores" class="nav-link" data-scroll-target="#galhadores"><span class="header-section-number">14.4</span> galhadores</a></li>
-  <li><a href="#oviposicao" id="toc-oviposicao" class="nav-link" data-scroll-target="#oviposicao"><span class="header-section-number">14.5</span> oviposicao</a></li>
-  <li><a href="#figos" id="toc-figos" class="nav-link" data-scroll-target="#figos"><span class="header-section-number">14.6</span> figos</a></li>
-  <li><a href="#figos_comp" id="toc-figos_comp" class="nav-link" data-scroll-target="#figos_comp"><span class="header-section-number">14.7</span> figos_comp</a></li>
-  <li><a href="#grilos" id="toc-grilos" class="nav-link" data-scroll-target="#grilos"><span class="header-section-number">14.8</span> grilos</a></li>
-  <li><a href="#atividade" id="toc-atividade" class="nav-link" data-scroll-target="#atividade"><span class="header-section-number">14.9</span> atividade</a></li>
-  <li><a href="#riqueza" id="toc-riqueza" class="nav-link" data-scroll-target="#riqueza"><span class="header-section-number">14.10</span> riqueza</a></li>
-  <li><a href="#pres_aus" id="toc-pres_aus" class="nav-link" data-scroll-target="#pres_aus"><span class="header-section-number">14.11</span> pres_aus</a></li>
-  <li><a href="#comunidades" id="toc-comunidades" class="nav-link" data-scroll-target="#comunidades"><span class="header-section-number">14.12</span> comunidades</a></li>
-  <li><a href="#id" id="toc-id" class="nav-link" data-scroll-target="#id"><span class="header-section-number">14.13</span> id</a></li>
+  <li><a href="#instalando-o-r-commander" id="toc-instalando-o-r-commander" class="nav-link active" data-scroll-target="#instalando-o-r-commander"><span class="header-section-number">14.1</span> Instalando o R Commander</a></li>
+  <li><a href="#sec-rcmdr-import" id="toc-sec-rcmdr-import" class="nav-link" data-scroll-target="#sec-rcmdr-import"><span class="header-section-number">14.2</span> Importando dados</a></li>
+  <li><a href="#estatísticas-descritivas" id="toc-estatísticas-descritivas" class="nav-link" data-scroll-target="#estatísticas-descritivas"><span class="header-section-number">14.3</span> Estatísticas descritivas</a></li>
+  <li><a href="#gráficos-no-r-commander" id="toc-gráficos-no-r-commander" class="nav-link" data-scroll-target="#gráficos-no-r-commander"><span class="header-section-number">14.4</span> Gráficos no R Commander</a>
+  <ul class="collapse">
+  <li><a href="#histogramas" id="toc-histogramas" class="nav-link" data-scroll-target="#histogramas"><span class="header-section-number">14.4.1</span> Histogramas</a></li>
+  <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots"><span class="header-section-number">14.4.2</span> Boxplots</a></li>
+  <li><a href="#gráficos-de-dispersão-scatterplots" id="toc-gráficos-de-dispersão-scatterplots" class="nav-link" data-scroll-target="#gráficos-de-dispersão-scatterplots"><span class="header-section-number">14.4.3</span> Gráficos de dispersão (scatterplots)</a></li>
+  </ul></li>
+  <li><a href="#inferência-estatística" id="toc-inferência-estatística" class="nav-link" data-scroll-target="#inferência-estatística"><span class="header-section-number">14.5</span> Inferência estatística</a>
+  <ul class="collapse">
+  <li><a href="#teste-t-para-comparar-duas-amostras" id="toc-teste-t-para-comparar-duas-amostras" class="nav-link" data-scroll-target="#teste-t-para-comparar-duas-amostras"><span class="header-section-number">14.5.1</span> Teste-T para comparar duas amostras</a></li>
+  <li><a href="#regressão" id="toc-regressão" class="nav-link" data-scroll-target="#regressão"><span class="header-section-number">14.5.2</span> Regressão</a></li>
+  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova"><span class="header-section-number">14.5.3</span> ANOVA</a></li>
+  <li><a href="#ancova" id="toc-ancova" class="nav-link" data-scroll-target="#ancova"><span class="header-section-number">14.5.4</span> ANCOVA</a></li>
+  </ul></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">14.6</span> Conclusão</a></li>
   </ul>
 </nav>
     </div>
@@ -258,7 +248,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Utilizando o R Commander</span></h1>
 </div>
 
 
@@ -275,78 +265,228 @@ div.csl-indent {
 </header>
 
 
-<p>Abaixo estão listados e creditados os conjuntos de dados utilizadon neste trabalho.</p>
-<section id="pinguins" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="pinguins"><span class="header-section-number">14.1</span> pinguins</h2>
-<p>Versão simplificada do conjunto de dados de pinguins das ilhas Palmer <span class="citation" data-cites="gorman2014 horst2020">(<a href="czz_Referencias.html#ref-gorman2014" role="doc-biblioref">Gorman et al., 2014</a>; <a href="czz_Referencias.html#ref-horst2020" role="doc-biblioref">Horst et al., 2020</a>)</span>.</p>
+<p>Neste tópico, vamos aprender a utilizar o pacote <code>Rcmdr</code>. O R Commander é uma interface gráfica de usuário (GUI) para o ambiente de programação R, que facilita a execução de análises estatísticas e a manipulação de dados sem a necessidade de escrever código manualmente, por meio de menus na interface. Ele é especialmente útil para usuários que estão começando a usar o R ou para aqueles que preferem uma abordagem mais visual e interativa.</p>
+<p>Ao final deste capítulo, você deverá estar familiarizado com as funcionalidades básicas do R Commander, sendo capaz de importar dados, realizar análises estatísticas e criar gráficos de maneira eficiente. Essa base permitirá que você explore ainda mais as possibilidades do R Commander e, eventualmente, avance para o uso direto do R para análises mais complexas e específicas.</p>
+<section id="instalando-o-r-commander" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="instalando-o-r-commander"><span class="header-section-number">14.1</span> Instalando o R Commander</h2>
+<p>Para instalar, abra o <strong>R básico</strong> (<u><strong>não</strong></u> utilizar o RStudio). (1) Execute o comando <code>install.packages("Rcmdr")</code>. Talvez você precisará escolher um espelho (“mirror”) para baixar o pacote (2).</p>
+<p>Após o pacote ser instalado, você pode executá-lo com o comando <code>library(Rcmdr)</code> (3). Os passos estão ilustrados na <a href="#fig-rcmdr-fig1" class="quarto-xref">Figura&nbsp;<span>14.1</span></a> . Talvez seja demandado que você instale alguns pacotes adicionais. Siga as instruções fornecidas. ao executar <code>library(Rcmdr)</code>, irá ser aberta a interface do R Commander ( <a href="#fig-rcmdr-fig2" class="quarto-xref">Figura&nbsp;<span>14.2</span></a>).</p>
+<div id="fig-rcmdr-fig1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr_fig1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.1: Instalação do R Commander.
+</figcaption>
+</figure>
+</div>
+<div id="fig-rcmdr-fig2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr_fig2.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.2: A interface do R Commander
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="dados_problemas" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="dados_problemas"><span class="header-section-number">14.2</span> dados_problemas</h2>
-<p>Conjunto de dados incluindo pequenos problemas de digitação e valores faltantes.</p>
+<section id="sec-rcmdr-import" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="sec-rcmdr-import"><span class="header-section-number">14.2</span> Importando dados</h2>
+<p>Para importar dados ao R Commander, você pode acessar Dados Importar → Arquivos de Dados → do Arquivo Excel (1). O menu seguinte permitirá configurar o nome do conjunto e outras características. No momento deixaremos no padrão (2). Após isso, procure o caminho do seu arquivo nos diretórios pessoais (3). Caso o arquivo excel tenha mais de uma planilha, escolha qual das planilhas importar (4). No exemplo, importamos a planilha <code>pinguins</code> do conjunto de dados <code>dados_R.xlsx</code>, e os passos estão descritos na <a href="#fig-rcmdr-fig3" class="quarto-xref">Figura&nbsp;<span>14.3</span></a> . O código executado pelo R será mostrado em Output. VocÊ pode visualizar os dados clicando em “Ver conjunto de dados” (<a href="#fig-rcmdr-fig4" class="quarto-xref">Figura&nbsp;<span>14.4</span></a>). Os dados serão abertos em uma nova janela como representado na <a href="#fig-rcmdr-fig4" class="quarto-xref">Figura&nbsp;<span>14.4</span></a> .</p>
+<div id="fig-rcmdr-fig3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig3.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.3: Importando dados com o R Commander
+</figcaption>
+</figure>
+</div>
+<div id="fig-rcmdr-fig4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig4.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.4: Visualizando o conjunto de dados no R Commander
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="artropodes" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="artropodes"><span class="header-section-number">14.3</span> artropodes</h2>
-<p>Abundância de artrópodes em ambiente aberto (matriz) e em fragmento florestal</p>
+<section id="estatísticas-descritivas" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="estatísticas-descritivas"><span class="header-section-number">14.3</span> Estatísticas descritivas</h2>
+<p>Você pode calcular estatísticas descritivas para resumir as informações do conjunto de dados. Clique em Estatísticas → Resumos → Conjuntos de dados ativo. No <strong>Output</strong> será apresentado um resumo (como da função <code>summary()</code>) para as variáveis do seu conjunto de dados (<a href="#fig-rcmdr-fig5" class="quarto-xref">Figura&nbsp;<span>14.5</span></a>). Ese resumo apresentará a contagem de cada nível no caso de fatores (por exemplo especie ou sexo) ou estatísticas descritivas: valor mínimo (min) e máximo (max), quartis 1 e 3 (1st Qu. e 3rd Qu.), mediana (Median) e média (Mean).</p>
+<div id="fig-rcmdr-fig5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig5.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.5: Estatísticas descritivas gerais com R Commander
+</figcaption>
+</figure>
+</div>
+<p>As estatísticas descritivas podem ser calculadas para cada nível de um fator de agrupamento. No exemplo, vamos calcular as estatísticas descritivas por espécie. Clique em Estatísticas → Resumos → Resumos numéricos (1). Depois escolha as variáveis que deseja avaliar, no caso o comprimento da nadadeira e o peso (2). Depois clique em “Resuma por grupos”. Escolha o grupo “especie” e clique em OK (3). Na janela anterior (2) Clique em OK novamente. Voce verá no Output um resumo numérico para cada variável desejada, com as estatísticas descritivas calculadas por Espécie (4) (<a href="#fig-rcmdr-fig6" class="quarto-xref">Figura&nbsp;<span>14.6</span></a>). Serão apresentados: Média dos dados (mean), desvio padrão (sd), intervalo interquartil (IQR), valor mínimo (0%), primeiro quartil (25%), segundo quartil ou mediana (50%), terceiro quartil (75%), valor máximo (100%) e número de onservações (n).</p>
+<div id="fig-rcmdr-fig6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig6.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.6: Estatísticas descritivas por grupo - calculando as estatísticas para cada um dos níveis do fator espécie. Desta forma podemos comparar as diferentes espécies de pinguin
+</figcaption>
+</figure>
+</div>
+<p>Também é possível uma estatística descritiva específica por mais de um fator. Por exemplo calcularemos a média do peso por sexo e espécie (<a href="#fig-rcmdr-fig7" class="quarto-xref">Figura&nbsp;<span>14.7</span></a>). Clique em Estatísticas → Resumos →Tabela de Estatísticas (1). Na janela nova escolha ca caixa de texto da esquerda os fatores de agrupamento, e na caixa da direita a variável numérica a ser agrupada, e abaixo em “Estatística”, selecione a estatística que deseja calcular (2). No Output, será fornecida uma tabela com as estatística descritiva calculada para cada fator de agrupamento (3).</p>
+<div id="fig-rcmdr-fig7" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig7.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.7: Calculando uma estatística descritiva para dois fatores de agrupamento (sexo e espécie)
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="galhadores" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="galhadores"><span class="header-section-number">14.4</span> galhadores</h2>
-<p>Tamanho do corpo de galhadores e parasitas associados a diferentes espécies de plantas</p>
+<section id="gráficos-no-r-commander" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="gráficos-no-r-commander"><span class="header-section-number">14.4</span> Gráficos no R Commander</h2>
+<section id="histogramas" class="level3" data-number="14.4.1">
+<h3 data-number="14.4.1" class="anchored" data-anchor-id="histogramas"><span class="header-section-number">14.4.1</span> Histogramas</h3>
+<p>O R Commander pode auxiliar na preparação de histogramas, bem como separar os valore spor grupo. No exemplo abaixo, ainda com os dados de pinguins, vamos fazer um histograma do peso por espécie (<a href="#fig-rcmdr-fig8" class="quarto-xref">Figura&nbsp;<span>14.8</span></a>). Clique no menu Gráficos → Histograma… (1). Depois selecione a variável desejada (peso). Caso queira separar os pesos por grupos (especie), Clique em gráfico por grupos (2) e selecione o fator de agrupamento: Especie (3). Clique em OK, e depois OK novamente para obter os histogramas comparando as espécies (4).</p>
+<div id="fig-rcmdr-fig8" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig8.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.8: Preparação de histogramas no R Commander
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="oviposicao" class="level2" data-number="14.5">
-<h2 data-number="14.5" class="anchored" data-anchor-id="oviposicao"><span class="header-section-number">14.5</span> oviposicao</h2>
-<p>Tamanho do ovipositor de vespas associadas a espécies de figos hospedeiros</p>
+<section id="boxplots" class="level3" data-number="14.4.2">
+<h3 data-number="14.4.2" class="anchored" data-anchor-id="boxplots"><span class="header-section-number">14.4.2</span> Boxplots</h3>
+<p>Vamos criar um <em>boxplot</em> comparando o peso dos pinguins por espécie (<a href="#fig-rcmdr-fig10" class="quarto-xref">Figura&nbsp;<span>14.10</span></a>) . Para isso clicar em Gráficos → Boxplot (1), depois selecione a variável numérica (peso) e clique em Gráfico por grupos (2). Selecione o fator de agrupamento “especie” e clique em OK (3). No menu anterior, clique em OK novamente. Você irá obter o boxplot do peso em gramas comparando as espécies (4).</p>
+<div id="fig-rcmdr-fig9" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig9.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.9: boxplot comparando o peso por espécie
+</figcaption>
+</figure>
+</div>
+<section id="padronizando-legendas" class="level4" data-number="14.4.2.1">
+<h4 data-number="14.4.2.1" class="anchored" data-anchor-id="padronizando-legendas"><span class="header-section-number">14.4.2.1</span> Padronizando legendas</h4>
+<p>Em boxplots ou outros gráficos, você pode realizar modificções na aba <strong>Opções</strong> (<a href="#fig-rcmdr-fig10" class="quarto-xref">Figura&nbsp;<span>14.10</span></a>). Clique na aba opções, e você poderá escolher os títulos dos eixos do boxplot, como na <a href="#fig-rcmdr-fig10" class="quarto-xref">Figura&nbsp;<span>14.10</span></a>.</p>
+<div id="fig-rcmdr-fig10" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig10.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.10: alterando as legendas dos gráficos
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="figos" class="level2" data-number="14.6">
-<h2 data-number="14.6" class="anchored" data-anchor-id="figos"><span class="header-section-number">14.6</span> figos</h2>
-<p>Quantidade de polinizadores, sementes e não-polinizadores (galhadores ou parasitas) associados a figos</p>
 </section>
-<section id="figos_comp" class="level2" data-number="14.7">
-<h2 data-number="14.7" class="anchored" data-anchor-id="figos_comp"><span class="header-section-number">14.7</span> figos_comp</h2>
-<p>Diâmetro e quantidade de sementes de diferentes espécies de Ficus</p>
+<section id="gráficos-de-dispersão-scatterplots" class="level3" data-number="14.4.3">
+<h3 data-number="14.4.3" class="anchored" data-anchor-id="gráficos-de-dispersão-scatterplots"><span class="header-section-number">14.4.3</span> Gráficos de dispersão (scatterplots)</h3>
+<p>Neste exemplo vamos preparar um gráfico de dispersão relacionando o peso (eixo x) com o comprimento da nadadeira (eixo y). Além disso, utilizaremos cores e formatos diferentes para cada espécie e adicionaremos a linha de regressão. Na interface do R Commander, clique em Gráficos → Diagrama de dispersão… (1) depois selecione nos quadros as variáveis do eixo x e y. Para separar definir cores e pontos diferentes para cada espécie, clique em Gráfico por grupos (2) e selecione a váriavel espécie como variável de agrupamento, depois clique em OK (3). PAra adicionar a linha de regressão, clique em Opções e depois na caixa “Linha de quadrados mínimos” (4). Você irá obter o gráfico de dispersão relacionando peso e comprimento da nadadeira com ula linha de regressão para cada espécie (5), como na <a href="#fig-rcmdr-fig11" class="quarto-xref">Figura&nbsp;<span>14.11</span></a> .</p>
+<div id="fig-rcmdr-fig11" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig11.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.11: gráfico de dispersão relacionando o comprimento da nadadeira pelo peso para cada espécie, incluindo a linha de regressão linear
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="grilos" class="level2" data-number="14.8">
-<h2 data-number="14.8" class="anchored" data-anchor-id="grilos"><span class="header-section-number">14.8</span> grilos</h2>
-<p>Número de pulsos em relação à temperatura em grilos pertencentes a duas espécies <span class="citation" data-cites="mcdonald2014 walker1962">(<a href="czz_Referencias.html#ref-mcdonald2014" role="doc-biblioref">McDonald, 2014</a>; <a href="czz_Referencias.html#ref-walker1962" role="doc-biblioref">Walker, 1962</a>)</span>.</p>
 </section>
-<section id="atividade" class="level2" data-number="14.9">
-<h2 data-number="14.9" class="anchored" data-anchor-id="atividade"><span class="header-section-number">14.9</span> atividade</h2>
-<p>Conjunto de dados simulado, descrevendo a movimentação e alimentação de machos e fêmeas de insetos sob 2 tratamentos.</p>
+<section id="inferência-estatística" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="inferência-estatística"><span class="header-section-number">14.5</span> Inferência estatística</h2>
+<section id="teste-t-para-comparar-duas-amostras" class="level3" data-number="14.5.1">
+<h3 data-number="14.5.1" class="anchored" data-anchor-id="teste-t-para-comparar-duas-amostras"><span class="header-section-number">14.5.1</span> Teste-T para comparar duas amostras</h3>
+<p>Vamos realizar o teste-t para comparar a abundância de artrópodes em dois ambientes. Para isso siga os passos do tópico <a href="#sec-rcmdr-import" class="quarto-xref"><span>Seção 14.2</span></a> e importe o conjunto de dados <strong>artropodes</strong> da planilha <strong>dados_R.xlsx</strong>. Clique em Estatísticas → Médias → Teste t para amostras independentes… (1). Depois selecione a coluna do fator de agrupamento (ambiente) e da variável contínua (abundancia) e clique em OK (2). O resultado do Teste-T será exibido no <em>Output</em> (3), como na <a href="#fig-rcmdr-fig12" class="quarto-xref">Figura&nbsp;<span>14.12</span></a> .</p>
+<div id="fig-rcmdr-fig12" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig12.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.12: realizando o Teste-T no R para os dados de artrópodes
+</figcaption>
+</figure>
+</div>
+<p>Também podemos realizar o <strong>teste-t pareado</strong>. Para isso, importe o conjunto de dados <strong>galhadores</strong>, seguindo os passos do tópico <a href="#sec-rcmdr-import" class="quarto-xref"><span>Seção 14.2</span></a> . Clique em Estatísticas → Médias → Teste t (dados pareados) (1). Na próxima janela, selecione as variáveis a serem utilizadas (condição 1 e 2, no caso galhador e parasita). Depois clicar em OK (2). O resultado do teste-t pareado será exibido no Output (3), como mostrado na <a href="#fig-rcmdr-fig13" class="quarto-xref">Figura&nbsp;<span>14.13</span></a> .</p>
+<div id="fig-rcmdr-fig13" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig13-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig13.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig13-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.13: teste-T pareado no R Commander
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="riqueza" class="level2" data-number="14.10">
-<h2 data-number="14.10" class="anchored" data-anchor-id="riqueza"><span class="header-section-number">14.10</span> riqueza</h2>
-<p>Conjunto de dados simulado, riqueza de espécies em relação à biomassa e luminosidade (normalizadas).</p>
+<section id="regressão" class="level3" data-number="14.5.2">
+<h3 data-number="14.5.2" class="anchored" data-anchor-id="regressão"><span class="header-section-number">14.5.2</span> Regressão</h3>
+<p>Vamos realizar uma regressão múltipla. Para isso, importe o conjunto de dados <strong>figos</strong> do arquivo <strong>dados_R.xlsx</strong>, seguindo os passos do tópico <a href="#sec-rcmdr-import" class="quarto-xref"><span>Seção 14.2</span></a> . Clique em Estatísticas → Ajuste de Modelos → Regressão Linear… (1). Na janela, selecione a variável resposta e os preditores desejados e clique 2m OK (2). O resultado será exibido no Output como na <a href="#fig-rcmdr-fig14" class="quarto-xref">Figura&nbsp;<span>14.14</span></a> . Obs: o Menu Modelo linear, logo abaixo do Regressão Linear utilizado, é mais versátil, e iremos utilizá-lo no exemplo de ANCOVA.</p>
+<div id="fig-rcmdr-fig14" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig14-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig14.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig14-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.14: regressão múltipla com R Commander
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="pres_aus" class="level2" data-number="14.11">
-<h2 data-number="14.11" class="anchored" data-anchor-id="pres_aus"><span class="header-section-number">14.11</span> pres_aus</h2>
-<p>Conjunto de dados simulado, presença de ausência de uma espécie em relação à área de um fragmento e da distância do fragmento em relação à área florestal maior mais próxima.</p>
+<section id="anova" class="level3" data-number="14.5.3">
+<h3 data-number="14.5.3" class="anchored" data-anchor-id="anova"><span class="header-section-number">14.5.3</span> ANOVA</h3>
+<p>Vamos realizar uma ANOVA para comparar o diâmetro em três espécies diferentes de figos. Importe o conjunto de dados <strong>figos_comp</strong> do arquivo <strong>dados_R.xlsx</strong>, seguindo os passos do tópico <a href="#sec-rcmdr-import" class="quarto-xref"><span>Seção 14.2</span></a> . Para isso, clique em Estatísticas → Médias → Anova para um fator (one way) (1). Depois, na janela aberta, escolha a variável preditora de agrupamento (espécie) e a variável resposta numérica (diâmetro). Clique em OK (2). O resultado da ANOVA será exibido no Output, bem como uma tabela comparando a média, desvio padrão e tamanho amostral entre as amostras (<a href="#fig-rcmdr-fig15" class="quarto-xref">Figura&nbsp;<span>14.15</span></a>). Caso queira afzer a comparação entre grupos (teste a posteriori), no passo 2, clique na caixa “Comparação de médias 1 a 1”.</p>
+<div id="fig-rcmdr-fig15" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig15.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.15: Análise de Variãncia (ANOVA) no R Commander
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="comunidades" class="level2" data-number="14.12">
-<h2 data-number="14.12" class="anchored" data-anchor-id="comunidades"><span class="header-section-number">14.12</span> comunidades</h2>
-<p>Abundâncias de espécies de vespas de figo em difeerntes hospedeiros coletados em duas localidades. Baseado em dados do trabalho <span class="citation" data-cites="farache2018">Farache et al. (<a href="czz_Referencias.html#ref-farache2018" role="doc-biblioref">2018</a>)</span>.</p>
-<p>Conjunto de dados simulado, amostras com um identificador (chave primária), incluindo local e data de coleta</p>
+<section id="ancova" class="level3" data-number="14.5.4">
+<h3 data-number="14.5.4" class="anchored" data-anchor-id="ancova"><span class="header-section-number">14.5.4</span> ANCOVA</h3>
+<p>Quando temos variáveis preditoras contínuas e categóricas, podemos utilizar o método de ANCOVA. No caso, vamos criar um modelo linear com os dados de grilos utilizando espécie e temperatura como preditores e número de pulsos como variável resposta.</p>
+<p>Para as análises, importe o conjunto de dados <strong>grilos</strong>do arquivo <strong>dados_R.xlsx</strong>, seguindo os passos do tópico <a href="#sec-rcmdr-import" class="quarto-xref"><span>Seção 14.2</span></a> . Clique em Estatísticas → Ajuste de Modelos → Modelo linear…(1). Na tela do modelo linear, prepare a fórmula <code>Pulsos ~ Temperatura + Espécie</code>, clicando nas variáveis da caixa ou escrevendo a formula na caixa e destaque na figura. Caso queira analisar também a interação, utilize <code>Temperatura * Espécie</code> no lugar de <code>Temperatura + Espécie</code>. Deplois clique em OK (2). O resultado do ajuste de modelos será exibido na figura <a href="#fig-rcmdr-fig16" class="quarto-xref">Figura&nbsp;<span>14.16</span></a> .</p>
+<div id="fig-rcmdr-fig16" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rcmdr-fig16-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figuras/rcmdr-fig16.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rcmdr-fig16-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14.16: Modelos lineares (ANCOVA) utilizando o R Commander
+</figcaption>
+</figure>
+</div>
 </section>
-<section id="id" class="level2" data-number="14.13">
-<h2 data-number="14.13" class="anchored" data-anchor-id="id"><span class="header-section-number">14.13</span> id</h2>
-<p>Conjunto de dados simulado, identificação de espécimes coletados na tabela “amostras”, incluindo o identificador (chave estrangeira)</p>
+</section>
+<section id="conclusão" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">14.6</span> Conclusão</h2>
+<p>Neste capítulo, exploramos a utilização do <strong>R Commander (Rcmdr)</strong>, uma interface gráfica de usuário (GUI) que facilita a execução de análises estatísticas e a manipulação de dados no ambiente R, sem a necessidade de escrever código manualmente. O R Commander é uma ferramenta valiosa para usuários iniciantes ou para aqueles que preferem uma abordagem mais visual e interativa.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
-<div id="ref-farache2018" class="csl-entry" role="listitem">
-Farache, F. H. A., Cruaud, A., Rasplus, J.-Y., Cerezini, M. T., Rattis, L., Kjellberg, F., &amp; Pereira, R. A. S. (2018). Insights into the structure of plant-insect communities: Specialism and generalism in a regional set of non-pollinating fig wasp communities. <em>Acta Oecologica</em>, <em>90</em>, 4959. <a href="https://doi.org/10.1016/j.actao.2018.02.006">https://doi.org/10.1016/j.actao.2018.02.006</a>
-</div>
-<div id="ref-gorman2014" class="csl-entry" role="listitem">
-Gorman, K. B., Williams, T. D., &amp; Fraser, W. R. (2014). Ecological Sexual Dimorphism and Environmental Variability within a Community of Antarctic Penguins (Genus Pygoscelis). <em>PLoS ONE</em>, <em>9</em>(3), e90081. <a href="https://doi.org/10.1371/journal.pone.0090081">https://doi.org/10.1371/journal.pone.0090081</a>
-</div>
-<div id="ref-horst2020" class="csl-entry" role="listitem">
-Horst, A. M., Hill, A. P., &amp; Gorman, K. B. (2020). <em>palmerpenguins: Palmer Archipelago (Antarctica) penguin data</em>. <a href="https://doi.org/10.5281/zenodo.3960218">https://doi.org/10.5281/zenodo.3960218</a>
-</div>
-<div id="ref-mcdonald2014" class="csl-entry" role="listitem">
-McDonald. (2014). <em>Handbook of Biological Statistics</em> (Third).
-</div>
-<div id="ref-walker1962" class="csl-entry" role="listitem">
-Walker, T. J. (1962). The Taxonomy and Calling Songs of United States Tree Crickets (Orthoptera: Gryllidae: Oecanthinae). I. The Genus Neoxabea and the niveus and varicornis Groups of the Genus Oecanthus1. <em>Annals of the Entomological Society of America</em>, <em>55</em>(3), 303–322. <a href="https://doi.org/10.1093/aesa/55.3.303">https://doi.org/10.1093/aesa/55.3.303</a>
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
@@ -921,8 +1061,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./czz_Referencias.html" class="pagination-link" aria-label="Referências">
-        <span class="nav-page-text">Referências</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./c15_Datasets.html" class="pagination-link" aria-label="Conjuntos de dados utilizados neste trabalho">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

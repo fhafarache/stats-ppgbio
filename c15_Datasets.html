@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Fernando H. A. Farache">
 
-<title>Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
+<title>15&nbsp; Conjuntos de dados utilizados neste trabalho – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -85,7 +50,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./c01_Instal.html" rel="next">
+<link href="./czz_Referencias.html" rel="next">
+<link href="./c14_Rcmdr.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -137,7 +103,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Prefácio</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c15_Datasets.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -167,7 +133,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prefácio</span></a>
   </div>
 </li>
@@ -257,7 +223,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./c15_Datasets.html" class="sidebar-item-text sidebar-link">
+  <a href="./c15_Datasets.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></span></a>
   </div>
 </li>
@@ -277,7 +243,19 @@ div.csl-indent {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#prefácio" id="toc-prefácio" class="nav-link active" data-scroll-target="#prefácio">Prefácio</a></li>
+  <li><a href="#pinguins" id="toc-pinguins" class="nav-link active" data-scroll-target="#pinguins"><span class="header-section-number">15.1</span> pinguins</a></li>
+  <li><a href="#dados_problemas" id="toc-dados_problemas" class="nav-link" data-scroll-target="#dados_problemas"><span class="header-section-number">15.2</span> dados_problemas</a></li>
+  <li><a href="#artropodes" id="toc-artropodes" class="nav-link" data-scroll-target="#artropodes"><span class="header-section-number">15.3</span> artropodes</a></li>
+  <li><a href="#galhadores" id="toc-galhadores" class="nav-link" data-scroll-target="#galhadores"><span class="header-section-number">15.4</span> galhadores</a></li>
+  <li><a href="#oviposicao" id="toc-oviposicao" class="nav-link" data-scroll-target="#oviposicao"><span class="header-section-number">15.5</span> oviposicao</a></li>
+  <li><a href="#figos" id="toc-figos" class="nav-link" data-scroll-target="#figos"><span class="header-section-number">15.6</span> figos</a></li>
+  <li><a href="#figos_comp" id="toc-figos_comp" class="nav-link" data-scroll-target="#figos_comp"><span class="header-section-number">15.7</span> figos_comp</a></li>
+  <li><a href="#grilos" id="toc-grilos" class="nav-link" data-scroll-target="#grilos"><span class="header-section-number">15.8</span> grilos</a></li>
+  <li><a href="#atividade" id="toc-atividade" class="nav-link" data-scroll-target="#atividade"><span class="header-section-number">15.9</span> atividade</a></li>
+  <li><a href="#riqueza" id="toc-riqueza" class="nav-link" data-scroll-target="#riqueza"><span class="header-section-number">15.10</span> riqueza</a></li>
+  <li><a href="#pres_aus" id="toc-pres_aus" class="nav-link" data-scroll-target="#pres_aus"><span class="header-section-number">15.11</span> pres_aus</a></li>
+  <li><a href="#comunidades" id="toc-comunidades" class="nav-link" data-scroll-target="#comunidades"><span class="header-section-number">15.12</span> comunidades</a></li>
+  <li><a href="#id" id="toc-id" class="nav-link" data-scroll-target="#id"><span class="header-section-number">15.13</span> id</a></li>
   </ul>
 </nav>
     </div>
@@ -286,27 +264,14 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</h1>
-<p class="subtitle lead">Versão 2025-03-15</p>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Conjuntos de dados utilizados neste trabalho</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Autor</div>
-    <div class="quarto-title-meta-contents">
-             <p>Fernando H. A. Farache </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Data de Publicação</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">17 de setembro de 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -316,45 +281,76 @@ div.csl-indent {
 </header>
 
 
-<section id="prefácio" class="level1 unnumbered">
-<h1 class="unnumbered">Prefácio</h1>
-<p>Esta apostila tem como objetivo servir de referência prática para a disciplina “Estatística Aplicada à Biodiversidade”, do IF Goiano – Campus Rio Verde. O material busca introduzir os estudantes à análise de dados utilizando o ambiente R, além de familiarizá-los com sua linguagem. A estatística é uma ferramenta essencial para a compreensão e interpretação de dados em diversas áreas do conhecimento, desde as ciências biológicas e ambientais até as ciências sociais e exatas. Esta apostila foi desenvolvida com o objetivo de fornecer uma introdução clara e prática aos conceitos e técnicas estatísticas, utilizando o ambiente de programação R, uma das ferramentas mais poderosas e versáteis para análise de dados.</p>
-<p>A proposta é ensinar os fundamentos da linguagem R, apresentando suas principais estruturas de dados e funções, e como manipulá-las utilizando o R básico. Como este material é voltado para o ensino de estatística, alguns pacotes e recursos adicionais são utilizados para simplificar determinadas análises. Também são apresentados pacotes voltados à ciência de dados, especialmente os do ecossistema&nbsp;<code>tidyverse</code>, que oferecem ferramentas eficientes para filtragem, transformação e análise de grandes conjuntos de dados. Em particular, será utilizado com frequência o pacote&nbsp;<code>ggplot2</code>, que possibilita a criação de gráficos sofisticados de maneira acessível.</p>
-<p>Ao longo dos capítulos, você será guiado por uma jornada que começa com os fundamentos básicos da estatística e do R, passando por técnicas de análise exploratória de dados, testes de hipóteses, modelos lineares e generalizados, até abordagens multivariadas e programação introdutória. Cada tópico é ilustrado com exemplos práticos e conjuntos de dados reais, permitindo que você aplique imediatamente os conceitos aprendidos.</p>
-<p>Tendo em vista que esta apostila é voltada para a prática no ambiente R, recomenda-se, para aprofundamento teórico, a consulta às referências indicadas na disciplina <span class="citation" data-cites="magnusson2003 zar2010 gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>; <a href="czz_Referencias.html#ref-magnusson2003" role="doc-biblioref">Magnusson, 2003</a>; <a href="czz_Referencias.html#ref-zar2010" role="doc-biblioref">Zar, 2010</a>)</span>. Em relação à utilização do ambiente R, este texto consiste em uma introdução, e, para documentos mais extensos sobre análise estatística em R, recomenda-se a leitura de <span class="citation" data-cites="leps2020">Lepš &amp; Šmilauer (<a href="czz_Referencias.html#ref-leps2020" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="venables2020">Venables et al. (<a href="czz_Referencias.html#ref-venables2020" role="doc-biblioref">2020</a>)</span>, <span class="citation" data-cites="jones2022">Jones et al. (<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">2022</a>)</span> e <span class="citation" data-cites="dasilvaetalr2022">Da Silva et al. (<a href="czz_Referencias.html#ref-dasilvaetalr2022" role="doc-biblioref">2022</a>)</span>.</p>
-<p>Os códigos digitados em R são exibidos com destaque ao longo do texto e, quando pertinente, os resultados são apresentados logo abaixo do código, como no exemplo a seguir:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-</div>
-</div>
-<p>Esperamos que esta apostila ofereça o embasamento necessário para que você possa enfrentar desafios analíticos na área da biodiversidade, utilizando o R como ferramenta para explorar, analisar e visualizar dados. Este material foi elaborado como um ponto de partida, proporcionando uma base sólida em análise de dados com R, que permitirá também, caso necessário, avançar posteriormente para técnicas mais sofisticadas, como modelos mistos, análises comparativas filogenéticas, ecologia de comunidades, modelagem de nicho e análises espaciais, entre outras. Com os conceitos aqui apresentados, você estará apto a aplicar métodos estatísticos em estudos ecológicos e a expandir suas habilidades por meio de outras referências e pacotes especializados do R, adaptando suas análises às demandas específicas dos seus projetos.</p>
-<p>Boa leitura e boas análises!</p>
-<p>Esta apostila foi escrita utilizando a plataforma Quarto. Para saber mais sobre a plataforma, visite: <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
+<p>Abaixo estão listados e creditados os conjuntos de dados utilizadon neste trabalho.</p>
+<section id="pinguins" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="pinguins"><span class="header-section-number">15.1</span> pinguins</h2>
+<p>Versão simplificada do conjunto de dados de pinguins das ilhas Palmer <span class="citation" data-cites="gorman2014 horst2020">(<a href="czz_Referencias.html#ref-gorman2014" role="doc-biblioref">Gorman et al., 2014</a>; <a href="czz_Referencias.html#ref-horst2020" role="doc-biblioref">Horst et al., 2020</a>)</span>.</p>
+</section>
+<section id="dados_problemas" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="dados_problemas"><span class="header-section-number">15.2</span> dados_problemas</h2>
+<p>Conjunto de dados incluindo pequenos problemas de digitação e valores faltantes.</p>
+</section>
+<section id="artropodes" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="artropodes"><span class="header-section-number">15.3</span> artropodes</h2>
+<p>Abundância de artrópodes em ambiente aberto (matriz) e em fragmento florestal</p>
+</section>
+<section id="galhadores" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="galhadores"><span class="header-section-number">15.4</span> galhadores</h2>
+<p>Tamanho do corpo de galhadores e parasitas associados a diferentes espécies de plantas</p>
+</section>
+<section id="oviposicao" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="oviposicao"><span class="header-section-number">15.5</span> oviposicao</h2>
+<p>Tamanho do ovipositor de vespas associadas a espécies de figos hospedeiros</p>
+</section>
+<section id="figos" class="level2" data-number="15.6">
+<h2 data-number="15.6" class="anchored" data-anchor-id="figos"><span class="header-section-number">15.6</span> figos</h2>
+<p>Quantidade de polinizadores, sementes e não-polinizadores (galhadores ou parasitas) associados a figos</p>
+</section>
+<section id="figos_comp" class="level2" data-number="15.7">
+<h2 data-number="15.7" class="anchored" data-anchor-id="figos_comp"><span class="header-section-number">15.7</span> figos_comp</h2>
+<p>Diâmetro e quantidade de sementes de diferentes espécies de Ficus</p>
+</section>
+<section id="grilos" class="level2" data-number="15.8">
+<h2 data-number="15.8" class="anchored" data-anchor-id="grilos"><span class="header-section-number">15.8</span> grilos</h2>
+<p>Número de pulsos em relação à temperatura em grilos pertencentes a duas espécies <span class="citation" data-cites="mcdonald2014 walker1962">(<a href="czz_Referencias.html#ref-mcdonald2014" role="doc-biblioref">McDonald, 2014</a>; <a href="czz_Referencias.html#ref-walker1962" role="doc-biblioref">Walker, 1962</a>)</span>.</p>
+</section>
+<section id="atividade" class="level2" data-number="15.9">
+<h2 data-number="15.9" class="anchored" data-anchor-id="atividade"><span class="header-section-number">15.9</span> atividade</h2>
+<p>Conjunto de dados simulado, descrevendo a movimentação e alimentação de machos e fêmeas de insetos sob 2 tratamentos.</p>
+</section>
+<section id="riqueza" class="level2" data-number="15.10">
+<h2 data-number="15.10" class="anchored" data-anchor-id="riqueza"><span class="header-section-number">15.10</span> riqueza</h2>
+<p>Conjunto de dados simulado, riqueza de espécies em relação à biomassa e luminosidade (normalizadas).</p>
+</section>
+<section id="pres_aus" class="level2" data-number="15.11">
+<h2 data-number="15.11" class="anchored" data-anchor-id="pres_aus"><span class="header-section-number">15.11</span> pres_aus</h2>
+<p>Conjunto de dados simulado, presença de ausência de uma espécie em relação à área de um fragmento e da distância do fragmento em relação à área florestal maior mais próxima.</p>
+</section>
+<section id="comunidades" class="level2" data-number="15.12">
+<h2 data-number="15.12" class="anchored" data-anchor-id="comunidades"><span class="header-section-number">15.12</span> comunidades</h2>
+<p>Abundâncias de espécies de vespas de figo em difeerntes hospedeiros coletados em duas localidades. Baseado em dados do trabalho <span class="citation" data-cites="farache2018">Farache et al. (<a href="czz_Referencias.html#ref-farache2018" role="doc-biblioref">2018</a>)</span>.</p>
+<p>Conjunto de dados simulado, amostras com um identificador (chave primária), incluindo local e data de coleta</p>
+</section>
+<section id="id" class="level2" data-number="15.13">
+<h2 data-number="15.13" class="anchored" data-anchor-id="id"><span class="header-section-number">15.13</span> id</h2>
+<p>Conjunto de dados simulado, identificação de espécimes coletados na tabela “amostras”, incluindo o identificador (chave estrangeira)</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
-<div id="ref-dasilvaetalr2022" class="csl-entry" role="listitem">
-Da Silva, R. S., Souza, T. G., Paterno, G. B., Provete, D. B., &amp; Vancine, M. H. (2022). <em>Análises ecológicas no R</em> (Primeira edição). Nupeea.
+<div id="ref-farache2018" class="csl-entry" role="listitem">
+Farache, F. H. A., Cruaud, A., Rasplus, J.-Y., Cerezini, M. T., Rattis, L., Kjellberg, F., &amp; Pereira, R. A. S. (2018). Insights into the structure of plant-insect communities: Specialism and generalism in a regional set of non-pollinating fig wasp communities. <em>Acta Oecologica</em>, <em>90</em>, 4959. <a href="https://doi.org/10.1016/j.actao.2018.02.006">https://doi.org/10.1016/j.actao.2018.02.006</a>
 </div>
-<div id="ref-gotelli2016" class="csl-entry" role="listitem">
-Gotelli, N. J., &amp; Ellison, A. M. (2016). <em>Princípios de estatística em ecologia</em>. Artmed.
+<div id="ref-gorman2014" class="csl-entry" role="listitem">
+Gorman, K. B., Williams, T. D., &amp; Fraser, W. R. (2014). Ecological Sexual Dimorphism and Environmental Variability within a Community of Antarctic Penguins (Genus Pygoscelis). <em>PLoS ONE</em>, <em>9</em>(3), e90081. <a href="https://doi.org/10.1371/journal.pone.0090081">https://doi.org/10.1371/journal.pone.0090081</a>
 </div>
-<div id="ref-jones2022" class="csl-entry" role="listitem">
-Jones, E., Harden, S., &amp; Crawley, M. J. (2022). <em>The R book</em> (Third edition). Wiley.
+<div id="ref-horst2020" class="csl-entry" role="listitem">
+Horst, A. M., Hill, A. P., &amp; Gorman, K. B. (2020). <em>palmerpenguins: Palmer Archipelago (Antarctica) penguin data</em>. <a href="https://doi.org/10.5281/zenodo.3960218">https://doi.org/10.5281/zenodo.3960218</a>
 </div>
-<div id="ref-leps2020" class="csl-entry" role="listitem">
-Lepš, J., &amp; Šmilauer, P. (2020). <em>Biostatistics with R: an introductory guide for field biologists</em>. Cambridge University Press.
+<div id="ref-mcdonald2014" class="csl-entry" role="listitem">
+McDonald. (2014). <em>Handbook of Biological Statistics</em> (Third).
 </div>
-<div id="ref-magnusson2003" class="csl-entry" role="listitem">
-Magnusson, W. E. (2003). <em>Estatistica Sem Matematica</em>. Não definido.
-</div>
-<div id="ref-venables2020" class="csl-entry" role="listitem">
-Venables, W. N., Smith, D. M., &amp; R Core Team. (2020). <em>An Introduction to R</em>. <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf</a>
-</div>
-<div id="ref-zar2010" class="csl-entry" role="listitem">
-Zar, J. H. (2010). <em>Biostatistical analysis</em> (5th ed). Prentice-Hall/Pearson.
+<div id="ref-walker1962" class="csl-entry" role="listitem">
+Walker, T. J. (1962). The Taxonomy and Calling Songs of United States Tree Crickets (Orthoptera: Gryllidae: Oecanthinae). I. The Genus Neoxabea and the niveus and varicornis Groups of the Genus Oecanthus1. <em>Annals of the Entomological Society of America</em>, <em>55</em>(3), 303–322. <a href="https://doi.org/10.1093/aesa/55.3.303">https://doi.org/10.1093/aesa/55.3.303</a>
 </div>
 </div>
 </section>
@@ -926,10 +922,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./c14_Rcmdr.html" class="pagination-link" aria-label="Utilizando o R Commander">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Utilizando o R Commander</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./c01_Instal.html" class="pagination-link" aria-label="Instalando o R">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Instalando o R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./czz_Referencias.html" class="pagination-link" aria-label="Referências">
+        <span class="nav-page-text">Referências</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
