@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
@@ -328,28 +328,28 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>norm10d2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(norm10d2) <span class="co"># média</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 10.1073</code></pre>
+<pre><code>[1] 10.10066</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(norm10d2) <span class="co"># desvio padrão</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.066436</code></pre>
+<pre><code>[1] 1.953667</code></pre>
 </div>
 </div>
-<p>Como são valores aleatórios, a cada vez que forem gerados teremos um valor diferentes. Valores exatamente iguais para reproduzir os resultados podem ser conseguidos executando a função <code>set.seed(x)</code>, sendo x un valor qualquer, antes de gerar os dados aleatórios.</p>
+<p>Como são valores aleatórios, a cada vez que forem gerados teremos um valor diferentes. Valores exatamente iguais para reproduzir os resultados podem ser conseguidos executando a função <code>set.seed(x)</code>, sendo <span class="math inline">\(x\)</span> um valor qualquer, antes de gerar os dados aleatórios.</p>
 <p>Pode-se gerar valores a partir de outras distribuições:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">10</span>, <span class="at">lambda =</span> <span class="dv">10</span>) <span class="co"># gerar 10 valores a partir da distribuição de poisson com lambda = 10</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 12 13 10  8 14 17  8 15 14 10</code></pre>
+<pre><code> [1] 10  8 16 12  8  7 14 10 12 11</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="fl">0.5</span>) <span class="co">#distribuição binomial: total de sucessos em 10 rodadas de 10 jogadas de moedas  com 50% de probabilidade de sussesso (sussesso = tirar cara, por exemplo)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="fl">0.5</span>) <span class="co">#distribuição binomial: total de sucessos em 10 rodadas de 10 jogadas de moedas  com 50% de probabilidade de sucesso (sucesso = tirar cara, por exemplo)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 6 6 4 4 8 6 5 8 9 4</code></pre>
+<pre><code> [1] 3 2 4 3 4 6 4 3 6 5</code></pre>
 </div>
 </div>
 <p>Utilizando valores aleatórios para simular um experimento. no exemplo abaixo (<a href="#fig-bp_random" class="quarto-xref">Figura&nbsp;<span>13.1</span></a>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gerar 150 valores aleatorios, 50 controle, 50 T1 e 50 T2</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gerar 150 valores aleatórios, 50 controle, 50 T1 e 50 T2</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Comprimento <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">3</span>,<span class="dv">2</span>), <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">3</span>,<span class="dv">2</span>), <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">5</span>,<span class="dv">2</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Grupo <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Controle"</span>, <span class="st">"T1"</span>,<span class="st">"T2"</span>), <span class="at">each =</span> <span class="dv">50</span>) </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -363,9 +363,9 @@ window.Quarto = {
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>dados.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(Comprimento <span class="sc">~</span> Grupo, <span class="at">data =</span> dados)</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados.aov)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-Grupo         2  115.6   57.82      12 1.48e-05 ***
-Residuals   147  708.1    4.82                     
+<pre><code>             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+Grupo         2   55.5  27.772   6.467 0.00203 **
+Residuals   147  631.3   4.295                   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -377,10 +377,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 Fit: aov(formula = Comprimento ~ Grupo, data = dados)
 
 $Grupo
-                 diff       lwr      upr     p adj
-T1-Controle 0.8445309 -0.194741 1.883803 0.1355344
-T2-Controle 2.1352528  1.095981 3.174525 0.0000087
-T2-T1       1.2907219  0.251450 2.329994 0.0105733</code></pre>
+                 diff        lwr      upr     p adj
+T1-Controle 0.8027415 -0.1785813 1.784064 0.1320410
+T2-Controle 1.4890366  0.5077138 2.470359 0.0012890
+T2-T1       0.6862951 -0.2950277 1.667618 0.2257979</code></pre>
 </div>
 <div class="cell-output-display">
 <div id="fig-bp_random" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -423,14 +423,14 @@ NULL</code></pre>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.007349</code></pre>
+<pre><code>[1] 1.136338</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dados)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(dados)) <span class="co"># Fórmula para calcular o erro padrão</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2252501</code></pre>
+<pre><code>[1] 0.2540929</code></pre>
 </div>
 </div>
-<p>A partir da fórmula usada para calcular o erro padrão, vamos criar uma função para realizar o cálculo. Podemos criar funções utilizado <code>function()</code>. Vamos criar uma função para calcular o erro padrão. A função terá somente um argumento <code>x</code>, o qual será o vetor sobre o qual será calculado o erro padrão. Neste passo, criaremos uma função chamada <code>ep()</code>. Entre os ‘<code>{}</code>’ incluímos o que a função irá realizar:</p>
+<p>A partir da fórmula usada para calcular o erro padrão, vamos criar uma função para realizar o cálculo. Podemos criar funções utilizado <code>function()</code>. Vamos criar uma função para calcular o erro padrão. A função terá somente um argumento <code>x</code>, o qual será o vetor sobre o qual será calculado o erro padrão. Neste passo, criaremos uma função chamada <code>ep()</code>. Entre os ‘<code>{}</code>’ incluímos o que a função vai realizar:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ep <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sd</span>(x)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(x))</span>
@@ -438,24 +438,24 @@ NULL</code></pre>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ep</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2252501</code></pre>
+<pre><code>[1] 0.2540929</code></pre>
 </div>
 </div>
-<p>Acima criamos a fução <code>ep(x)</code>, que realizará o cálculo do erro padrão pela seguinte fórmula: <code>sd(x)/sqrt(length(x)</code>.</p>
+<p>Acima criamos a função <code>ep(x)</code>, que realizará o cálculo do erro padrão pela seguinte fórmula: <code>sd(x)/sqrt(length(x)</code>.</p>
 </section>
 <section id="condicionais-if-e-else" class="level3" data-number="13.2.2">
 <h3 data-number="13.2.2" class="anchored" data-anchor-id="condicionais-if-e-else"><span class="header-section-number">13.2.2</span> Condicionais: <code>if()</code> e <code>else()</code></h3>
 <p>Os condicionais <code>if</code> e <code>else</code> são usados para controlar o fluxo de execução do código com base em condições específicas.</p>
 <ul>
 <li><p><code>if</code>: Executa um bloco de código se uma condição for verdadeira.</p></li>
-<li><p><code>else</code>: Pode ser usado em conjunto com if para executar um bloco de código alternativo caso a condição do if seja falsa.</p></li>
+<li><p><code>else</code>: Pode ser usado em conjunto com if para executar um bloco de código alternativo caso a condição do <code>if</code> seja falsa.</p></li>
 </ul>
-<p>Vamos criar uma função para descrever se um número é maior que 0 ou não. Nesta função, o argumento <code>x</code> será um valor numérico, e a função dirá se esse valor é maior que zero ou não. Desta forma ela seguirá a lógica:</p>
+<p>Vamos criar uma função que descreve se um número é maior que zero ou não. Nessa função, o argumento&nbsp;<span class="math inline">\(x\)</span>&nbsp;será um valor numérico, e o objetivo é verificar se esse valor é maior que zero, seguindo a seguinte lógica:</p>
 <ul>
-<li><p>Se x &gt; 0 → imprimir(“O valor é maior que zero”)</p></li>
-<li><p>senão → imprimir(“O valor é menor ou igual zero”)</p></li>
+<li><p>Se&nbsp;<code>x &gt; 0</code>&nbsp;→ imprimir&nbsp;<code>"O valor é maior que zero"</code>.</p></li>
+<li><p>Caso contrário → imprimir&nbsp;<code>"O valor é menor ou igual a zero"</code>.</p></li>
 </ul>
-<p>Assim, podemos escrever o código:</p>
+<p>Com base nisso, podemos escrever o seguinte código:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>maiorquezero <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>){<span class="fu">print</span>(<span class="st">"O valor é maior que zero"</span>)}</span>
@@ -496,26 +496,25 @@ NULL</code></pre>
 <pre><code>[1] "O valor é igual a zero"</code></pre>
 </div>
 </div>
-<p>Para ilustrar o uso de condicionais, vamos aprimirar a função <code>ep()</code> que criamos. Ela não funciona direito se tivermos dados faltantes:</p>
+<p>Para ilustrar o uso de condicionais, vamos aprimorar a função <code>ep()</code> que criamos. Ela não funciona direito se tivermos dados faltantes:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>dados.na <span class="ot">&lt;-</span> <span class="fu">c</span>(dados, <span class="cn">NA</span>)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>dados.na</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  1.482721194  1.188568070  0.367825312  1.042397321 -1.453497862
- [6]  0.035343625  2.262873335 -0.113595217 -0.080325595  1.023155150
-[11]  1.699742289  1.077460268  0.075719672 -1.480380361 -0.896181395
-[16] -0.007962868 -0.079002555 -0.589822567  0.245253741 -0.384849682
-[21]           NA</code></pre>
+<pre><code> [1]  1.5880810  0.8456968 -2.0069201 -0.8494115  0.7834630 -0.2147271
+ [7]  1.5902247  0.9158922 -0.6888357  0.6323343 -0.4007646 -1.1074056
+[13]  0.1558278 -1.6134653 -1.7525954 -1.6246213 -0.1931383 -0.3705103
+[19] -1.8540696 -0.8941874         NA</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ep</span>(dados.na)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA</code></pre>
 </div>
 </div>
-<p>Vamos incluir um condicional para aperfeiçoar a nossa função. O condicional permitirá que ela funcione diferente caso desejarmos que ela omita valores faltantes. Desta forma, abaixo nós:</p>
+<p>Vamos incluir um condicional para aperfeiçoar a nossa função. Esse condicional permitirá que a função se comporte de maneira diferente caso queiramos que ela ignore valores faltantes (<em>NA</em>):</p>
 <ul>
-<li><p>Adicionamos o argumento <code>na.rm = FALSE</code> à função. Desta forma, por padrão a função não irá remover valores faltantes, mas se colocarmos <code>na.rm = TRUE</code>, ela executará o condicional no qual ocorrerá a remoção dos valores faltantes.</p></li>
-<li><p>Utilizamos <code>if</code> e <code>else</code> para determinar como a função irá funcionar no caso de optarmos por <code>na.rm = FALSE</code>ou <code>na.rm = TRUE</code>. Quando <code>na.rm</code> for <code>TRUE</code>, utilizaremos a função <code>na.omit()</code> para remover os valores faltantes.</p></li>
+<li><p>Adicionamos o argumento <code>na.rm = FALSE</code> à função. Com isso, por padrão, ela não irá remover valores faltantes (<code>NA</code>). No entanto, se especificarmos <code>na.rm = TRUE</code>, a função executará um condicional que removerá esses valores.</p></li>
+<li><p>Utilizamos as estruturas <code>if</code> e <code>else</code> para definir o comportamento da função conforme o valor de <code>na.rm</code>. Quando <code>na.rm</code> for <code>TRUE</code>, empregamos a função <code>na.omit()</code> para excluir os valores faltantes antes de aplicar a lógica principal da função.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ep <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">na.rm =</span> <span class="cn">FALSE</span>){</span>
@@ -529,23 +528,33 @@ NULL</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ep</span>(dados.na, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2252501</code></pre>
+<pre><code>[1] 0.2540929</code></pre>
 </div>
 </div>
 </section>
 <section id="loops-com-for" class="level3" data-number="13.2.3">
 <h3 data-number="13.2.3" class="anchored" data-anchor-id="loops-com-for"><span class="header-section-number">13.2.3</span> Loops com <code>for()</code></h3>
-<p>A função <code>for()</code> repete um comando por um intervalo de valores. Ela permite executar um bloco de código repetidamente para cada elemento de uma sequência ou vetor. É uma estrutura de controle que permite iterar sobre elementos, aplicando uma operação específica a cada um deles. Vamos utilizá-la para calcular a soma das linhas do conjunto de dados iris (somente as variáveis numéricas).</p>
+<p>A função <code>for()</code> repete um comando por um intervalo de valores. Ela permite executar um bloco de código repetidamente para cada elemento de uma sequência ou vetor. É uma estrutura de controle que permite iterar sobre elementos, aplicando uma operação específica a cada um deles. Vamos utilizá-la para calcular a soma das linhas do conjunto de dados <code>iris</code>, que está disponível no R (somente as variáveis numéricas).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>iris.num <span class="ot">&lt;-</span> iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="co"># somente os dados numéricos de iris</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  somas <span class="ot">&lt;-</span> <span class="fu">vector</span>() <span class="co"># cria um vetor numérico para salvar os valores.</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(iris.num)){ <span class="co"># inicia o argumento for - para os valores de 1 ao número de linhas de iris</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  somas[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(iris.num[i,]) <span class="co">#cria cada valor do vetor iris com a soma dos valores da linha</span></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>somas <span class="co"># ver os valores no objeto criado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(iris) <span class="co">#observar estrutura dos dados</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   150 obs. of  5 variables:
+ $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>iris.num <span class="ot">&lt;-</span> iris[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="co"># somente os dados numéricos de iris</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  somas <span class="ot">&lt;-</span> <span class="fu">vector</span>() <span class="co"># cria um vetor numérico para salvar os valores.</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(iris.num)){ <span class="co"># inicia o argumento for - para os valores de 1 ao número de linhas de iris</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  somas[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(iris.num[i,]) <span class="co">#cria cada valor do vetor iris com a soma dos valores da linha</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>somas <span class="co"># ver os valores no objeto criado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] 10.2  9.5  9.4  9.4 10.2 11.4  9.7 10.1  8.9  9.6 10.8 10.0  9.3  8.5 11.2
  [16] 12.0 11.0 10.3 11.5 10.7 10.7 10.7  9.4 10.6 10.3  9.8 10.4 10.4 10.2  9.7
@@ -559,9 +568,9 @@ NULL</code></pre>
 [136] 19.1 17.7 16.8 15.6 17.5 17.8 17.4 15.5 18.2 18.2 17.2 15.7 16.7 17.3 15.8</code></pre>
 </div>
 </div>
-<p>Os loops são relativamente lentos. Na maioria das veze podemos utilizar uma função vetorial ao invés de <code>for()</code>. Por exemplo, podemos utilizar <code>apply()</code> neste caso:</p>
+<p>Na maioria das vezes podemos utilizar uma função vetorial ao invés de <code>for()</code>. Por exemplo, podemos utilizar <code>apply()</code> neste caso:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(iris.num, <span class="dv">1</span>, sum)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(iris.num, <span class="dv">1</span>, sum)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] 10.2  9.5  9.4  9.4 10.2 11.4  9.7 10.1  8.9  9.6 10.8 10.0  9.3  8.5 11.2
  [16] 12.0 11.0 10.3 11.5 10.7 10.7 10.7  9.4 10.6 10.3  9.8 10.4 10.4 10.2  9.7
@@ -575,13 +584,13 @@ NULL</code></pre>
 [136] 19.1 17.7 16.8 15.6 17.5 17.8 17.4 15.5 18.2 18.2 17.2 15.7 16.7 17.3 15.8</code></pre>
 </div>
 </div>
-<p>Vamos utilizar o argumento <code>for()</code> para comparar uma curva da densidade da distribuição normal com a distribuição com diferentes graus de liberdade (1:50 gl); (<a href="#fig-tcomp" class="quarto-xref">Figura&nbsp;<span>13.2</span></a>).</p>
+<p>Vamos utilizar <code>for()</code> para comparar uma curva da densidade da distribuição normal com a distribuição com diferentes graus de liberdade (1:50 gl); (<a href="#fig-tcomp" class="quarto-xref">Figura&nbsp;<span>13.2</span></a>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x), <span class="at">from=</span><span class="sc">-</span><span class="dv">4</span>, <span class="at">to=</span><span class="dv">4</span>, <span class="at">col=</span><span class="st">"red"</span>, <span class="at">lwd=</span><span class="dv">4</span>)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(gl <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>){</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">curve</span>(<span class="fu">dt</span>(x, gl), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="st">"grey"</span>)</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>?points</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x), <span class="at">from=</span><span class="sc">-</span><span class="dv">4</span>, <span class="at">to=</span><span class="dv">4</span>, <span class="at">col=</span><span class="st">"red"</span>, <span class="at">lwd=</span><span class="dv">4</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(gl <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>){</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">curve</span>(<span class="fu">dt</span>(x, gl), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="st">"grey"</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>?points</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-tcomp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -600,25 +609,25 @@ Figura&nbsp;13.2: Comparação da distribuição normal com distribuições t de
 <h3 data-number="13.2.4" class="anchored" data-anchor-id="função-return-e-print"><span class="header-section-number">13.2.4</span> Função <code>return()</code> e <code>print()</code></h3>
 <p>A função <code>return( )</code> pode ser utilizada para retornar o resultado final de um loop. A função <code>print( )</code> “imprime” os resultados intermediários de cada passo do loop.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>mult <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>x){</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> f<span class="sc">*</span>i</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(f)}}</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>mult2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>x){</span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> f<span class="sc">*</span>i}</span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(f)}</span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>mult3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>x){</span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> f<span class="sc">*</span>i</span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(f)}}</span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="fu">mult</span>(<span class="dv">5</span>) <span class="co"># retorna todos os valores gerados a cada iteração</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>mult <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>x){</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> f<span class="sc">*</span>i</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(f)}}</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>mult2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>x){</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> f<span class="sc">*</span>i}</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(f)}</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>mult3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>x){</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> f<span class="sc">*</span>i</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(f)}}</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a><span class="fu">mult</span>(<span class="dv">5</span>) <span class="co"># retorna todos os valores gerados a cada iteração</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] 2
@@ -626,11 +635,11 @@ Figura&nbsp;13.2: Comparação da distribuição normal com distribuições t de
 [1] 24
 [1] 120</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mult2</span>(<span class="dv">5</span>) <span class="co"># Retorna somente o último valor</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mult2</span>(<span class="dv">5</span>) <span class="co"># Retorna somente o último valor</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 120</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mult3</span>(<span class="dv">5</span>) <span class="co"># Retorna somente o primeiro valor, pois foi colocada antes de terminar a iteração</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mult3</span>(<span class="dv">5</span>) <span class="co"># Retorna somente o primeiro valor, pois foi colocada antes de terminar a iteração</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>

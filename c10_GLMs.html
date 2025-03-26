@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
@@ -339,16 +339,16 @@ window.Quarto = {
 </header>
 
 
-<p>Modelos lineares generalizados nos permitem analisar dados em casos em que a variância não é constante e/ou os erros não apresentam distribuição normal. Esses modelos são bem úteis para casos onde temos dados de contagem ou proporções, e também quando temos como variável resposta uma variável binária, além de outros casos <span class="citation" data-cites="jones2022">(<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">Jones et al., 2022</a>)</span>.</p>
+<p>Modelos lineares generalizados (<strong>GLMs</strong>) permitem a análise de dados em situações nas quais a variância não é constante e/ou os erros não seguem uma distribuição normal. Esses modelos são especialmente úteis para dados de contagem, proporções ou quando a variável resposta é binária, entre outros casos <span class="citation" data-cites="jones2022">(<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">Jones et al., 2022</a>)</span>.</p>
 <p>Três aspectos importantes dos GLMs são:</p>
 <ul>
 <li>A estrutura de erro.</li>
 <li>O preditor linear.</li>
 <li>A função de ligação.</li>
 </ul>
-<p>Até agora tínhamos tratados os dados assumindo que o erro apresentava distribuição normal. Em casos onde esse princípio era violado, costumava-se usar a transformação da variável resposta ou adoção de métodos não paramétricos. Os GLMs permitem o tratamento de erros em diferentes tipos de distribuição.</p>
+<p>Até o momento, tratamos os dados assumindo que os erros seguiam uma distribuição normal. Quando esse pressuposto era violado, recorríamos à transformação da variável resposta ou ao uso de métodos não paramétricos. Os modelos lineares generalizados (GLMs), por sua vez, permitem lidar com erros que seguem diferentes tipos de distribuição, ampliando as possibilidades de análise.</p>
 <p>A estrutura do modelo generalizado relaciona cada valor de da variável resposta <span class="math inline">\(y\)</span> observado a um valor transformado conhecido como preditor linear (<span class="math inline">\(\eta\)</span>). A função que relaciona os valores de <span class="math inline">\(y\)</span> com seu preditor linear é chamada de <em>função de ligação</em>.</p>
-<p>As funções canônicas de ligação são as opções padrão empregadas no R para quando uma estrutura particular de erros é empregada com o argumento <em>family</em> na fórmula do modelo linear generalizado</p>
+<p>As funções canônicas de ligação são as opções padrão empregadas no R para quando uma estrutura particular de erros é empregada com o argumento <code>family</code> na fórmula do modelo linear generalizado</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 26%">
@@ -386,7 +386,7 @@ window.Quarto = {
 </section>
 <section id="glms-para-dados-de-contagem" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="glms-para-dados-de-contagem"><span class="header-section-number">10.2</span> GLMs para dados de contagem</h2>
-<p>Vamos analisar o conjunto de dados <code>riqueza</code>, que inclui a riqueza de espécies em parcelas, relacionadas ao índice de luminosidade e biomassa de serrapilheira. Primeiro vamos limportar os dados, verificar sua estrutura e observar as primeiras linhas:</p>
+<p>Vamos analisar o conjunto de dados <code>riqueza</code>, que inclui a riqueza de espécies em parcelas, relacionadas ao índice de luminosidade e biomassa de serrapilheira. Primeiro vamos importar os dados, verificar sua estrutura e observar as primeiras linhas:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>riq <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"riqueza"</span>)</span>
@@ -454,7 +454,7 @@ Figura&nbsp;10.1: gráfico de dispersão relacionando a riqueza de espécies com
 </figure>
 </div>
 </div>
-<p>Nos gráficos conseguimos ver que há uma relação positiva entre o número de espécies com o aumento da biomassa, entretanto parece que há uma relacão negativa entre a riqueza e a luminosidade.</p>
+<p>Nos gráficos conseguimos ver que há uma relação positiva entre o número de espécies com o aumento da biomassa, entretanto parece que há uma relação negativa entre a riqueza e a luminosidade.</p>
 <p>Como temos um dado de contagem, vamos criar um modelo linear generalizado:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(riqueza <span class="sc">~</span> biomassa <span class="sc">*</span> luminosidade, <span class="at">data =</span> riq, <span class="at">family =</span> poisson)</span>
@@ -483,14 +483,14 @@ AIC: 157.08
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
-<p>O modelo indica que há relação positiva entre a riqueza e a biomassa da serrapilheira, entretanto temos uma relação negativa entre a luminosidade que atinge o sub-bosque devido à abertura do dossel e a riqueza de espécies. A interação antre as duas variáveis preditoras não foi significativa. Algumas particularidades sobre o resumo dos modelos lineares generalizados:</p>
+<p>O modelo indica que há relação positiva entre a riqueza e a biomassa da serrapilheira, entretanto temos uma relação negativa entre a luminosidade que atinge o sub-bosque devido à abertura do dossel e a riqueza de espécies. A interação entre as duas variáveis preditoras não foi significativa. Algumas particularidades sobre o resumo dos modelos lineares generalizados:</p>
 <ul>
 <li><p>Em vez de apresentar estatísticas sobre os resíduos, são apresentadas estatísticas descritivas do desvio (<em>deviance</em>).</p></li>
 <li><p>É preciso atenção com os coeficientes dos modelos, pois eles estão apresentados na escala do preditor linear. No caso dos modelos da família Poisson, a função de ligação canônica é a logarítmica. Para se colocar os coeficientes na escala da variável resposta, deve-se utilizar a função inversa, que no caso é a exponencial.</p></li>
 </ul>
 <section id="superdispersão-overdispersion" class="level3" data-number="10.2.1">
 <h3 data-number="10.2.1" class="anchored" data-anchor-id="superdispersão-overdispersion"><span class="header-section-number">10.2.1</span> Superdispersão (overdispersion)</h3>
-<p>Outra coisa importante que deve ser levada em conta é que modelos como os da família Poisson e binomial assumem que o parâmetro de dispersão é igual a 1, o que pode não ser adequado. Caso este parâmetro não seja adequado, observaremos que o desvio residual (residual deviance) dividido pelos seus graus de liberdade será muito diferente de 1. No nosso exemplo, o desvio residual foi <code>44,7</code> para <code>46</code> graus de liberdade e, sendo assim, foi adequado. Caso haja discrepância entre o desvio residual e os graus de liberdade, pode ser interessante utilizar modelos de famílias que podem variar o parâmetro de dispersão. nesse caso pode ser utilizada a família quasi-poisson (com o argumento <code>family = quasipoisson</code>) ou binomial negativa (utilizando a função <code>glm.nb()</code> do pacote <code>MASS</code>). Para modelos da família binomial (apresentada a seguir), pode ser utilizada a família quasi-binomial (com o argumento <code>family = quasibinomial</code>). Mais detalhes sobre o assunto podem ser vistos em <span class="citation" data-cites="jones2022">Jones et al. (<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">2022</a>)</span>.</p>
+<p>Outra coisa importante que deve ser levada em conta é que modelos como os da família Poisson e binomial assumem que o parâmetro de dispersão é igual a 1, o que pode não ser adequado. Caso este parâmetro não seja adequado, observaremos que o desvio residual (<em>residual deviance</em>) dividido pelos seus graus de liberdade será muito diferente de 1. No nosso exemplo, o desvio residual foi <code>44,7</code> para <code>46</code> graus de liberdade e, sendo assim, foi adequado. Caso haja discrepância entre o desvio residual e os graus de liberdade, pode ser interessante utilizar modelos de famílias que podem variar o parâmetro de dispersão. nesse caso pode ser utilizada a família quasi-poisson (com o argumento <code>family = quasipoisson</code>) ou binomial negativa (utilizando a função <code>glm.nb()</code> do pacote <code>MASS</code>). Para modelos da família binomial (apresentada a seguir), pode ser utilizada a família quasi-binomial (com o argumento <code>family = quasibinomial</code>). Mais detalhes sobre o assunto podem ser vistos em <span class="citation" data-cites="jones2022">Jones et al. (<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">2022</a>)</span>.</p>
 </section>
 <section id="simplificando-o-modelo" class="level3" data-number="10.2.2">
 <h3 data-number="10.2.2" class="anchored" data-anchor-id="simplificando-o-modelo"><span class="header-section-number">10.2.2</span> Simplificando o modelo</h3>
@@ -510,7 +510,7 @@ Model 2: riqueza ~ biomassa + luminosidade
 </div>
 </div>
 <p>Podemos observar que o modelo 1 não apresenta vantagem em relação ao modelo 2. Assim optamos por manter o modelo mais simples, que não inclui interação.</p>
-<p>Vamos criar um gráfico com a curva da predição da riqueza pela biomassa e luminosidade.Para isso, utilizaremos o pacote <code>ggeffects</code> (<a href="#fig-riq2" class="quarto-xref">Figura&nbsp;<span>10.2</span></a>).</p>
+<p>Vamos criar um gráfico com a curva da predição da riqueza pela biomassa e luminosidade. Para isso, utilizaremos o pacote <code>ggeffects</code> (<a href="#fig-riq2" class="quarto-xref">Figura&nbsp;<span>10.2</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#biomassa</span></span>
@@ -641,7 +641,7 @@ AIC: 25.688
 Number of Fisher Scoring iterations: 6</code></pre>
 </div>
 </div>
-<p>Ao analisar as estimativas (<em>Estimate</em>) vemos uma relação positiva entre a presença de aves com <em>area</em>, e coeficiente de distância foi negativo. Assim fragmentos maiores tem mais chance de apresentar a espécie, enquanto fragmentos mais afastadas da reserva florestal têm uma probabilidade menor de apresentar a espécie. pelo teste-z, a distância foi marginalmente significativa, entretanto para avaliar de forma mais adequada, devemos realizar uma análise do desvio com a função <code>anova():</code></p>
+<p>Ao analisar as estimativas (<em>Estimate</em>) vemos uma relação positiva entre a presença de aves com <em>area</em>, e coeficiente de distância foi negativo. Assim fragmentos maiores tem mais chance de apresentar a espécie, enquanto fragmentos mais afastados da reserva florestal têm uma probabilidade menor de apresentar a espécie. pelo teste-z, a distância foi marginalmente significativa, entretanto para avaliar de forma mais adequada, devemos realizar uma análise do desvio com a função <code>anova():</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(praus.modelo2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -661,8 +661,8 @@ distancia  1   5.6062        27     19.688    0.0179 *
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>Nesta análise, a partir de um modelo nulo (presença ~ 1), as variáveis preditoras são adicionadas sequencialmente. Desta forma, vemos que tanto a adição da variável area como distância melhoram significativamente o modelo, desta forma devem ser mantidas. É preciso ter atencção em relação à interpretação dos valores do <em>deviance</em>, pois, como eles são adicionadoss equencialemnte, dependendo da ordem que forem adicionados, os valores serão diferentes.</p>
-<p>Podemos realizar a predição dos valores e preparar gráficos representando o modelo utilizando opacote <code>ggeffects</code> (<a href="#fig-presaus" class="quarto-xref">Figura&nbsp;<span>10.3</span></a>):</p>
+<p>Nesta análise, a partir de um modelo nulo (presença ~ 1), as variáveis preditoras são adicionadas sequencialmente. Desta forma, vemos que tanto a adição da variável area como distância melhoram significativamente o modelo, desta forma devem ser mantidas. É preciso ter atenção em relação à interpretação dos valores do <em>deviance</em>, pois, como eles são adicionados sequencialmente, dependendo da ordem que forem adicionados, os valores serão diferentes.</p>
+<p>Podemos realizar a predição dos valores e preparar gráficos representando o modelo utilizando o pacote <code>ggeffects</code> (<a href="#fig-presaus" class="quarto-xref">Figura&nbsp;<span>10.3</span></a>):</p>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico para isolamento</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>praus.pred.dist <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(praus.modelo2, <span class="at">terms =</span>  <span class="fu">c</span>(<span class="st">"distancia [all]"</span>))</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(praus.pred.dist, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>

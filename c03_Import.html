@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
@@ -323,8 +323,8 @@ div.csl-indent {
 
 <section id="organização-de-dados" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="organização-de-dados"><span class="header-section-number">3.1</span> Organização de dados</h2>
-<p>A forma de se organizar um conjunto de dados é muito importante, e pode facilitar muito a compreensão da forma como se irá analisar os dados dados. Existem muitas formas como os dados serão organizados e planilhados, o que pode mudar dependendo da área de pesquisa.</p>
-<p>Em um passo inicial, provavelmente os dados serão tabulados em papel ou utilizando uma planlha em um software como Excel, Planilhas do Google ou similar. A organização desses dados muitas vezes depende da área de pesquisa. Entretanto, na hora de se analisar os dados, é necessário aplicar algum sistema de organização que facilite a filtragem, reorganização (<em>data wrangling</em>), preparação de gráficos, estatísticas descritivas e inferência estatística. Podemos chamar esse tipo de conjunto de dados de dados organizados ou <em>tidy data</em> <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>.</p>
+<p>A forma de se organizar um conjunto de dados é muito importante, e pode facilitar muito a compreensão da forma como se vai analisar os dados. Existem muitas formas como os dados serão organizados e planilhados, o que pode mudar dependendo da área de pesquisa.</p>
+<p>Em um passo inicial, provavelmente os dados serão tabulados em papel ou utilizando uma planilha em um software como Excel, Planilhas do Google ou similar. A organização desses dados muitas vezes depende da área de pesquisa. Entretanto, na hora de se analisar os dados, é necessário aplicar algum sistema de organização que facilite a filtragem, reorganização (<em>data wrangling</em>), preparação de gráficos, estatísticas descritivas e inferência estatística. Podemos chamar esse tipo de conjunto de dados de dados organizados ou <em>tidy data</em> <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>.</p>
 <p>A organização ideal de um conjunto de dados segue alguns princípios <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>, <a href="czz_Referencias.html#fig-varobval" class="quarto-xref" role="doc-biblioref">Figura&nbsp;<span>3.1</span></a>)</span>:</p>
 <ol type="1">
 <li><p>Cada variável é representada por uma coluna;</p></li>
@@ -448,10 +448,9 @@ Tabela&nbsp;3.1: formas diferentes de se exibir um mesmo conjunto de dados
 <section id="importando-dados" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="importando-dados"><span class="header-section-number">3.2</span> Importando dados</h2>
 <p>O R é capaz de importar dados em diferentes formatos. Funções da família <code>read.table()</code> permitem importar diversos tipos de conjuntos de dados separados por tabulações ou separados por vírgula (.csv, com as funções <code>read.csv()</code> e <code>read.csv2()</code>). Existem pacotes que permitem a importação de tabelas do Excel, e de diversas outras formas. Neste tutorial, vamos importar os dados diretamente do excel utilizando o pacote <code>readxl</code>.</p>
-<p>Mais infromações sobre os conjuntos de dados podem ser encontradas em <span class="citation" data-cites="cap-datasets">(<a href="czz_Referencias.html#ref-cap-datasets" role="doc-biblioref"><strong>cap-datasets?</strong></a>)</span></p>
 <section id="criando-uma-pasta-de-trabalho" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="criando-uma-pasta-de-trabalho"><span class="header-section-number">3.2.1</span> Criando uma pasta de trabalho</h3>
-<p>Primeiramente, sempre que queremos começar uma nova análise, é interessante criar uma pasta de trabalho no computador, onde colocamos nossos conjuntos de dados, scripts, etc. No exemplo, foi criada uma pasta contendo somente o arquivo excel a ser importado e o script referente às análises <a href="#fig-dir_analise" class="quarto-xref">Figura&nbsp;<span>3.2</span></a> .</p>
+<p>Primeiramente, sempre que queremos começar uma nova análise, é interessante criar uma pasta de trabalho no computador, onde colocamos nossos conjuntos de dados, scripts, etc. No exemplo, foi criada uma pasta contendo somente o arquivo Excel a ser importado e o script referente às análises <a href="#fig-dir_analise" class="quarto-xref">Figura&nbsp;<span>3.2</span></a> .</p>
 <div id="fig-dir_analise" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-dir_analise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -501,14 +500,14 @@ Figura&nbsp;3.3: Definindo diretório de trabalho
 </section>
 <section id="importando-arquivos-fora-do-diretório-de-trabalho" class="level3" data-number="3.2.4">
 <h3 data-number="3.2.4" class="anchored" data-anchor-id="importando-arquivos-fora-do-diretório-de-trabalho"><span class="header-section-number">3.2.4</span> Importando arquivos fora do diretório de trabalho</h3>
-<p>Podemos importar um arquivo a partir de qualquer diretório do computador, e nào somente do diretório de trabalho. Sendo assim, não é necessário ter definido um diretório de trabalho, como no exemplo abaixo:</p>
+<p>Podemos importar um arquivo a partir de qualquer diretório do computador, e não somente do diretório de trabalho. Sendo assim, não é necessário ter definido um diretório de trabalho, como no exemplo abaixo:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pinguins <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"/Users/fernandohfarache/Documents/DisciplinaR/dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"pinguins"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="importando-arquivos-excel-de-maneira-fácil" class="level3" data-number="3.2.5">
 <h3 data-number="3.2.5" class="anchored" data-anchor-id="importando-arquivos-excel-de-maneira-fácil"><span class="header-section-number">3.2.5</span> Importando arquivos Excel de maneira fácil</h3>
-<p>A importação de arquivos Excel pode ser realizada em de forma fácil no RStudio seguindo os seguintes passos(<a href="#fig-excel_rstudio" class="quarto-xref">Figura&nbsp;<span>3.4</span></a>).</p>
+<p>A importação de arquivos Excel pode ser realizada em de forma fácil no RStudio seguindo os seguintes passos (<a href="#fig-excel_rstudio" class="quarto-xref">Figura&nbsp;<span>3.4</span></a>).</p>
 <ol type="1">
 <li><p>Acessar aba <code>Environment</code>;</p></li>
 <li><p>Clicar no ícone <code>Import Dataset</code>;</p></li>
@@ -524,7 +523,7 @@ Figura&nbsp;3.3: Definindo diretório de trabalho
 <img src="figuras/Fig_read_excel.jpg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-excel_rstudio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3.4: Importando arquivos excel utilizando a interface RStudio. Os passos de 1 a 7 estão ilustrados na figura.
+Figura&nbsp;3.4: Importando arquivos Excel utilizando a interface RStudio. Os passos de 1 a 7 estão ilustrados na figura.
 </figcaption>
 </figure>
 </div>
@@ -544,7 +543,7 @@ Figura&nbsp;3.4: Importando arquivos excel utilizando a interface RStudio. Os pa
 </section>
 <section id="visualização-geral-do-conjunto-de-dados" class="level3" data-number="3.2.7">
 <h3 data-number="3.2.7" class="anchored" data-anchor-id="visualização-geral-do-conjunto-de-dados"><span class="header-section-number">3.2.7</span> Visualização geral do conjunto de dados</h3>
-<p>Após realizar a importação, é muito importante verificar se não houveram problemas na importação. podemos utilizar algumas funções para verificar a estrutura dos dados. Uma função excelente para isso é a função <code>str()</code>:</p>
+<p>Após realizar a importação, é muito importante verificar se não houve problemas na importação. podemos utilizar algumas funções para verificar a estrutura dos dados. Uma função excelente para isso é a função <code>str()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pinguins)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -622,11 +621,11 @@ especie    Femea Macho
  Max.   :231   Max.   :6300                     </code></pre>
 </div>
 </div>
-<p>No <em>summary</em> ou sumário da planilha podemos ver um resumo de cada variável do conjunto de dados. Para variáveis contínuas, Podemos observar medidas descritivas das variáveis contínuas, como valor mínimo e máximo, quartis, média e mediana.</p>
+<p>No <em>summary</em> ou sumário da planilha podemos ver um resumo de cada variável do conjunto de dados. Para variáveis contínuas, podemos observar medidas descritivas das variáveis contínuas, como valor mínimo e máximo, quartis, média e mediana.</p>
 </section>
 <section id="alterando-classe-de-variáveis" class="level3" data-number="3.2.8">
 <h3 data-number="3.2.8" class="anchored" data-anchor-id="alterando-classe-de-variáveis"><span class="header-section-number">3.2.8</span> Alterando classe de variáveis</h3>
-<p>Vamos transformar as variavies categóricas em fatores com a função <code>as.factor()</code>:</p>
+<p>Vamos transformar as variávies categóricas em fatores com a função <code>as.factor()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pinguins)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -709,7 +708,7 @@ Vamos observar os valores com mais detalhes:</p>
 [49]  2.25  2.51  2.01  2.18  2.26  2.30  2.21  2.25  2.28  2.14  2.15  2.10</code></pre>
 </div>
 </div>
-<p>Observe que na coluna <code>sementes</code> alguns valores apareceram como “NA” escrito. Isso ocorre por que na planilha foi utilizado o termo “NA” para indicar dados faltantes. Nesse caso, o “NA” aparece entre aspas. Observe que na coluna <code>diametro</code>, há também um dado faltante, mas ele foi interpretado de forma correta.</p>
+<p>Observe que na coluna <code>sementes</code> alguns valores apareceram como “NA” escrito. Isso ocorre por que na planilha foi utilizado o termo “NA” para indicar dados faltantes. Nesse caso, o “NA” aparece entre aspas. Observe que na coluna <code>diâmetro</code>, há também um dado faltante, mas ele foi interpretado de forma correta.</p>
 <p>Podemos converter a coluna em numérica da seguinte forma:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dados_prob<span class="sc">$</span>sementes <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dados_prob<span class="sc">$</span>sementes)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -777,7 +776,7 @@ Para indicar para a função <code>read_excel()</code> que os dados faltantes ta
 # ℹ 47 more rows</code></pre>
 </div>
 </div>
-<p>Aqui, nós criamos um novo objeto chamado <code>dados_prob_naomit</code>, que exclui todas as linhas que apresentam dados daltantes.</p>
+<p>Aqui, nós criamos um objeto chamado <code>dados_prob_naomit</code>, que exclui todas as linhas que apresentam dados faltantes.</p>
 </section>
 <section id="problemas-de-digitação-dos-valores" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="problemas-de-digitação-dos-valores"><span class="header-section-number">3.4</span> Problemas de digitação dos valores</h2>
@@ -830,7 +829,7 @@ citrif  obfol  Obfol   obus
 <pre><code>[1] "citrif" "obus"   "obfol"  "Obfol" </code></pre>
 </div>
 </div>
-<p>Tanto com a função <code>table()</code> como a função <code>unique()</code> demonstratam que <code>obfol</code> parece ter sido digitado erroneamente com maiúsculo. No caso de <code>table()</code>, ainda podemos ver que a digitação errônea aconteceu somente uma vez.<br>
+<p>Tanto com a função <code>table()</code> como a função <code>unique()</code> demonstraram que <code>obfol</code> parece ter sido digitado erroneamente com maiúsculo. No caso de <code>table()</code>, ainda podemos ver que a digitação errônea aconteceu somente uma vez.<br>
 A correção pode ser feita diretamente no R, ou pode ser realizada no aplicativo de edição de planilhas.</p>
 </section>
 </section>

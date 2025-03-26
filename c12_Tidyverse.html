@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
@@ -313,10 +313,10 @@ div.csl-indent {
 </header>
 
 
-<p>O tidyverse é um conjunto de pacotes desenvolvido para Ciência de Dados (<em>Data Science</em>) no R. Ele apresenta funções que facilitam a análise de conjunto de dados grandes. Esses pacotes utilizam uma sintaxe diferente do R básico e apresentam ferramentas de importação, manipulação, exploração, visualização, análise e comunicação de dados adaptadas trabalahr com conjuntos de dados grandes. O Tidyverse é descrito e explorado em profundidade em referências como <span class="citation" data-cites="wickham2023">Wickham et al. (<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">2023</a>)</span>. Neste capítulo introduziremos algumas das principais funções desse conjunto de pacotes.</p>
+<p>O tidyverse é um conjunto de pacotes desenvolvido para a Ciência de Dados no ambiente R, voltado especialmente para a análise de grandes conjuntos de dados. Esses pacotes adotam uma sintaxe distinta do R base e oferecem ferramentas integradas para importação, manipulação, exploração, visualização, análise e comunicação de dados. O tidyverse é amplamente descrito e explorado em referências como <span class="citation" data-cites="wickham2023">Wickham et al. (<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">2023</a>)</span> . Neste capítulo, apresentaremos algumas das principais funções desse ecossistema de pacotes.</p>
 <section id="instalação-e-importação-de-dados-de-exemplo." class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="instalação-e-importação-de-dados-de-exemplo."><span class="header-section-number">12.1</span> Instalação e importação de dados de exemplo.</h2>
-<p>Para este tópico, utilizaremos alguns pacotes do tidyverse e o conjunto de dados dos pinguins. Os pacotes do tidyverse podem ser instalados todos juntos utilizando <code>install.packages("tidyverse)</code> e depois carregados:</p>
+<p>Para este tópico, utilizaremos alguns pacotes do <code>tidyverse</code> e o conjunto de dados dos <code>pinguins</code>. Os pacotes do <code>tidyverse</code> podem ser instalados todos juntos utilizando <code>install.packages("tidyverse)</code> e depois carregados:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#abrir o conjunto de pacotes do tidyverse</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -328,7 +328,7 @@ div.csl-indent {
 </section>
 <section id="utilizando-pipes" class="level2" data-number="12.2">
 <h2 data-number="12.2" class="anchored" data-anchor-id="utilizando-pipes"><span class="header-section-number">12.2</span> Utilizando pipes</h2>
-<p>Os pipes são ferramentas que permitem criar sequências de operações, em vez de aninhar funções uma dentro da outra. Eles permitem que se realize várias modificações de um objeto sem a necessidade de se criar objetos intermediários, o que pode facilitar bastante o fluxo de análise. O operador pipe é representado por <code>%&gt;%</code> no tidyverse. Há também o pipe nativo do R <code>|&gt;</code>, que funciona de forma muito próxima ao pipe do tidyverse e em geral podem ser usados da mesma forma. O pipe pode se radicionado no Rstudio com o atalho <code>Ctrl + Shift + M</code>.</p>
+<p>Os&nbsp;<em>pipes</em>&nbsp;são operadores que permitem encadear uma sequência de operações de forma legível, evitando o aninhamento de múltiplas funções. Com eles, é possível aplicar diversas transformações a um objeto sem a necessidade de criar variáveis intermediárias, o que torna o fluxo da análise mais limpo e intuitivo. No&nbsp;<em>tidyverse</em>, o operador pipe é representado por&nbsp;<code>%&gt;%</code>. O R também possui um pipe nativo,&nbsp;<code>|&gt;</code>, que funciona de maneira muito similar ao&nbsp;<code>%&gt;%</code>, sendo, na maioria dos casos, intercambiáveis. No RStudio, é possível inserir o operador pipe rapidamente utilizando o atalho&nbsp;<strong>Ctrl + Shift + M</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#média de peso</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pinguins<span class="sc">$</span>peso)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -351,12 +351,12 @@ div.csl-indent {
 </section>
 <section id="o-pacote-dplyr" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="o-pacote-dplyr"><span class="header-section-number">12.3</span> O pacote dplyr</h2>
-<p>O pacote dplyr apresenta funções para manipular conjuntos de dados, como filtrar, reordenar ou selecionar colunas. Vamos utilizar no exemplo, a função <code>summarise()</code> e <code>group_by()</code> para calcular estatísticas descritivas para as espécies de pinguins</p>
+<p>O pacote <code>dplyr</code> apresenta funções para manipular conjuntos de dados, como filtrar, reordenar ou selecionar colunas. Vamos utilizar no exemplo, a função <code>summarise()</code> e <code>group_by()</code> para calcular estatísticas descritivas para as espécies de pinguins</p>
 <ul>
 <li><p><code>summarise()</code> utilizada para resumir os dados de coluna em um único valor</p></li>
 <li><p><code>group_by()</code> utilizada para agrupar variáveis por um determinado fator.</p></li>
 </ul>
-<p>No exemplo (1) calculamos a média do peso dos pinguins. Utilizamos <code>summarise(peso_média = mean(peso))</code> para criar uma variável <code>peso_média</code> representando a média de peso_g dos pinguins; (2) utilizamos a função <code>group_by()</code> para agrupar os pesos por espécie e depois caculamos a média e o desvio padrão para cada espécie utilizando <code>summarise()</code>, e (3) calculamos a média e desvio padrão para cada espécie e sexo.</p>
+<p>No exemplo (1) calculamos a média do peso dos pinguins. Utilizamos <code>summarise(peso_média = mean(peso))</code> para criar uma variável <code>peso_média</code> representando a média de <em>peso</em> dos pinguins; (2) utilizamos a função <code>group_by()</code> para agrupar os pesos por espécie e depois calculamos a média e o desvio padrão para cada espécie utilizando <code>summarise()</code>, e (3) calculamos a média e desvio padrão para cada espécie e sexo.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#peso médio dos pinguins</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pinguins <span class="sc">%&gt;%</span> </span>
@@ -428,7 +428,7 @@ div.csl-indent {
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(especie, sexo, peso) <span class="sc">%&gt;%</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">peso_kg =</span> peso<span class="sc">/</span><span class="dv">1000</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Utilizando a função <code>filter()</code> para filtrar (selecionar) somente pinguins fêmeas da ilha biscoe, depois utilizar o <code>ggplot2</code> para criar um gráfico boxplot comparando as espécies (<a href="#fig-peso-especie" class="quarto-xref">Figura&nbsp;<span>12.1</span></a>). Para mais informações sobre gráficos, verifique o <a href="c06_Graficos.html" class="quarto-xref"><span>Capítulo 6</span></a> .</p>
+<p>Utilizando a função <code>filter()</code> para filtrar (selecionar) somente pinguins fêmeas da ilha <em>Biscoe</em>, depois utilizar o <code>ggplot2</code> para criar um gráfico <em>boxplot</em> comparando as espécies (<a href="#fig-peso-especie" class="quarto-xref">Figura&nbsp;<span>12.1</span></a>). Para mais informações sobre gráficos, verifique o <a href="c06_Graficos.html" class="quarto-xref"><span>Capítulo 6</span></a> .</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -549,7 +549,7 @@ Figura&nbsp;12.1: boxplot de peso por espécie de pinguins filtrando somente fê
 # ℹ 14 more rows</code></pre>
 </div>
 </div>
-<p>As tabelas apresentam uma coluna chave (key) chamada <code>Amostra</code>, que relaciona uma com a outra. Com isso, podemos preencher o dado da tabela da identificação dos insetos com as informações de coleta:</p>
+<p>As tabelas apresentam uma coluna chave (<em>key</em>) chamada <code>Amostra</code>, que relaciona uma com a outra. Com isso, podemos preencher o dado da tabela da identificação dos insetos com as informações de coleta:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">match</span>(id<span class="sc">$</span>Amostra, amostras<span class="sc">$</span>Amostra) <span class="co"># encontra a correspondência para cada elemento de id em amostra.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

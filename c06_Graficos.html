@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
@@ -126,6 +126,35 @@ div.csl-indent {
 }</script>
 <link href="site_libs/table1-1.0/table1_defaults.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -326,27 +355,27 @@ div.csl-indent {
 <section id="análise-exploratória-de-dados" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="análise-exploratória-de-dados"><span class="header-section-number">6.1</span> Análise exploratória de dados</h2>
 <p>O conceito de análise exploratória de dados (<em>Exploratory Data Analysis</em> - EDA) foi introduzido por John Tuckey, e enfatiza estratégias de entender os dados por meio de observação de estatísticas descritivas e exploração gráfica <span class="citation" data-cites="behrens1997">Ellison (<a href="czz_Referencias.html#ref-ellison2001" role="doc-biblioref">2001</a>)</span>. Neste tópico, vamos aplicar algumas dessas ferramentas em uma planilha de dados. Neste script, introduziremos alguns instrumentos de <strong>EDA</strong> e elaboração de gráficos.</p>
-<p>Primeiramente, lembrem-se de criar um novo diretório (pasta), colocar as planilhas que serão importadas nele e definní-lo como diretório de trabalho com <code>setwd()</code>.</p>
+<p>Primeiramente, lembrem-se de criar um novo diretório (pasta), colocar as planilhas que serão importadas nele e defini-lo como diretório de trabalho com <code>setwd()</code>.</p>
 <p>Vamos utilizar novamente a planilha <code>pinguins</code>. Dê uma visualizada geral para lembrar dela:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#primeiramente, definir diretório de trabalho com setwd()</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co">#carregar pacote readxl </span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pinguins <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"pinguins"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pinguins)<span class="co"># observar as primeiras linhas de iris</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pinguins)<span class="co"># observar as primeiras linhas</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pinguins) <span class="co">#observar a estrutura do objeto</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pinguins) <span class="co">#estatísticas sumárias do objeto iris</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pinguins) <span class="co">#estatísticas sumárias do objeto</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Podemos calcular estatísticas descritivas como visto na aula anterior (<a href="#tbl-tabela_pinguins" class="quarto-xref">Tabela&nbsp;<span>6.1</span></a>). Nesse exemplo, a fórmula foi simplificada:</p>
 <ol type="1">
 <li><p>Somente foram incluídas as colunas de interesse no argumento <code>data = pinguins[,c(1,3:6)]</code>. Desta forma selecionamos as colunas 1, 3, 4, 5 e 6, que representam a variével espécie e as variáveis numéricas;</p></li>
-<li><p>A fórmula foi apresentada como <code>~ . | especie</code>. O ponto indica que iremos incluir todas as variáveis dos nossos dados agrupadas por espécie.</p></li>
+<li><p>A fórmula foi apresentada como <code>~ . | especie</code>. O ponto indica que vamos incluir todas as variáveis dos nossos dados agrupadas por espécie.</p></li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("table1") #caso não tenha sido instalado</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(table1) <span class="co"># carregar o pacote</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#criar tabela com estatísticas descritivas para todas as variáveis numéricas</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> . <span class="sc">|</span> especie , <span class="at">data =</span> pinguins[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>)])</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> . <span class="sc">|</span> especie, <span class="at">data =</span> pinguins[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>)])</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-tabela_pinguins" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tabela_pinguins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -476,7 +505,7 @@ Tabela&nbsp;6.1: estatísticas descritivas para o conjunto de dados “pinguins�
 <p>O objetivo deste tópico é introduzir o ambiente gráfico do R, e compreender suas principais funções.</p>
 <section id="função-plot-preparando-gráficos-de-dispersão-scatterplots" class="level3" data-number="6.2.1">
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="função-plot-preparando-gráficos-de-dispersão-scatterplots"><span class="header-section-number">6.2.1</span> Função plot: preparando gráficos de dispersão (scatterplots)</h3>
-<p>Podemos verificar se há alguma relação antre o comprimento do culmen (<code>bico_comp</code>) e a profundidade do culmen (<code>bico_prof</code>) com a função <code>plot()</code> (<a href="#fig-disp1" class="quarto-xref">Figura&nbsp;<span>6.1</span></a>)</p>
+<p>Podemos verificar se há alguma relação antre o comprimento do bico (<code>bico_comp</code>) e a profundidade do bico (<code>bico_prof</code>) com a função <code>plot()</code> (<a href="#fig-disp1" class="quarto-xref">Figura&nbsp;<span>6.1</span></a>)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bico_comp <span class="sc">~</span> bico_prof, <span class="at">data =</span> pinguins)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -516,7 +545,7 @@ Figura&nbsp;6.2: formatos de pontos disponíveis visualizados com o pacote ggpub
 </div>
 </div>
 </div>
-<p>Diversos parâmetros podem ser alterados, como nos exemplo abaixo.</p>
+<p>Diversos parâmetros podem ser alterados, como nos exemplos abaixo.</p>
 <ul>
 <li><p><code>xlab</code> e <code>ylab</code>: alteram o texto dos eixos x e y;</p></li>
 <li><p><code>main</code>: alteram o título do gráfico;</p></li>
@@ -525,9 +554,9 @@ Figura&nbsp;6.2: formatos de pontos disponíveis visualizados com o pacote ggpub
 <p>Abaixo, os argumentos da função plot foram divididos em linhas e o efeito de cada argumento foi descrito após o #.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bico_comp <span class="sc">~</span> bico_prof, <span class="at">data =</span> pinguins,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Profundidade do culmen (mm)"</span>, <span class="co"># muda o nome do eixo x </span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Comprimento do culmen (mm)"</span>,<span class="co"># muda o nome do eixo y</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Comparando o culmen em pinguins"</span>, <span class="co">#coloca título no gráfico</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Profundidade do bico (mm)"</span>, <span class="co"># muda o nome do eixo x </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Comprimento do bico (mm)"</span>,<span class="co"># muda o nome do eixo y</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Comparando o bico em pinguins"</span>, <span class="co">#coloca título no gráfico</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">22</span>), <span class="co">#muda limites do eixo x c(0,22) coloca o valor mínimo 0 e máximo 8</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">60</span>)) <span class="co">#muda limites do eixo y</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -592,7 +621,7 @@ Figura&nbsp;6.4: gráfico de dispersão incluindo legendas e diferentes formatos
 <img src="c06_Graficos_files/figure-html/fig-subset-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-subset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;6.5: gráfico de dispersão com as dimensções dos bicos de pinguins utilizando o subconjunto dos dados de pinguins de Adélia.
+Figura&nbsp;6.5: gráfico de dispersão com as dimensões dos bicos de pinguins utilizando o subconjunto dos dados de pinguins de Adélia.
 </figcaption>
 </figure>
 </div>
@@ -602,8 +631,8 @@ Figura&nbsp;6.5: gráfico de dispersão com as dimensções dos bicos de pinguin
 </section>
 <section id="histogramas-e-gráficos-ramo-e-folha" class="level3" data-number="6.2.2">
 <h3 data-number="6.2.2" class="anchored" data-anchor-id="histogramas-e-gráficos-ramo-e-folha"><span class="header-section-number">6.2.2</span> Histogramas e gráficos ramo-e-folha</h3>
-<p>Histogramas são gráficos univariados de frequência de valores, interessantes para observar como uma variável está distribuia. O R apresenta a função <code>hist()</code> para criar histogramas.</p>
-<p>Vamos observar a distribuição dos dados da variável <code>peso_g</code> (<a href="#fig-hist1" class="quarto-xref">Figura&nbsp;<span>6.6</span></a>).</p>
+<p>Histogramas são gráficos univariados de frequência de valores, interessantes para observar como uma variável está distribuída. O R apresenta a função <code>hist()</code> para criar histogramas.</p>
+<p>Vamos observar a distribuição dos dados da variável <code>peso</code> (<a href="#fig-hist1" class="quarto-xref">Figura&nbsp;<span>6.6</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>?hist <span class="co"># help da função hist</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pinguins<span class="sc">$</span>peso) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -614,13 +643,13 @@ Figura&nbsp;6.5: gráfico de dispersão com as dimensções dos bicos de pinguin
 <img src="c06_Graficos_files/figure-html/fig-hist1-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hist1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;6.6: histograma da variável peso_g
+Figura&nbsp;6.6: histograma da variável peso
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Um problema dos histogramas é que as categorias de valores (número de barras) do eixo x são arbitrárias. Você pode escolher a quantidade de categorias com o argumento <code>breaks</code> (<a href="#fig-hist2" class="quarto-xref">Figura&nbsp;<span>6.7</span></a>)</p>
+<p>Um problema dos histogramas é que as categorias de valores (número de barras) do eixo <span class="math inline">\(x\)</span> são arbitrárias. Você pode escolher a quantidade de categorias com o argumento <code>breaks</code> (<a href="#fig-hist2" class="quarto-xref">Figura&nbsp;<span>6.7</span></a>)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pinguins<span class="sc">$</span>peso, <span class="at">col =</span> <span class="st">"grey"</span>, <span class="at">breaks =</span> <span class="dv">30</span>) <span class="co">#mudando o número de barras</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -664,7 +693,7 @@ Figura&nbsp;6.7: histograma alterando o número de categorias.
 <h3 data-number="6.2.3" class="anchored" data-anchor-id="boxplots"><span class="header-section-number">6.2.3</span> Boxplots</h3>
 <p>Boxplots (diagramas de caixa) nos permitem observar a variação dos dados e comparar amostras. Esses diagramas geralmente exibem valores máximos e mínimos (excluindo valores extremos) entre as hastes, o primeiro e terceiro quartis dos dados (50% dos valores) dentro da caixa, a mediana como a linha do meio e pontos para os <em>outliers</em>. Podemos criar esses diagramas com a função <code>boxplot()</code> (<a href="#fig-box1" class="quarto-xref">Figura&nbsp;<span>6.8</span></a>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(pinguins[,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>]) <span class="co"># diagrama de caixas das variáveis numéricas de iris</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(pinguins[,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>]) <span class="co"># diagrama de caixas das variáveis numéricas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-box1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -678,7 +707,7 @@ Figura&nbsp;6.8: gráfico do tipo boxplot para as variáveis numéricas do conju
 </div>
 </div>
 </div>
-<p>Podemos usar fórmulas com “<code>~</code>” (que pode ser lido como “em função de”) para observar as diferenças entre as espécies de pinguins para cada uma das variáveis. No caso, fazemos um boxplot de peso por especie (<a href="#fig-box2" class="quarto-xref">Figura&nbsp;<span>6.9</span></a>).</p>
+<p>Podemos usar fórmulas com “<code>~</code>” (que pode ser lido como “em função de”) para observar as diferenças entre as espécies de pinguins para cada uma das variáveis. No caso, fazemos um boxplot de peso por espécie (<a href="#fig-box2" class="quarto-xref">Figura&nbsp;<span>6.9</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(peso <span class="sc">~</span> especie, <span class="at">data=</span>pinguins, <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>)) <span class="co"># incluindo 'col' para mudar as cores das caixas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -698,7 +727,7 @@ Figura&nbsp;6.9: boxplot de peso em função da espécie para o conjunto de dado
 </section>
 <section id="gráficos-de-pizza-e-gráficos-de-barras." class="level3" data-number="6.2.4">
 <h3 data-number="6.2.4" class="anchored" data-anchor-id="gráficos-de-pizza-e-gráficos-de-barras."><span class="header-section-number">6.2.4</span> Gráficos de pizza e gráficos de barras.</h3>
-<p>Vamos fazer um gráfico de pizza da quantidade de amostras por ilha no conjunto de dados <code>pinguins</code> (<a href="#fig-pie_bar" class="quarto-xref">Figura&nbsp;<span>6.10</span></a>). O total de amostars por ilha pode ser calculado com a função <code>table()</code>, e depois os gráficos podem ser plotados com o resultado:</p>
+<p>Vamos fazer um gráfico de pizza da quantidade de amostras por ilha no conjunto de dados <code>pinguins</code> (<a href="#fig-pie_bar" class="quarto-xref">Figura&nbsp;<span>6.10</span></a>). O total de amostras por ilha pode ser calculado com a função <code>table()</code>, e depois os gráficos podem ser plotados com o resultado:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>n_ilha <span class="ot">&lt;-</span> <span class="fu">table</span>(pinguins<span class="sc">$</span>ilha) <span class="co">#tabela com número de observações</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n_ilha</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -750,7 +779,7 @@ Figura&nbsp;6.10: gráfico de pizza (a) e gráficos de barras (b).
 <section id="colocando-vários-gráficos-em-uma-mesma-figura" class="level3" data-number="6.2.5">
 <h3 data-number="6.2.5" class="anchored" data-anchor-id="colocando-vários-gráficos-em-uma-mesma-figura"><span class="header-section-number">6.2.5</span> Colocando vários gráficos em uma mesma figura</h3>
 <p>Vamos fazer boxplots diferenciando as espécies para as 4 variáveis medidas nos pinguins. Para incluir os 4 em uma única prancha, podemos alterar parâmetros gráficos da área de plotagem do R.</p>
-<p>A função <code>par()</code> altera parâmetros gráficos. Com o argumento <em>mfrow</em> escolhemos o número de linhas e colunas que terão na figura Com par(mfrow = c(2,2)), incluímos 4 gráficos (2 na linha e 2 na coluna).</p>
+<p>A função <code>par()</code> altera parâmetros gráficos. Com o argumento <code>mfrow</code> escolhemos o número de linhas e colunas que terão na figura Com <code>par(mfrow = c(2,2))</code>, incluímos 4 gráficos (2 na linha e 2 na coluna).</p>
 <p>Também utilizamos <code>par(mar= c(2,2,1,1))</code> para alterar as margens de cada gráfico e preencher melhor a figura. Cada um dos 3 valores no vetor representa uma das margens da figura (<a href="#fig-box_mfrow" class="quarto-xref">Figura&nbsp;<span>6.11</span></a>)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#inicia gráfico com 4 figuras c(2,2) : organiza em 2 linhas e 2 colunas</span></span>
@@ -776,7 +805,7 @@ Figura&nbsp;6.11: juntando 4 gráficos em uma figura.
 </section>
 <section id="matriz-de-gráficos-de-dispersão-com-pairs" class="level3" data-number="6.2.6">
 <h3 data-number="6.2.6" class="anchored" data-anchor-id="matriz-de-gráficos-de-dispersão-com-pairs"><span class="header-section-number">6.2.6</span> Matriz de gráficos de dispersão com <code>pairs()</code></h3>
-<p>Quando queremos estudar diversas variávies para tentar verificar relações entre elas, podemos usar a função <code>pairs()</code> para observar plotes y ~ x entre todas as variáveis (<a href="c08_ModLinearReg.html#fig-pairs" class="quarto-xref">Figura&nbsp;<span>8.7</span></a>).</p>
+<p>Quando queremos estudar diversas variáveis para tentar verificar relações entre elas, podemos usar a função <code>pairs()</code> para observar plotes y ~ x entre todas as variáveis (<a href="c08_ModLinearReg.html#fig-pairs" class="quarto-xref">Figura&nbsp;<span>8.7</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(pinguins[,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>]) <span class="co">#variáveis de iris plotadas em pares</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(pinguins[,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>], </span>
@@ -801,10 +830,10 @@ Figura&nbsp;6.12: diagrama de gráficos de dispersão.
 <section id="gráficos-com-ggplot2" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="gráficos-com-ggplot2"><span class="header-section-number">6.3</span> Gráficos com <code>ggplot2</code></h2>
 <p>As capacidades gráficas do R podem ser expandidas de forma expressiva com a utilização de pacotes. Um O pacote <code>ggplot2</code> permite a preparação de gráficos com qualidade de publicação de maneira fácil. O pacote utiliza uma linguagem diferente da forma tradicional para a elaboração de gráficos no R, conhecida como gramática dos gráficos <span class="citation" data-cites="wilkinson2005">(<a href="czz_Referencias.html#ref-wilkinson2005" role="doc-biblioref">Wilkinson &amp; Wills, 2005</a>)</span>. No <code>ggplot2</code>, cada elemento gráfico é adicionado como uma camada.</p>
-<p>Em geral, a estrutura do gráfico no ggplot2 irá seguir uma estrutura geral, na qual vamos adicionando complexidade para or gráficos em diferenteas camadas. As camadas podem ser adicionadas utilizando funções:</p>
+<p>Em geral, a estrutura do gráfico no ggplot2 vai seguir uma estrutura geral, na qual vamos adicionando complexidade para os gráficos em diferentes camadas. As camadas podem ser adicionadas utilizando funções:</p>
 <ol type="1">
-<li><p><strong>Criar novo ggplot</strong>: isso pode ser realizado utilizando a função <code>ggplot()</code>. Nela também podemos adicionar como argumentos o conjunto e dados a ser utilizado e també a estética (<em>aesthetics</em>; função <code>aes()</code>).</p></li>
-<li><p><strong>Adicionar a estética (<em>aesthetics</em>)</strong>: é adicionada pela função <code>aes()</code>. Os argumentos a serem adicionados variam dependendo do gráfico, mas podm incluir as variáveis a serem plotadas nos eixos (argumentos <code>x =</code> e <code>y =</code>), cores e preencchimentos (<code>col =</code> e <code>fill =</code>), formato de pontos ou tipos de linhas (<code>pch =</code> e <code>linetype =</code>) ou fatores de agrupamento (<code>group =</code>).</p></li>
+<li><p><strong>Criar novo ggplot</strong>: isso pode ser realizado utilizando a função <code>ggplot()</code>. Nela podemos adicionar como argumentos o conjunto e dados a ser utilizado e também a estética (<em>aesthetics</em>; função <code>aes()</code>).</p></li>
+<li><p><strong>Adicionar a estética (<em>aesthetics</em>)</strong>: é adicionada pela função <code>aes()</code>. Os argumentos a serem adicionados variam dependendo do gráfico, mas podm incluir as variáveis a serem plotadas nos eixos (argumentos <code>x =</code> e <code>y =</code>), cores e preenchimentos (<code>col =</code> e <code>fill =</code>), formato de pontos ou tipos de linhas (<code>pch =</code> e <code>linetype =</code>) ou fatores de agrupamento (<code>group =</code>).</p></li>
 <li><p><strong>Adicionar geometria (<em>geom</em>)</strong>: a geometria definiria o tipo de gráfico, como gráficos de barras (<code>geom_bar()</code>), histogramas(<code>geom_histogram()</code>) boxplot (<code>geom_boxplot()</code>), gráficos de dispersão (<code>geom_point()</code>)</p></li>
 <li><p><strong>Parâmetros adicionais</strong>: outros parâmetros podem ser adicionados. Eles podem alterar características como títulos (<code>ggtitle()</code>), etiquetas dos eixos (<code>xlab()</code> e <code>ylab()</code>), ou temas (funções <code>theme_…()</code>).</p></li>
 </ol>
@@ -816,7 +845,7 @@ Figura&nbsp;6.12: diagrama de gráficos de dispersão.
 </div>
 <section id="gráficos-de-dispersão" class="level3" data-number="6.3.1">
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="gráficos-de-dispersão"><span class="header-section-number">6.3.1</span> Gráficos de dispersão</h3>
-<p>Vamos exemplificar o funcionamento do ggplot criandocom um gráfico de dispersão passo a passo. Primeiramente, utilizaremos a função <code>ggplot()</code> para criar um novo gráfico com os dados de pinguins (<a href="#fig-ggplot" class="quarto-xref">Figura&nbsp;<span>6.13</span></a>).</p>
+<p>Vamos exemplificar o funcionamento do <code>ggplot2</code> criando com um gráfico de dispersão passo a passo. Primeiramente, utilizaremos a função <code>ggplot()</code> para criar um novo gráfico com os dados de pinguins (<a href="#fig-ggplot" class="quarto-xref">Figura&nbsp;<span>6.13</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pinguins)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -832,7 +861,7 @@ Figura&nbsp;6.13: primeira camada do ggplot.
 </div>
 </div>
 </div>
-<p>A função simplesmente criou o a primeira camada do gráfico. Agora, podemos adicionar dentro da função ggplot uma estética com a função <code>aes()</code> (<a href="#fig-ggplot_aes" class="quarto-xref">Figura&nbsp;<span>6.14</span></a>). Vamos adicionar o comprimento do culmen no eixo x e o peso no eixo y.</p>
+<p>A função simplesmente criou o a primeira camada do gráfico. Agora, podemos adicionar dentro da função ggplot uma estética com a função <code>aes()</code> (<a href="#fig-ggplot_aes" class="quarto-xref">Figura&nbsp;<span>6.14</span></a>). Vamos adicionar o comprimento do bico no eixo x e o peso no eixo y.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pinguins, <span class="fu">aes</span>(<span class="at">x =</span> nadadeira, <span class="at">y =</span> peso))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -868,7 +897,7 @@ Figura&nbsp;6.15: adicionando camada com pontos com geom_point()
 <p>Podemos também modificar o gráfico de diversas formas (<a href="#fig-ggplot_av" class="quarto-xref">Figura&nbsp;<span>6.16</span></a>):</p>
 <ul>
 <li><p>Linha de regressão linear (modelo linear - lm) com a função <code>geom_smooth();</code></p></li>
-<li><p>Alterar a estética <code>aes()</code>: colorir os pontos em função da espécie (argumento <code>col =</code>) e mudar os formatos emfunção do sexo (argumento <code>shape =</code>)</p></li>
+<li><p>Alterar a estética <code>aes()</code>: colorir os pontos em função da espécie (argumento <code>col =</code>) e mudar os formatos em função do sexo (argumento <code>shape =</code>)</p></li>
 <li><p>Título e nomes dos eixos com funções <code>labs()</code>, <code>xlab()</code> e <code>ylab()</code>. Vamos alterar também o título da legenda de <code>col</code> de “especie” para “Espécie” e a legenda de <code>shape</code> de “sexo” para “Sexo”.</p></li>
 <li><p>Mudar o tema com uma das funções <code>theme_…()</code>.</p></li>
 </ul>
@@ -897,7 +926,7 @@ Figura&nbsp;6.16: alterando parâmetros do gráfico do ggplot2.
 </div>
 </div>
 </div>
-<p>Perceba que o argumento <code>aes()</code> pode ser utilizado junto com a função <code>ggplot()</code> para definir a estética da figura como um todo, ou coma função <code>geom_…()</code>, para somente alterar a estética da geometria. Vamos alterar a gigura acima para criar uma linha de regressão de cor diferente para cada cada espécie. Para isso, somente iremos incluir o argumento <code>col</code> na estética do <code>ggplot(),</code> e não somente do <code>geom_point()</code> como estava no exemplo anterior (<a href="#fig-ggplot_av2" class="quarto-xref">Figura&nbsp;<span>6.17</span></a>).</p>
+<p>Perceba que o argumento <code>aes()</code> pode ser utilizado junto com a função <code>ggplot()</code> para definir a estética da figura como um todo, ou coma função <code>geom_…()</code>, para somente alterar a estética da geometria. Vamos alterar a figura acima para criar uma linha de regressão de cor diferente para cada espécie. Para isso, somente vamos incluir o argumento <code>col</code> na estética do <code>ggplot(),</code> e não somente do <code>geom_point()</code> como estava no exemplo anterior (<a href="#fig-ggplot_av2" class="quarto-xref">Figura&nbsp;<span>6.17</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pinguins, <span class="fu">aes</span>(<span class="at">x =</span> nadadeira, <span class="at">y =</span> peso, <span class="at">col =</span> especie))<span class="sc">+</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> sexo))<span class="sc">+</span></span>
@@ -926,7 +955,7 @@ Figura&nbsp;6.17: alterando parâmetros do gráfico do ggplot2. Linha de regress
 </section>
 <section id="incluindo-facetas" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="incluindo-facetas"><span class="header-section-number">6.3.2</span> Incluindo facetas</h3>
-<p>Podemos fazer gráficos separados em facetas utilizando algum fator de agrupamento. A função <code>facet_wrap()</code> separa facetas gráficos em relação a um fator, enquanto a função <code>facet_grid()</code> cria uma grade com gráficos. Nos exemplos abaixo, criamos um gráfico do peso em função do comprimento da nadadeira, separado em facetas por ilha, e no segundo exemplo o memso gráfico, só que com as faceta separadas em uma grade por sexo e por ilha (<a href="#fig-ggplot_facet" class="quarto-xref">Figura&nbsp;<span>6.18</span></a>).</p>
+<p>Podemos fazer gráficos separados em facetas utilizando algum fator de agrupamento. A função <code>facet_wrap()</code> separa facetas gráficos em relação a um fator, enquanto a função <code>facet_grid()</code> cria uma grade com gráficos. Nos exemplos abaixo, criamos um gráfico do peso em função do comprimento da nadadeira, separado em facetas por ilha, e no segundo exemplo o mesmo gráfico, só que com as facetas separadas em uma grade por sexo e por ilha (<a href="#fig-ggplot_facet" class="quarto-xref">Figura&nbsp;<span>6.18</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gráfico incluindo facetas por ilha</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pinguins, <span class="fu">aes</span>(<span class="at">x =</span> nadadeira, <span class="at">y =</span> peso, <span class="at">col =</span> especie))<span class="sc">+</span></span>
@@ -1017,7 +1046,7 @@ Figura&nbsp;6.19: histograma com o pacote ggplot2.
 </section>
 <section id="boxplot" class="level3" data-number="6.3.4">
 <h3 data-number="6.3.4" class="anchored" data-anchor-id="boxplot"><span class="header-section-number">6.3.4</span> Boxplot</h3>
-<p>Vamos criar boxplots com o ggplot2, primeiramente comparando as diferentes espécies (<a href="#fig-ggplot_bp" class="quarto-xref">Figura&nbsp;<span>6.20</span></a> a). Podemos fazer boxplots mais complexos incluindo cores diferentes para os sexos (<a href="#fig-ggplot_bp" class="quarto-xref">Figura&nbsp;<span>6.20</span></a> b), e separando facetas para cada localidade (<a href="#fig-ggplot_bp" class="quarto-xref">Figura&nbsp;<span>6.20</span></a> c).</p>
+<p>Vamos criar <em>boxplots</em> com o <code>ggplot2</code>, primeiramente comparando as diferentes espécies (<a href="#fig-ggplot_bp" class="quarto-xref">Figura&nbsp;<span>6.20</span></a> a). Podemos fazer <em>boxplots</em> mais complexos incluindo cores diferentes para os sexos (<a href="#fig-ggplot_bp" class="quarto-xref">Figura&nbsp;<span>6.20</span></a> b), e separando facetas para cada localidade (<a href="#fig-ggplot_bp" class="quarto-xref">Figura&nbsp;<span>6.20</span></a> c).</p>
 <div class="cell" data-layout="[[50,50],[100]]">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#boxplot</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> peso,<span class="at">x =</span> especie),<span class="at">data =</span> pinguins) <span class="sc">+</span></span>
@@ -1085,7 +1114,7 @@ Figura&nbsp;6.20: boxplot com ggplot2.
 </section>
 <section id="gráfico-de-barras-com-errodesvio-padrão-com-ggpubr" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="gráfico-de-barras-com-errodesvio-padrão-com-ggpubr"><span class="header-section-number">6.4</span> Gráfico de barras com erro/desvio padrão com ggpubr</h2>
-<p>Outro gráfico comum é o gráfico de barras com barra de desvio padrão. Vamos fazer um gráfico com o peso dos pinguins por espécie, incluindo a barra de erros relativa ao desvio padrão. Para criar o gáfico de maneira fácil, utilizaremos o pacote <code>ggpubr()</code>. Neste gráfico, utilizamos a função <code>ggbarplot()</code>. Na função, temos os argumentos <code>data</code> para indicar o conjunto de dados, <code>x</code> para indicar o fator de agrupamento e <code>y</code> para indicar a variável quantitativa, e o argumento <code>add = "mean_sd"</code> para calcular a média e o desvio padrão (<a href="#fig-bar_ggpubr" class="quarto-xref">Figura&nbsp;<span>6.21</span></a>). Também pode ser adicionado o argumento <code>add = "mean_se"</code> para adicionar o erro padrão.</p>
+<p>Outro gráfico comum é o gráfico de barras com barra de desvio padrão. Vamos fazer um gráfico com o peso dos pinguins por espécie, incluindo a barra de erros relativa ao desvio padrão. Para criar o gráfico de maneira fácil, utilizaremos o pacote <code>ggpubr()</code>. Neste gráfico, utilizamos a função <code>ggbarplot()</code>. Na função, temos os argumentos <code>data</code> para indicar o conjunto de dados, <code>x</code> para indicar o fator de agrupamento e <code>y</code> para indicar a variável quantitativa, e o argumento <code>add = "mean_sd"</code> para calcular a média e o desvio padrão (<a href="#fig-bar_ggpubr" class="quarto-xref">Figura&nbsp;<span>6.21</span></a>). Também pode ser adicionado o argumento <code>add = "mean_se"</code> para adicionar o erro padrão.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr) <span class="co"># se não tiver instalado, install.packages("ggpubr")</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbarplot</span>(<span class="at">data =</span> pinguins, <span class="at">x =</span> <span class="st">"especie"</span>, <span class="at">y =</span> <span class="st">"peso"</span>, <span class="at">add =</span> <span class="st">"mean_sd"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1105,11 +1134,11 @@ Figura&nbsp;6.21: gráfico de barras incluindo desvio padrão.
 </section>
 <section id="salvando-gráficos" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="salvando-gráficos"><span class="header-section-number">6.5</span> Salvando gráficos</h2>
-<p>Podemos salvar uma figura utilizando o botão export na janela gráfica do RStudio. PAra criar uma imagem controlando detalhes dos parâmetros gráficos, uma boa opção é utilizar a função <code>ggsave()</code> do pacote <code>ggplot2</code>. Caso não seja especificado um objeto com a figura, a última figura plotada será salva (veja abaixo o exemplo 1). No exemplo 2, criamos um objeto com o plot e depois salvamos com a função <code>ggsave()</code> definindo os seguintes argumentos:</p>
+<p>Podemos salvar uma figura utilizando o botão <code>Export</code> na janela gráfica do RStudio. Para criar uma imagem controlando detalhes dos parâmetros gráficos, uma boa opção é utilizar a função <code>ggsave()</code> do pacote <code>ggplot2</code>. Caso não seja especificado um objeto com a figura, a última figura plotada será salva (veja abaixo o exemplo 1). No exemplo 2, criamos um objeto com o plot e depois salvamos com a função <code>ggsave()</code> definindo os seguintes argumentos:</p>
 <ul>
 <li><p><code>filename</code>: nome do arquivo;</p></li>
 <li><p><code>plot</code>: gráfico que será salvo;</p></li>
-<li><p><code>device</code>: tipo de figura (“eps”, “ps”, “tex” (pictex), “pdf”, “jpeg”, “tiff”, “png”, “bmp”, “svg” ou “wmf” );</p></li>
+<li><p><code>device</code>: tipo de figura (“eps”, “ps”, “tex” (pictex), “pdf”, “jpeg”, “tiff”, “png”, “bmp”, “svg” ou “wmf”);</p></li>
 <li><p><code>width</code> e <code>height</code>: dimensões (largura e altura) da figura;</p></li>
 <li><p><code>units</code>: unidade para as dimensões;</p></li>
 <li><p><code>dpi</code>: resolução da figura.</p></li>
@@ -1133,11 +1162,11 @@ Figura&nbsp;6.21: gráfico de barras incluindo desvio padrão.
 <span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> plot.pinguins, <span class="at">device =</span> <span class="st">"png"</span>, </span>
 <span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">25</span>, <span class="at">height =</span> <span class="dv">15</span>, <span class="at">units =</span> <span class="st">"cm"</span>, <span class="at">dpi =</span> <span class="dv">400</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A figura será salva no diretório de trabalho defindo, com o nome definido em <code>filename</code>. Lembrando que pode o diretório de trabalho onde a figura foi salva pode ser verificado com a função <code>getwd()</code>.</p>
+<p>A figura será salva no diretório de trabalho definido, com o nome selecionado em <code>filename</code>. Lembrando que pode o diretório de trabalho onde a figura foi salva pode ser verificado com a função <code>getwd()</code>.</p>
 </section>
 <section id="conclusão" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">6.6</span> Conclusão</h2>
-<p>Neste capítulo, exploramos técnicas de&nbsp;<strong>análise exploratória de dados (EDA)</strong>&nbsp;e a criação de gráficos no R, utilizando tanto funções base quanto o pacote&nbsp;<strong>ggplot2</strong>. Aprendemos a gerar gráficos de dispersão, histogramas, boxplots, gráficos de barras e outros, com foco na visualização de padrões e relações nos dados. Foram apresentadas ferramentas para personalizar gráficos, como ajustes de cores, formas, legendas e facetas, além de técnicas para salvar gráficos em diferentes formatos. O uso do&nbsp;<strong>ggplot2</strong>&nbsp;destacou-se por sua flexibilidade e capacidade de criar visualizações sofisticadas com poucas linhas de código. Essas habilidades são essenciais para a exploração e interpretação de dados, permitindo ao leitor comunicar resultados de forma clara e eficaz.</p>
+<p>Neste capítulo, exploramos técnicas de&nbsp;<strong>análise exploratória de dados (EDA)</strong>&nbsp;e a criação de gráficos no R, utilizando tanto funções base quanto o pacote&nbsp;<strong>ggplot2</strong>. Aprendemos a gerar gráficos de dispersão, histogramas, <em>boxplots</em>, gráficos de barras e outros, com foco na visualização de padrões e relações nos dados. Foram apresentadas ferramentas para personalizar gráficos, como ajustes de cores, formas, legendas e facetas, além de técnicas para salvar gráficos em diferentes formatos. O uso do&nbsp;<code>ggplot2</code>&nbsp;destacou-se por sua flexibilidade e capacidade de criar visualizações sofisticadas com poucas linhas de código. Essas habilidades são essenciais para a exploração e interpretação de dados, permitindo ao leitor comunicar resultados de forma clara e eficaz.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
@@ -1145,10 +1174,10 @@ Figura&nbsp;6.21: gráfico de barras incluindo desvio padrão.
 Behrens, J. T. (1997). Principles and procedures of exploratory data analysis. <em>Psychological Methods</em>, <em>2</em>(2), 131160. <a href="https://doi.org/10.1037/1082-989X.2.2.131">https://doi.org/10.1037/1082-989X.2.2.131</a>
 </div>
 <div id="ref-brillinger2011" class="csl-entry" role="listitem">
-Brillinger, D. R. (2011). <em>Data analysis, exploratory</em> (pp. 530–537). SAGE Knowledge.
+Brillinger, D. R. (2011). <em>Data analysis, exploratory</em> (p. 530–537). SAGE Knowledge.
 </div>
 <div id="ref-ellison2001" class="csl-entry" role="listitem">
-Ellison, A. M. (2001). <em>Exploratory data analysis and graphical display</em> (S. M. Scheiner &amp; J. Gurevitch, Eds.; 2nd ed., pp. 37–62). Oxford University Press.
+Ellison, A. M. (2001). <em>Exploratory data analysis and graphical display</em> (S. M. Scheiner &amp; J. Gurevitch, Orgs.; 2nd ed, p. 37–62). Oxford University Press.
 </div>
 <div id="ref-wilkinson2005" class="csl-entry" role="listitem">
 Wilkinson, L., &amp; Wills, G. (2005). <em>The grammar of graphics</em> (2nd ed). Springer.

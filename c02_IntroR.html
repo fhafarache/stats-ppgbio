@@ -346,7 +346,7 @@ div.csl-indent {
 </header>
 
 
-<p>Nesta capítulo, inicialmente iremos nos familiarizar com a interface do Rstudio, e com conceitos introdutórios da linguagem R. Os scripts podem ser executados no r base com algumas adaptações. Neste tópico, os principais conceitos para se familiarizar são:</p>
+<p>Nesta capítulo, inicialmente vamos nos familiarizar com a interface do RStudio, e com conceitos introdutórios da linguagem R. Os scripts podem ser executados no R base com algumas adaptações. Neste tópico, os principais conceitos para se familiarizar são:</p>
 <ul>
 <li><p>Como executar um comando no R;</p></li>
 <li><p>O que são objetos;</p></li>
@@ -356,12 +356,12 @@ div.csl-indent {
 </ul>
 <section id="a-interface-do-rstudio" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="a-interface-do-rstudio"><span class="header-section-number">2.1</span> A Interface do RStudio</h2>
-<p>No Rstudio podemos visualizar 4 janelas (<a href="#fig-rstudio_editor" class="quarto-xref">Figura&nbsp;<span>2.1</span></a>), sendo elas:</p>
+<p>No RStudio podemos visualizar 4 janelas (<a href="#fig-rstudio_editor" class="quarto-xref">Figura&nbsp;<span>2.1</span></a>), sendo elas:</p>
 <ul>
 <li><strong>Editor</strong>: é onde digitamos os códigos. Nele temos um arquivo de texto que chamamos script. Se ela não aparecer, crie um novo script clicando no botão de atalho do canto superior esquerdo como apresentado no exemplo mais adiante.</li>
 <li><strong>Console</strong>: é a linha de comandos do R. Os comandos executados aparecem depois do símbolo “<code>&gt;</code>”, e os resultados também aparecem no console.</li>
-<li><strong>Ambiente e história</strong>: onde ficam os objetos criados. “História”apresenta linhas de código recentemente utilizadas.</li>
-<li><strong>Output</strong>: Apresenta outras informações, como gráficos gerados, arquivos de ajuda, etc.</li>
+<li><strong>Ambiente e história</strong>: onde ficam os objetos criados. “História” apresenta linhas de código recentemente utilizadas.</li>
+<li><strong>Output</strong>: Apresenta outras informações, como gráficos gerados, arquivos de ajuda etc.</li>
 </ul>
 <div id="fig-rstudio_editor" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -402,14 +402,14 @@ Figura&nbsp;2.2: Criando um novo script. O caminho para a criação do script es
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#subtração - utilizar o operador aritmético "-"</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">-</span> <span class="dv">5</span> </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Obs.:</strong> no Rstudio, após o título de um tópico iniciado com hashtag, você pode usar 4 hashtags seguidos (<code>####</code>) para indicar um tópico principal; também pode utilizar <code>====</code> para indicar um tópico secundário e <code>----</code> para indicar um tópico terciário.</p>
+<p><strong>Obs.:</strong> no RStudio, após o título de um tópico iniciado com hashtag, você pode usar 4 hashtags seguidos (<code>####</code>) para indicar um tópico principal; também pode utilizar <code>====</code> para indicar um tópico secundário e <code>----</code> para indicar um tópico terciário.</p>
 </section>
 <section id="sintaxe-e-operações-aritméticas" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="sintaxe-e-operações-aritméticas"><span class="header-section-number">2.3</span> Sintaxe e operações aritméticas</h2>
 <p>O R pode ser utilizado para realizar cálculos simples. Para executar um comando no R, faça alguma das duas ações:</p>
 <ul>
-<li>Digite <code>1 + 2</code> no <strong>editor</strong> e pressione <strong>Ctrl+ENTER</strong>. Assim a informação passada no editor será executada no script</li>
-<li>Digite <code>1 + 2</code> diretamente no <strong>console</strong> e pressione <strong>ENTER</strong></li>
+<li>Digite <code>1 + 2</code> no <strong>editor</strong> e pressione <code>Ctrl+ENTER.</code> Assim a informação passada no editor será executada no script.</li>
+<li>Digite <code>1 + 2</code> diretamente no <strong>console</strong> e pressione <code>ENTER</code>.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -456,7 +456,7 @@ Figura&nbsp;2.4: Resultado das operações aritméticas digitadas no editor. Ap�
 <section id="atribuição-criando-objetos" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="atribuição-criando-objetos"><span class="header-section-number">2.4</span> Atribuição: criando objetos</h2>
 <p>Ao executar o comando executado acima, obtemos o resultado da operação. No entanto esse resultado não é salvo em nenhum local. Na linguagem R, para que nosso resultado fique salvo para uma próxima etapa, devemos criar um <strong>objeto</strong>.</p>
-<p>O R é uma linguagem orientada a objetos. As planilhas, resultados de análise, funções utilizadas para realizar as análises, etc, são salvos como objetos. Para criar objetos, utilizamos o operador de <strong>atribuição (<code>&lt;-</code>)</strong>. Assim, podemos criar um objeto no R que irá salvar o resultado no R:</p>
+<p>O R é uma linguagem orientada a objetos. As planilhas, resultados de análise, funções utilizadas para realizar as análises etc, são salvos como objetos. Para criar objetos, utilizamos o operador de <strong>atribuição (<code>&lt;-</code>)</strong>. Assim, podemos criar um objeto no R que vai salvar o resultado no R:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -467,7 +467,7 @@ Figura&nbsp;2.4: Resultado das operações aritméticas digitadas no editor. Ap�
 <pre><code>[1] 3</code></pre>
 </div>
 </div>
-<p>Podemos utilizar os símbolos de atribuição como o sinal de menor seguido de hífen, formando uma seta (<code>&lt;-</code>), mas isto em geral também pode ser feito utilizando o sinal de igualdade (<code>=</code>). Após digitar o valor, você poderá utilizar o símbolo de atribuição ao contrário. A função <code>assign()</code> pode ser utilizada para atribuição (obs: funções são explicadas em um tópico posterior). Todos os comandos abaixo funcionam da mesma forma: atribuem o valor de <code>1 + 2</code> ao objeto <code>a</code>:</p>
+<p>Podemos utilizar os símbolos de atribuição como o sinal de menor seguido de hífen, formando uma seta (<code>&lt;-</code>), mas isto em geral também pode ser feito utilizando o sinal de igualdade (<code>=</code>). Após digitar o valor, você poderá utilizar o símbolo de atribuição ao contrário. A função <code>assign()</code> pode ser utilizada para atribuição (obs.: funções são explicadas em um tópico posterior). Todos os comandos abaixo funcionam da mesma forma: atribuem o valor de <code>1 + 2</code> ao objeto <code>a</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span>
@@ -543,12 +543,12 @@ Figura&nbsp;2.4: Resultado das operações aritméticas digitadas no editor. Ap�
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a, <span class="at">base=</span><span class="dv">10</span>)<span class="sc">*</span>b</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>(a<span class="sc">*</span>b<span class="ot">-&gt;</span>c)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Obs: O objeto <code>a</code> anteriormente tinha o valor 3. Criamos um novo objeto <strong><code>a</code></strong> com valor 10. Desta forma, o valor de <code>a</code> foi alterado.</p>
+<p>Obs.: O objeto <code>a</code> anteriormente tinha o valor 3. Criamos um novo objeto <strong><code>a</code></strong> com valor 10. Desta forma, o valor de <code>a</code> foi alterado.</p>
 </section>
 </section>
 <section id="pacotes" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="pacotes"><span class="header-section-number">2.6</span> Pacotes</h2>
-<p>Existem vários pacotes que apresentam funções específicas para determinadas finalidades. No exemplo, vamos instalar o pacote <code>ggplot2</code>, que oferece ferramentas avançadas para a elaboração de gráficos. Abaixo iremos:</p>
+<p>Existem vários pacotes que apresentam funções específicas para determinadas finalidades. No exemplo, vamos instalar o pacote <code>ggplot2</code>, que oferece ferramentas avançadas para a elaboração de gráficos. Abaixo vamos:</p>
 <ul>
 <li>Fazer download e instalar o pacote <code>ggplot2</code>.</li>
 <li>Abrir o pacote, de forma que suas funções fiquem disponíveis. Isso deve ser feito sempre que pretendemos utilizar o pacote.</li>
@@ -602,7 +602,7 @@ Figura&nbsp;2.4: Resultado das operações aritméticas digitadas no editor. Ap�
 <section id="vetores" class="level3" data-number="2.8.1">
 <h3 data-number="2.8.1" class="anchored" data-anchor-id="vetores"><span class="header-section-number">2.8.1</span> Vetores</h3>
 <p>São objetos nos quais podemos guardar vários valores. Criamos vetores utilizando a função de <em>concatenação</em>: <code>c()</code>. Vetores numéricos são as estruturas de dados mais simples do R. Vamos preparar vetores com dados de roedores, retirados de de “The Portal Project Teaching Database” <span class="citation" data-cites="ernest2020">(<a href="czz_Referencias.html#ref-ernest2020" role="doc-biblioref">Ernest et al., 2020</a>)</span>.</p>
-<p>Vamos criar um vetor chamado <code>peso</code>, com 10 valores. Após criarr o vetor com a função <code>c()</code>, podemos executar o comando <code>peso</code>, para ver os 10 valores que digitamos:</p>
+<p>Vamos criar um vetor chamado <code>peso</code>, com 10 valores. Após criar o vetor com a função <code>c()</code>, podemos executar o comando <code>peso</code>, para ver os 10 valores que digitamos:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>peso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">7</span>,<span class="dv">42</span>,<span class="dv">44</span>,<span class="dv">49</span>,<span class="dv">49</span>,<span class="dv">154</span>,<span class="dv">166</span>,<span class="dv">31</span>,<span class="dv">32</span>) <span class="co"># peso em gramas</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>peso</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -663,9 +663,9 @@ not a sub-multiple or multiple of the number of rows [5]</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#do que 1 a 9. ela volta a preencher o elemento final com o primeiro elemento.</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Abaixo, iremos</p>
+<p>Abaixo, vamos</p>
 <ul>
-<li><p>Criair uma matriz A;</p></li>
+<li><p>Criar uma matriz A;</p></li>
 <li><p>Observar a diagonal da matriz com a função <code>diag()</code>;</p></li>
 <li><p>Observar o número de linhas e colunas da matriz com <code>dim()</code>.</p></li>
 <li><p>Transpor a matriz com <code>t()</code>.</p></li>
@@ -724,7 +724,7 @@ not a sub-multiple or multiple of the number of rows [5]</code></pre>
 [4,]    5</code></pre>
 </div>
 </div>
-<p>A partir da matriz coluna com o tamanho da população em cada faixa etária, podemos calcular o número de indivíduos em cada classe etária no tempo t+1. A multiplicação tem algumas particularidades, e ela é realizada no R utilizando ooperador <code>%*%</code>.</p>
+<p>A partir da matriz coluna com o tamanho da população em cada faixa etária, podemos calcular o número de indivíduos em cada classe etária no tempo t+1. A multiplicação tem algumas particularidades, e ela é realizada no R utilizando o operador <code>%*%</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>L <span class="sc">%*%</span> pop</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -746,7 +746,7 @@ not a sub-multiple or multiple of the number of rows [5]</code></pre>
 </section>
 <section id="conjuntos-de-dados-data-frame" class="level3" data-number="2.8.3">
 <h3 data-number="2.8.3" class="anchored" data-anchor-id="conjuntos-de-dados-data-frame"><span class="header-section-number">2.8.3</span> Conjuntos de dados (<em>data frame</em>)</h3>
-<p>Em geral, quando vamos organizar os dados em uma planilha, utilizamos estruturas muito parecidas com o formato data frame. Neste tipo de objeto temos colunas representando variáveis e linhas representando observações.Vamos utilizar a função <code>data.frame()</code> para criar uma planilha com os dados de roedores:</p>
+<p>Em geral, quando vamos organizar os dados em uma planilha, utilizamos estruturas muito parecidas com o formato data frame. Neste tipo de objeto temos colunas representando variáveis e linhas representando observações. Vamos utilizar a função <code>data.frame()</code> para criar uma planilha com os dados de roedores:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>roedores <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(especie, sexo, peso, comprimento)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>roedores</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -804,7 +804,7 @@ $número
 [1] 3</code></pre>
 </div>
 </div>
-<p>Nesta lista, salvamos nossos dados deroedores, a matriz que criamos anteriormente, e um número em uma lista.</p>
+<p>Nesta lista, salvamos nossos dados de roedores, a matriz que criamos anteriormente, e um número em uma lista.</p>
 </section>
 </section>
 <section id="classes-de-objetos" class="level2" data-number="2.9">
@@ -820,7 +820,7 @@ $número
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
-<p>Podemos transformar um objeto de caracter em um fator:</p>
+<p>Podemos transformar um objeto de caracteres em um fator:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>sexo <span class="ot">&lt;-</span> <span class="fu">factor</span>(sexo)</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>sexo  </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -864,7 +864,7 @@ Levels: F M</code></pre>
 <li><p><code>sum()</code>: soma dos elementos do vetor.</p></li>
 <li><p><code>mean()</code>: média dos elementos.</p></li>
 <li><p><code>length()</code>: número de elementos no vetor.</p></li>
-<li><p><code>table()</code>: cria uma tabela de contagem para vetores de caracter.</p></li>
+<li><p><code>table()</code>: cria uma tabela de contagem para vetores de caractere.</p></li>
 <li><p><code>min()</code>: menor valor presente no vetor.</p></li>
 <li><p><code>max()</code>: maior valor presente no vetor.</p></li>
 <li><p><code>range()</code>: menor e maior valores presentes no vetor</p></li>
@@ -921,7 +921,7 @@ F M
 </section>
 <section id="utilizando-operadores-relacionais" class="level3" data-number="2.10.3">
 <h3 data-number="2.10.3" class="anchored" data-anchor-id="utilizando-operadores-relacionais"><span class="header-section-number">2.10.3</span> Utilizando operadores relacionais</h3>
-<p>Operadores relacionais retoram uma resposta lógica (verdadeiro [<code>TRUE</code>] ou falso [<code>FALSE</code>]) e podem ser dos seguintes tipos:</p>
+<p>Operadores relacionais retornam uma resposta lógica (verdadeiro [<code>TRUE</code>] ou falso [<code>FALSE</code>]) e podem ser dos seguintes tipos:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1041,7 +1041,7 @@ F M
 </div>
 <p>O resultado (output) de <code>str()</code> mostra cada variável, sua classe e os valores:</p>
 <ul>
-<li><p><code>'data.frame':</code> o objeto é um dataframe com 10 observações (<code>obs</code>: linhas) e 4 variáveis (<code>variables</code>: colunas).</p></li>
+<li><p><code>'data.frame':</code> o objeto é um dataframe com 10 observações (<code>obs.</code>: linhas) e 4 variáveis (<code>variables</code>: colunas).</p></li>
 <li><p><code>$ especie</code>: a coluna <code>especie</code> é do tipo “caracter” (<code>chr</code>), e os primeiros elementos são “BA” “BA” “DM” “DM”.</p></li>
 <li><p><code>$ peso</code>: a coluna <code>peso</code> é do tipo numérica (<code>num</code>), e os primeiros elementos são 9 7 42 44 49, etc.</p></li>
 </ul>
@@ -1093,7 +1093,7 @@ F M
 </div>
 <section id="onde-os-objetos-foram-salvos" class="level3" data-number="2.12.1">
 <h3 data-number="2.12.1" class="anchored" data-anchor-id="onde-os-objetos-foram-salvos"><span class="header-section-number">2.12.1</span> Onde os objetos foram salvos?</h3>
-<p>O R trabalha em um determinado diretório de trabalho em seu computador. Seius arquivos serão primariamente lidos e salvos nesse diretório. Você pode descobrir qual é o diretório com a função <code>getwd()</code>. Se você quiser mudar este diretório, pode selecionar o diretório com a função <code>setwd()</code>, incluindo o caminho para o arquivo. Você também pode visualizar quais arquivos estão salvos no diretório com a função <code>dir()</code>. No RStudio, em vez de utilizar a função <code>setwd()</code>, o diretório pode ser configurado clicando pelo caminho: <code>Session: Set Working Directory: Choose Directory</code>. Veremos isso novamente no próximo capítulo.</p>
+<p>O R trabalha em um determinado diretório de trabalho em seu computador. Seus arquivos serão primariamente lidos e salvos nesse diretório. Você pode descobrir qual é o diretório com a função <code>getwd()</code>. Se você quiser mudar este diretório, pode selecionar o diretório com a função <code>setwd()</code>, incluindo o caminho para o arquivo. Você também pode visualizar quais arquivos estão salvos no diretório com a função <code>dir()</code>. No RStudio, em vez de utilizar a função <code>setwd()</code>, o diretório pode ser configurado clicando pelo caminho: <code>Session: Set Working Directory: Choose Directory</code>. Veremos isso novamente no próximo capítulo.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() <span class="co"># descobrir diretório</span></span>
 <span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/fernandohfarache/Documents/AnalisesR"</span>) <span class="co">#definir diretório</span></span>

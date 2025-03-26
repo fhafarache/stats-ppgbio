@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
@@ -313,11 +313,11 @@ div.csl-indent {
 </header>
 
 
-<p>Para as análises deste tópico, iremos utilizar o conjunto de dados <code>pinguins</code>:</p>
+<p>Para as análises deste tópico, vamos utilizar o conjunto de dados <code>pinguins</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pinguins <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"pinguins"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pinguins) <span class="co">#verificar a astrutura</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pinguins) <span class="co">#verificar a estrutura</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [333 × 7] (S3: tbl_df/tbl/data.frame)
  $ especie  : chr [1:333] "Adelia" "Adelia" "Adelia" "Adelia" ...
@@ -386,7 +386,7 @@ div.csl-indent {
 <p>Algumas funções podem ser usadas para facilitar a aplicação de funções de forma simultânea em diferentes colunas ou grupos de dados.</p>
 <section id="função-tapply" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="função-tapply"><span class="header-section-number">4.2.1</span> Função <code>tapply()</code></h3>
-<p>Como temos espécies diferentes, vamos calcular a média e desvio padrão do comprimento do culmen para cada uma das espécies utilizando a função <code>tapply()</code>.</p>
+<p>Como temos espécies diferentes, vamos calcular a média e desvio padrão do comprimento do bico para cada uma das espécies utilizando a função <code>tapply()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#média</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(pinguins<span class="sc">$</span>bico_comp, <span class="co">#coluna com os valores</span></span>
@@ -406,7 +406,7 @@ div.csl-indent {
 </section>
 <section id="função-apply" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="função-apply"><span class="header-section-number">4.2.2</span> Função <code>apply()</code></h3>
-<p>Esta função pode ser usada para aplicar outra função para cada coluna de um conjunto de dados. Se quisermos calcular a média em todas as colunas numéricas, podemos calcular em uma por uma, ou utlizar a função <code>apply()</code> para aplicar a função média para todas as colunas</p>
+<p>Esta função pode ser usada para aplicar outra função para cada coluna de um conjunto de dados. Se quisermos calcular a média em todas as colunas numéricas, podemos calcular em uma por uma, ou utilizar a função <code>apply()</code> para aplicar a função média para todas as colunas</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#média de de uma das colunas</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(pinguins[,<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>], <span class="dv">2</span>, mean) <span class="co">#Calcular a média para todas as colunas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -420,7 +420,7 @@ div.csl-indent {
 <h3 data-number="4.2.3" class="anchored" data-anchor-id="função-aggregate"><span class="header-section-number">4.2.3</span> Função <code>aggregate()</code></h3>
 <p>Esta função é muito útil quando queremos calcular estatísticas descritivas e temos uma ou mais colunas de fatores que agrupam os dados. Se quisermos calcular as médias para cada uma das variáveis numéricas da planilha pinguins para cada uma das espécies usando <code>aggregate()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(<span class="fu">cbind</span>(bico_comp,bico_prof,nadadeira,peso) <span class="sc">~</span> especie, <span class="co">#inagregar variaveis numéricas por espécie</span></span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(<span class="fu">cbind</span>(bico_comp,bico_prof,nadadeira,peso) <span class="sc">~</span> especie, <span class="co">#agrupar variaveis numéricas por espécie</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> pinguins, <span class="co"># selecionar as variáveis</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>          mean) <span class="co"># função a ser aplicada</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -438,7 +438,7 @@ div.csl-indent {
 </section>
 <section id="tabelas-sofisticadas-com-table1" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="tabelas-sofisticadas-com-table1"><span class="header-section-number">4.3</span> Tabelas sofisticadas com <code>table1()</code></h2>
-<p>Com o pacote <code>table1</code>, é possivel preparar facilmente uma tabela de estatísticas descritivas como a <a href="#tbl-pinguins" class="quarto-xref">Tabela&nbsp;<span>4.1</span></a> . No exemplo, iremos gerar uma tabela com estatísticas descritivas para as variáveis numéricas do conjunto de dados, calculando elas em separado para cada espécie de pinguim:</p>
+<p>Com o pacote <code>table1</code>, é possível preparar facilmente uma tabela de estatísticas descritivas como a <a href="#tbl-pinguins" class="quarto-xref">Tabela&nbsp;<span>4.1</span></a> . No exemplo, vamos gerar uma tabela com estatísticas descritivas para as variáveis numéricas do conjunto de dados, calculando-as em separado para cada espécie de pinguim:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(table1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -583,12 +583,12 @@ Tabela&nbsp;4.1: estatísticas descritivas para o conjunto de dados “pinguins�
 <p>Podemos utilizar mais de um fator para separar as espécies, veja o exemplo a seguir como separar as estatísticas descritivas por espécie e por sexo:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#tabela de variaveis numericas por especie e sexo</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span>culmen_comp_mm <span class="sc">+</span> culmen_prof_mm<span class="sc">+</span>nadadeira_comp_mm<span class="sc">+</span>peso_g<span class="sc">|</span>especie<span class="sc">+</span>sexo , <span class="at">data =</span> pinguins, <span class="at">overall =</span> <span class="cn">NULL</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> bico_comp <span class="sc">+</span> bico_prof <span class="sc">+</span> nadadeira <span class="sc">+</span> peso<span class="sc">|</span>especie <span class="sc">+</span> sexo , <span class="at">data =</span> pinguins, <span class="at">overall =</span> <span class="cn">NULL</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="utilizando-o-tidyverse-para-calcular-estatísticas-descritivas" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="utilizando-o-tidyverse-para-calcular-estatísticas-descritivas"><span class="header-section-number">4.4</span> Utilizando o <code>tidyverse</code> para calcular estatísticas descritivas</h2>
-<p>O tidyverse é um conjunto de pacotes versátil para ciência de dados e apresenta ferramentas sofixticadas para calcular estatísticas descritivas <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>. Para mais informações, consulte o <a href="c12_Tidyverse.html" class="quarto-xref"><span>Capítulo 12</span></a> .</p>
+<p>O tidyverse é um conjunto de pacotes versátil para ciência de dados e apresenta ferramentas sofisticadas para calcular estatísticas descritivas <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>. Para mais informações, consulte o <a href="c12_Tidyverse.html" class="quarto-xref"><span>Capítulo 12</span></a> .</p>
 </section>
 <section id="conclusão" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">4.5</span> Conclusão</h2>

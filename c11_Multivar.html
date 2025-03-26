@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
@@ -319,7 +319,7 @@ div.csl-indent {
 <section id="análise-de-componentes-principais-pca" class="level3" data-number="11.1.1">
 <h3 data-number="11.1.1" class="anchored" data-anchor-id="análise-de-componentes-principais-pca"><span class="header-section-number">11.1.1</span> Análise de Componentes Principais (PCA)</h3>
 <p>A ideia da análise de componentes principais é encontrar uma combinação linear de diversas variáveis para capturar o máximo da variação possível <span class="citation" data-cites="crawley2013">(<a href="czz_Referencias.html#ref-crawley2013" role="doc-biblioref">Crawley, 2013</a>)</span>. Este método é utilizado para reduzir a dimensionalidade dos dados. A análise dos componentes principais é bem-sucedida quando temos fortes intercorrelações entre os dados originais <span class="citation" data-cites="gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>)</span>.</p>
-<p>No conjunto de dados <code>comunidades</code>, temos a comunidade de vespas associadas a diferentes espécies de figueiras As três primeiras colunas representam as amostras, hospedeiros e áreas, enquanto as colunas 4 em diante representam as abundâncias de cada uma das espécies representadas por letras e números.</p>
+<p>No conjunto de dados <code>comunidades</code>, temos a comunidade de vespas associadas a diferentes espécies de figueiras. As três primeiras colunas representam as amostras, hospedeiros e áreas, enquanto as colunas 4 em diante representam as abundâncias de cada uma das espécies representadas por letras e números.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>comun <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"comunidades"</span>)</span>
@@ -340,7 +340,7 @@ div.csl-indent {
 </div>
 </div>
 <p>As colunas 4 a 39 colunas apresentam as espécies que estamos interessados, e cada uma das linhas apresenta uma amostra.</p>
-<p>Vamos extrair as colunas 4 a 39 e realizar a análise dos componentes principais. Utilizaremos a função <code>prcomp()</code>. Tendo em vista que a variância das abundâncias podem diferir entre as espécies, optamos incluir o argumento <code>scale = TRUE</code>. Assim, a variável será colocada em escala, com média igual a 0 e desvio padrão igual a 1.</p>
+<p>Vamos extrair as colunas 4 a 39 e realizar a análise dos componentes principais. Utilizaremos a função <code>prcomp()</code>. Tendo em vista que a variância das abundâncias pode diferir entre as espécies, optamos incluir o argumento <code>scale = TRUE</code>. Assim, a variável será colocada em escala, com média igual a 0 e desvio padrão igual a 1.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pca.comun <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(comun[,<span class="dv">4</span><span class="sc">:</span><span class="dv">39</span>], <span class="at">scale=</span><span class="cn">TRUE</span>) <span class="co"># objeto com a análise dos componentes principais.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca.comun)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -364,7 +364,7 @@ Proportion of Variance 0.00125 0.00108 0.00018 0.000e+00
 Cumulative Proportion  0.99874 0.99982 1.00000 1.000e+00</code></pre>
 </div>
 </div>
-<p>Foram criados 25 componentes principais, sendo que o primeiro explica 17,92% da variância nos dados. A linha Cumulative Proportion mostra a proporção cumulativa que é explicada por cada um dos componentes criados. Desta forma, os componentes PC1 a PC8 explicam 75% da variação total.</p>
+<p>Foram criados 25 componentes principais, sendo que o primeiro explica 17,92% da variância nos dados. A linha <em>Cumulative Proportion</em> mostra a proporção cumulativa que é explicada por cada um dos componentes criados. Desta forma, os componentes PC1 a PC8 explicam 75% da variação total.</p>
 <section id="scree-plots-gráficos-de-declive" class="level4" data-number="11.1.1.1">
 <h4 data-number="11.1.1.1" class="anchored" data-anchor-id="scree-plots-gráficos-de-declive"><span class="header-section-number">11.1.1.1</span> Scree plots (gráficos de declive)</h4>
 <p>Na etapa anterior, criamos um objeto de PCA, e observaremos como cada um dos componentes principais criados explicaram a variação dos dados. No exemplo o componente principal 1 (PC1) explica 16,7% da variância dos dados. Esses valores podem ser plotados em um gráfico:</p>
@@ -415,7 +415,7 @@ Figura&nbsp;11.2: gráfico de biplot para PCA dos dados de comunidades
 </div>
 </div>
 </div>
-<p>Quanto mais longa é uma das setas, mais ela está relacionada com cada uma das variáveis. A visualização com a função biplot é um pouco difícil. então podemos utilizar o pacote <code>factoextra</code> para fazer a visualização somente das variáveis (<a href="#fig-biplot2" class="quarto-xref">Figura&nbsp;<span>11.3</span></a>).</p>
+<p>Quanto mais longa é uma das setas, mais ela está relacionada com cada uma das variáveis. A visualização com a função <code>biplot()</code> é um pouco difícil. então podemos utilizar o pacote <code>factoextra</code> para fazer a visualização somente das variáveis (<a href="#fig-biplot2" class="quarto-xref">Figura&nbsp;<span>11.3</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_var</span>(pca.comun, <span class="at">repel =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -450,7 +450,7 @@ Figura&nbsp;11.4: análise dos componentes principais para os dados da comunidad
 </div>
 </div>
 </div>
-<p>Podemos observar que os pontos se agruparam por espécie hospedeira, que foi usada para definir o formato e cor dos pontos. As setas correspondem às espécies que mais ocorreram em cada hospedeiro, e espécies compartilhadas aperecem menos relacionadas com os grupos de pontos.</p>
+<p>Podemos observar que os pontos se agruparam por espécie hospedeira, que foi usada para definir o formato e cor dos pontos. As setas correspondem às espécies que mais ocorreram em cada hospedeiro, e espécies compartilhadas aparecem menos relacionadas com os grupos de pontos (elipses).</p>
 </section>
 </section>
 </section>
@@ -460,7 +460,7 @@ Figura&nbsp;11.4: análise dos componentes principais para os dados da comunidad
 <section id="análise-de-agrupamento-cluster-analysis" class="level3" data-number="11.2.1">
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="análise-de-agrupamento-cluster-analysis"><span class="header-section-number">11.2.1</span> Análise de agrupamento (Cluster analysis)</h3>
 <p>A análise de agrupamento é um conjunto de técnicas que busca agrupar as amostras. As técnicas de agrupamento hierárquico podem ser utilizadas para mostrar quais espécies são mais similares entre si agrupando-as em dendrogramas.</p>
-<p>Vamos realizar uma análise de agrupamento para observar se as as espécies de comunidades de vespas dem <code>comun</code> são agrupadas pelos hospedeiros. Primeiramente, iremos criar uma matriz de distâncias entre as nossas amostras, utilizando distâncias de Bray-Curtis.</p>
+<p>Vamos realizar uma análise de agrupamento para observar se as as espécies de comunidades de vespas de <code>comun</code> são agrupadas pelos hospedeiros. Primeiramente, vamos criar uma matriz de distâncias entre as nossas amostras, utilizando distâncias de Bray-Curtis.</p>
 <section id="organizar-os-dados" class="level4" data-number="11.2.1.1">
 <h4 data-number="11.2.1.1" class="anchored" data-anchor-id="organizar-os-dados"><span class="header-section-number">11.2.1.1</span> Organizar os dados</h4>
 <p>Para facilitar a visualização posterior, precisamos criar um conjunto de dados do tipo <strong>data.frame</strong> nos quais os nomes das linhas correspondam às etiquetas que queremos utilizar. Cada nome de linhas deve ser único.</p>
@@ -571,7 +571,7 @@ Figura&nbsp;11.5: dendrograma obtido por UPGMA agrupando as observações de pin
 </section>
 <section id="testes-de-hipótese-em-análise-multivariada" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="testes-de-hipótese-em-análise-multivariada"><span class="header-section-number">11.3</span> Testes de hipótese em análise multivariada</h2>
-<p>Podemos utilisar métodos de análise de variância permutacional (PERMANOVA) sobre a matriz de distância para observar o efeito de um fator sobre as distâncias entre as amostras. No exemplo do conjunto de dados de comunidades, vamos testar a hipótese de que a diferença entre as comunidades dse deve à diferenças entre hospedeiros e entre localidades. A PERMANOVA pode ser realizada com a função <code>adonis2()</code> do pacote <code>vegan</code>:</p>
+<p>Podemos utilizar métodos de análise de variância permutacional (PERMANOVA) sobre a matriz de distância para observar o efeito de um fator sobre as distâncias entre as amostras. No exemplo do conjunto de dados de comunidades, vamos testar a hipótese de que a diferença entre as comunidades se deve a diferenças entre hospedeiros e entre localidades. A PERMANOVA pode ser realizada com a função <code>adonis2()</code> do pacote <code>vegan</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -592,7 +592,7 @@ Total    24   8.9125 1.0000
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>Podemos observar que há uma clara relação entre o hospedeiro e a composição da comunidade, entretanto a relação com o local parece ser apenas marginal. É preciso interpretar com cautela esses resultados quando os dados não são balanceados, ou seja, quando não há número próximo de réplicas por grupos. No caso que apresentamos, poderíamos remover o as linhas da espécie <em>cro</em>, mantendo somente as espécies <em>cit</em> e <em>exi</em>, que apresentam cada uma 10 observações com 5 observações por localidade, resultando em um experimento balanceados</p>
+<p>Podemos observar que há uma clara relação entre o hospedeiro e a composição da comunidade, entretanto a relação com o local parece ser apenas marginal. É preciso interpretar com cautela esses resultados quando os dados não são balanceados, ou seja, quando não há número próximo de réplicas por grupos. No caso que apresentamos, poderíamos remover o as linhas da espécie <em>cro</em>, mantendo somente as espécies <em>cit</em> e <em>exi</em>, que apresentam, cada uma, 10 observações, com 5 observações por localidade, resultando em um experimento balanceado.</p>
 </section>
 <section id="conclusão" class="level2" data-number="11.4">
 <h2 data-number="11.4" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">11.4</span> Conclusão</h2>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
@@ -350,7 +350,7 @@ window.Quarto = {
 <section id="função-de-densidade-de-probabilidade-com-dnorm" class="level3" data-number="5.1.1">
 <h3 data-number="5.1.1" class="anchored" data-anchor-id="função-de-densidade-de-probabilidade-com-dnorm"><span class="header-section-number">5.1.1</span> Função de densidade de probabilidade com <code>dnorm()</code></h3>
 <p>A Função de Densidade de Probabilidade (FDP) da distribuição normal descreve a probabilidade de uma variável aleatória tomar um dado valor na distribuição normal. Assim, ela descreve o formato da curva.</p>
-<p>No exemplo abaixo, podemos calcular a probabilidade de se observar os valores 0, 1 e 2 em uma distrinuição normal padrão (média = 0, desvio padrão = 1)</p>
+<p>No exemplo abaixo, podemos calcular a probabilidade de se observar os valores 0, 1 e 2 em uma distribuição normal padrão (média = 0, desvio padrão = 1)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="co"># = dnorm(0) ; mean = 0, sd = 1 estão implícitos</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -368,7 +368,7 @@ window.Quarto = {
 <p>Podemos usar essa função para calcular e fazer um gráfico com a curva normal. Observe o exemplo abaixo, no qual fazemos um gráfico com valores entre -3 e 3, e a probabilidade de observá-los. Com isso, temos a formação de uma curva normal (<a href="#fig-fdpnormal" class="quarto-xref">Figura&nbsp;<span>5.1</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>z.scores <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>,<span class="fl">0.1</span>) <span class="co">#gerar valores de -3 a 3, de 0.1 em 0.1</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>valor.d <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(z.scores,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># densidades de prpbabilidades dos valores-z</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>valor.d <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(z.scores,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># densidades de probabilidades dos valores-z</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(z.scores,valor.d, <span class="at">type =</span> <span class="st">"l"</span>) <span class="co">#gráfico com as probabilidades observadas para os valores entre -3 e 3: forma a curva normal padrão </span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-fdpnormal" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -502,7 +502,7 @@ Figura&nbsp;5.3: gráfico da distribuição binomial para x = 1:10, p = 0,5 e n 
 </section>
 <section id="distribuição-de-poisson" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="distribuição-de-poisson"><span class="header-section-number">5.3</span> Distribuição de Poisson</h2>
-<p>A distribuição de poisson é uma distribuição de variável aleatória discreta. Ela é muito usada para descrever eventos raros ou dados de contagem, como por exemplo o número de espécimes encontrados em uma armadilha ou em uma parcela. Ela é descrevida por um único parâmetro <span class="math inline">\(\lambda\)</span>. Sua aparência geral é de uma curva normal com desvio para um dos lados e uma cauda longa.</p>
+<p>A distribuição de Poisson é uma distribuição de variável aleatória discreta. Ela é muito usada para descrever eventos raros ou dados de contagem, como por exemplo o número de espécimes encontrados em uma armadilha ou em uma parcela. Ela é descrevida por um único parâmetro <span class="math inline">\(\lambda\)</span>. Sua aparência geral é de uma curva normal com desvio para um dos lados e uma cauda longa.</p>
 <p><em>Exemplo</em>: Digamos qua a quantidade de indivíduos de uma determinada espécies siga uma distribuição de Poisson. Há em média, 4 indivíduos de determinada espécie em uma parcela (ou seja, <span class="math inline">\(\lambda = 4\)</span>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Qual a probabilidade de se encontrar 0 indivíduos em uma armadilha?</span></span>
@@ -521,7 +521,7 @@ Figura&nbsp;5.3: gráfico da distribuição binomial para x = 1:10, p = 0,5 e n 
 <pre><code>[1] 0.4334701</code></pre>
 </div>
 </div>
-<p>O formato da distribuição de Poisson pode ser vista nos gráficos abaixo. Quando maior o <span class="math inline">\(\lambda\)</span>, mais próximo simétrica ela fica (<a href="#fig-poisson" class="quarto-xref">Figura&nbsp;<span>5.4</span></a>)</p>
+<p>O formato da distribuição de Poisson pode ser visto nos gráficos abaixo. Quando maior o <span class="math inline">\(\lambda\)</span>, mais próximo simétrica ela fica (<a href="#fig-poisson" class="quarto-xref">Figura&nbsp;<span>5.4</span></a>)</p>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Distribuição de Poisson: baixo lambda, cauda longa:</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">dpois</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">lambda =</span> <span class="dv">2</span>), <span class="at">type =</span> <span class="st">"l"</span>) </span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Alto lambda, aproximação à normal:</span></span>
@@ -567,7 +567,7 @@ Figura&nbsp;5.4: Gráfico ilustrando a distribuição de Poisson com diferentes 
 <p>O R é um ótimo instrumento para gerar dados aleatórios, que podem ser usados em simulações.</p>
 <section id="sequências-numéricas-e-repetições" class="level3" data-number="5.4.1">
 <h3 data-number="5.4.1" class="anchored" data-anchor-id="sequências-numéricas-e-repetições"><span class="header-section-number">5.4.1</span> Sequências numéricas e repetições</h3>
-<p>Podemos gerar sequências numéticas com a notação “:” ou com a função seq():</p>
+<p>Podemos gerar sequências numéricas com a notação “:” ou com a função seq():</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">100</span> <span class="co">#gera sequência de 1 a 100</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -616,60 +616,60 @@ Figura&nbsp;5.4: Gráfico ilustrando a distribuição de Poisson com diferentes 
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>n10s2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">10</span>,<span class="dv">2</span>) <span class="co">#rnorm(n, mean = 0, sd = 1)</span></span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(n10s2) <span class="co">#deve se aproximar à média</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 9.8902</code></pre>
+<pre><code>[1] 10.14967</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(n10s2) <span class="co"># deve se aproximar ao sd</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.059073</code></pre>
+<pre><code>[1] 2.144338</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#obs: quanto maior o n, esperamos que média e sd se aproximem dos valores teóricos</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(n10s2) <span class="co">#ordenar o vetor n10s2 do menor valor para o maior</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1]  4.867282  5.894262  5.912166  6.214927  6.519175  6.651058  7.007894
-  [8]  7.241515  7.258974  7.266479  7.600252  7.773348  7.835326  7.856453
- [15]  7.871426  7.921782  7.976995  8.033191  8.048054  8.231060  8.271332
- [22]  8.279476  8.308276  8.326543  8.346655  8.429572  8.466911  8.473013
- [29]  8.530006  8.621311  8.627169  8.651099  8.723054  8.798856  8.799444
- [36]  8.821916  8.919793  8.997578  9.099572  9.246632  9.268650  9.302289
- [43]  9.311168  9.415980  9.451895  9.458468  9.461984  9.500928  9.501946
- [50]  9.540608  9.585757  9.620066  9.631839  9.807975 10.223305 10.225879
- [57] 10.314895 10.370113 10.439919 10.444090 10.495260 10.512613 10.528510
- [64] 10.539488 10.549891 10.606665 10.641223 10.655539 10.694743 10.767262
- [71] 10.951997 11.067089 11.126600 11.200033 11.307302 11.315466 11.531403
- [78] 11.614701 11.618274 11.647006 11.659525 11.679129 11.733561 12.022302
- [85] 12.180262 12.194745 12.461433 12.620166 12.807279 12.825865 12.876045
- [92] 12.978751 13.111629 13.190417 13.411605 13.659389 13.735698 14.100799
- [99] 14.362727 14.440007</code></pre>
+<pre><code>  [1]  4.036529  5.219976  5.327863  5.959822  6.389756  6.937970  7.338465
+  [8]  7.360125  7.507135  7.636623  7.705573  7.706495  7.861598  7.862272
+ [15]  7.929744  7.945644  7.953243  8.137736  8.306673  8.322134  8.396422
+ [22]  8.420782  8.457020  8.511001  8.551871  8.663203  8.733856  8.937480
+ [29]  9.022057  9.036879  9.051750  9.052340  9.065690  9.128668  9.229884
+ [36]  9.391176  9.488788  9.543519  9.551124  9.569926  9.585056  9.585482
+ [43]  9.656925  9.669166  9.865292  9.910391  9.931581 10.029001 10.050812
+ [50] 10.099257 10.147530 10.177686 10.191440 10.206138 10.232352 10.288820
+ [57] 10.364325 10.374019 10.520665 10.524833 10.625797 10.652326 10.801257
+ [64] 10.901119 11.065040 11.131481 11.201255 11.201880 11.253760 11.498807
+ [71] 11.622807 11.691611 11.728896 11.732817 11.744176 11.766124 11.769752
+ [78] 11.833759 11.963224 11.983125 12.062731 12.202156 12.289648 12.429205
+ [85] 12.458945 12.593987 12.622004 12.782788 12.804611 12.965518 13.174149
+ [92] 13.318847 13.426401 13.468582 13.473950 13.478951 13.697483 13.847486
+ [99] 14.477255 14.563739</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(n10s2,<span class="dv">2</span>)<span class="co"># arredondar os valores para duas casas decimais para facilitar a visualização</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  [1] 11.73 10.61  9.62 12.83 14.36 10.53 13.66 12.98  9.46 11.65 10.51  9.50
- [13]  9.46  7.26  6.65  8.27 10.66  8.82  8.43  5.91 10.77  9.63  7.60  8.63
- [25]  7.24  9.81 12.18 10.69 11.66 10.23 13.74 10.22  8.92  8.33 10.44 11.62
- [37] 11.13 14.44  8.35 12.19 11.07  7.86 13.11  7.01 11.53 10.37 11.32  9.31
- [49]  9.27  9.00  9.54  7.87  7.84  8.72  9.10 10.50  8.28 13.41  7.77  9.30
- [61]  8.80  7.92  8.47 10.44 14.10 11.20  8.53  8.05  9.59  8.62  9.25  9.42
- [73]  7.27 11.61  8.80 12.46 12.62 11.68  9.50  4.87 10.64 10.55  9.45 13.19
- [85]  6.52 10.54 10.31  7.98  8.23 12.81  8.31  6.21  8.65 11.31  5.89  8.03
- [97] 12.02 10.95 12.88  8.47</code></pre>
+<pre><code>  [1] 10.90 11.62 12.43 12.62 13.43  5.33  7.51  9.05  7.86  8.46  7.36  9.57
+ [13] 10.29  9.67  9.93 12.46 12.20  7.71 11.98  9.05 10.21 11.96 14.48  6.94
+ [25]  5.22 12.59 11.77  7.95  8.55 11.50  6.39  5.96 11.77  7.86 11.07  7.93
+ [37] 12.06  8.66 10.36  8.94 12.78 10.18 10.15  9.49  9.04  9.23 13.32  9.87
+ [49] 11.73 11.69  9.59  7.64 13.47 11.13  4.04  9.66 13.70 10.52 13.17 10.19
+ [61] 12.80  8.14 13.85  8.31  9.55  8.32 10.37 14.56  8.40 11.83  9.39 11.20
+ [73] 10.65  7.71 10.03 13.48 11.73 12.97 11.74  7.34 10.23  9.91 10.52 10.10
+ [85] 10.80  8.42  7.95 10.63  9.54 11.25  9.07  9.59  9.13  8.73 12.29  9.02
+ [97] 10.05 13.47 11.20  8.51</code></pre>
 </div>
 </div>
-<p><strong>Utilizando outras distribuições</strong>: existem funções para gerar dados aleatórios a partir de outras distribuições de probabilidade, como a <code>runif()</code> para a distribuição uniforme e a <code>rpois()</code> para a distribuição de poisson.</p>
+<p><strong>Utilizando outras distribuições</strong>: existem funções para gerar dados aleatórios a partir de outras distribuições de probabilidade, como a <code>runif()</code> para a distribuição uniforme e a <code>rpois()</code> para a distribuição de Poisson.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">20</span>) <span class="co"># uniforme n = 50, min =10, max = 20</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 10.04885 19.67330 16.37244 14.87405 17.02288 15.10511 11.62475 12.22147
- [9] 16.65713 15.01895 19.01521 14.31312 16.43887 14.53306 19.58567 11.62740
-[17] 17.77159 14.85386 19.36671 18.21149 17.52915 10.79314 17.97204 11.66355
-[25] 14.16835 12.44387 10.55137 10.98915 14.22307 13.94848 17.77881 18.27306
-[33] 18.06606 14.67083 11.76626 14.86177 16.35711 11.94360 15.68897 10.14431
-[41] 10.49293 13.86416 16.30381 16.04345 19.17661 14.52001 16.99135 13.41050
-[49] 19.53947 17.18579</code></pre>
+<pre><code> [1] 17.54011 12.36196 11.55874 19.01521 13.64711 14.43728 10.61942 10.40539
+ [9] 19.50159 12.37198 14.86943 14.41454 17.08071 10.54505 19.89864 17.76176
+[17] 15.56388 17.40725 16.39910 14.02537 19.36265 17.59222 17.11403 15.68853
+[25] 16.32898 15.83416 12.90271 13.25905 14.99840 11.79296 19.95226 12.88417
+[33] 15.66989 11.24567 17.33055 14.73938 12.25519 14.52799 10.91739 10.35403
+[41] 16.52815 18.83694 19.44161 19.95208 11.85903 15.97704 16.10677 19.87198
+[49] 11.51949 15.81344</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">50</span>, <span class="dv">4</span>) <span class="co"># poisson n = 50, lambda = 4</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 2 7 6 0 9 3 2 5 2 5 7 3 2 4 5 3 2 6 2 8 4 5 3 4 6 3 4 9 3 6 4 6 1 1 4 5 7 6
-[39] 4 5 5 4 7 5 7 3 6 7 1 4</code></pre>
+<pre><code> [1]  4  8  1  3  6  1  8  4  1  3  3  3  1  4  2  1  7  3  1  4  4  5  4  3  9
+[26]  4  7  2  5  4  3  4  4  6  2  9  7 10  3  2  5  3  6  7  1  1  5  3  5  2</code></pre>
 </div>
 </div>
 </section>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
@@ -352,7 +352,7 @@ window.Quarto = {
 <p>Ao se definir as hipóteses, escolhemos um nível de probabilidade para as conclusões ou um nível de significância. Este processo é sujeito a erros, sendo esses chamados de <strong>erro tipo I</strong>, que é a rejeição de uma <span class="math inline">\(H_0\)</span> verdadeira, com probabilidade <span class="math inline">\(\alpha\)</span>, ou aceitar uma <span class="math inline">\(H_0\)</span> falsa, conhecido como <strong>erro tipo II</strong>, e expresso pela probabilidade <span class="math inline">\(\beta\)</span> <span class="citation" data-cites="tonhascajr1991">(<a href="czz_Referencias.html#ref-tonhascajr1991" role="doc-biblioref">Tonhasca Jr, 1991</a>)</span>. Neste sentido, <span class="math inline">\(\alpha\)</span> é a significância do teste, ou seja, a probabilidade de se rejeitar a hipótese nula sendo esta verdadeira, enquanto <span class="math inline">\(1-\beta\)</span> é o poder do teste, ou seja, a probabilidade de se rejeitar a hipótese nula sendo ela falsa <span class="citation" data-cites="gotelli2016 tonhascajr1991">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>; <a href="czz_Referencias.html#ref-tonhascajr1991" role="doc-biblioref">Tonhasca Jr, 1991</a>)</span>. Deste modo, temos a seguinte tabela de decisão:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 24%">
+<col style="width: 25%">
 <col style="width: 36%">
 <col style="width: 38%">
 </colgroup>
@@ -380,7 +380,7 @@ window.Quarto = {
 <h2 data-number="7.1" class="anchored" data-anchor-id="teste-t"><span class="header-section-number">7.1</span> Teste-t</h2>
 <section id="teste-t-para-a-comparação-de-duas-amostras." class="level3" data-number="7.1.1">
 <h3 data-number="7.1.1" class="anchored" data-anchor-id="teste-t-para-a-comparação-de-duas-amostras."><span class="header-section-number">7.1.1</span> Teste-t para a comparação de duas amostras.</h3>
-<p>Vamos importar o conjunto de dados <code>artropodes</code>, que apresenta a abundância de artrópodes coletados com armadilhas pitfall em um fragmento florestal e na matriz do fragmento.</p>
+<p>Vamos importar o conjunto de dados <code>artropodes</code>, que apresenta a abundância de artrópodes coletados com armadilhas <em>pitfall</em> em um fragmento florestal e na matriz do fragmento.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>art <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"artropodes"</span>) <span class="co">#importar dados</span></span>
@@ -413,7 +413,7 @@ window.Quarto = {
 16 matriz            56</code></pre>
 </div>
 </div>
-<p>Neste conjunto de dados temos uma variável categórica indicando o ambiente me uma variável contínua com a abundância de artrópodes em cada unidade amostral. Utilizamos o operador “<code>~</code>” para criar fórmulas. No exemplo, faremos um gráfico de boxplot comparando os ambientes (<a href="#fig-bplot_ambientes" class="quarto-xref">Figura&nbsp;<span>7.1</span></a>) e um teste-t para comparar se há diferenças entre as médias de abundância artrópodes nos ambientes:</p>
+<p>Neste conjunto de dados temos uma variável categórica indicando o ambiente me uma variável contínua com a abundância de artrópodes em cada unidade amostral. Utilizamos o operador “<code>~</code>” para criar fórmulas. No exemplo, faremos um gráfico de <em>boxplot</em> comparando os ambientes (<a href="#fig-bplot_ambientes" class="quarto-xref">Figura&nbsp;<span>7.1</span></a>) e um teste-t para comparar se há diferenças entre as médias de abundância artrópodes nos ambientes:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art) <span class="co">#boxplot: parece haver diferenças entre grupos</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art) <span class="co">#teste-t não pareado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -443,12 +443,12 @@ Figura&nbsp;7.1: gráfico de boxplot comparando a abundância de artrópodes em 
 </div>
 </div>
 </div>
-<p>pelo resultado, vemos que há diferença significativa entre a média da abundˆancia nos ambientes analizados: t(12.85) = -4,49; p = 0,0006.</p>
+<p>pelo resultado, vemos que há diferença significativa entre a média da abundˆancia nos ambientes analisados: t(12,85) = -4,49; p = 0,0006.</p>
 </section>
 <section id="teste-t-pareado" class="level3" data-number="7.1.2">
 <h3 data-number="7.1.2" class="anchored" data-anchor-id="teste-t-pareado"><span class="header-section-number">7.1.2</span> Teste-t pareado</h3>
 <p>No teste t pareado, as amostras são dependentes. Podemos utilizá-lo quando, por exemplo, aplicamos dois tratamentos diferentes em uma mesma amostra e queremos observar se houve diferença entre os tratamentos.</p>
-<p>No exemplo, vamos comparar o tamanho corpóreo de galhadores e parasitas que ocorrem em uma mesma espécie de plantas hospedeiras. Para cada hospedeiro, temos o tamanho em milímetros do galhador e do parasita associado (<a href="#fig-bplot_gal1" class="quarto-xref">Figura&nbsp;<span>7.2</span></a>) e o teste-t não pareado abaixo indicam que as abundâncias são similares. No entanto, observamos nos valores do conjunto de dadosque para cada rio, o número de invertebrados na nascente é maior que o número na foz:</p>
+<p>No exemplo, vamos comparar o tamanho corpóreo de galhadores e parasitas que ocorrem em uma mesma espécie de plantas hospedeiras. Para cada hospedeiro, temos o tamanho em milímetros do galhador e do parasita associado (<a href="#fig-bplot_gal1" class="quarto-xref">Figura&nbsp;<span>7.2</span></a>) e o teste-t não pareado abaixo indicam que as abundâncias são similares. No entanto, observamos nos valores do conjunto de dados que para cada rio, o número de invertebrados na nascente é maior que o número na foz:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gal <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"galhadores"</span>) <span class="co"># importar os dados</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gal <span class="co">#observar os dados</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -516,7 +516,7 @@ mean difference
 </div>
 </div>
 <p>Neste caso observamos uma diferença significativa entre as médias a uma significância de 5%: t(12) = 5,43, p = 0,00015.</p>
-<p>Podemos utilizar um boxplot ligando os pontos entre os valores para cada hospedeiro facilmente utilizando o <code>ggpubr</code> (<a href="#fig-bplot_gal2" class="quarto-xref">Figura&nbsp;<span>7.3</span></a>):</p>
+<p>Podemos utilizar um <em>boxplot</em> ligando os pontos entre os valores para cada hospedeiro facilmente utilizando o <code>ggpubr</code> (<a href="#fig-bplot_gal2" class="quarto-xref">Figura&nbsp;<span>7.3</span></a>):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -599,7 +599,7 @@ Figura&nbsp;7.3: gráfico de boxplot pareado comparando galhadores e parasitas,
 <pre><code>[1] 0.1111736</code></pre>
 </div>
 </div>
-<p>O teste realizado anteriormente pode ser reproduzido utilizando a função t.test:</p>
+<p>O teste realizado anteriormente pode ser reproduzido utilizando a função <code>t.test()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(val, <span class="co"># valores</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mu =</span> <span class="dv">5</span>, <span class="co"># média da população</span></span>
@@ -636,11 +636,11 @@ mean of x
 <img src="figuras/teste de hipótese.jpg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-teste_hip-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;7.4: Representação gráfica da interpretação de um teste de hipótese (teste t) bilateral e unilateral
+Figura&nbsp;7.4: Representação gráfica da interpretação de um teste de hipótese (teste-t) bilateral e unilateral
 </figcaption>
 </figure>
 </div>
-<p>Vamos testar a hipótese de que a média da amostra (val) é MENOR que a média da população:</p>
+<p>Vamos testar a hipótese de que a média da amostra (val) é <u>menor</u> que a média da população:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(val, <span class="at">mu =</span> <span class="dv">5</span>, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -671,7 +671,7 @@ mean of x
 </section>
 <section id="avaliando-as-premissas-do-teste-t" class="level3" data-number="7.1.7">
 <h3 data-number="7.1.7" class="anchored" data-anchor-id="avaliando-as-premissas-do-teste-t"><span class="header-section-number">7.1.7</span> Avaliando as premissas do teste-t</h3>
-<p>Podmeos aplicar diversosmétodos para avaliar se os dados não violam as premissas para o teste-t dentre as principais premissas temos:</p>
+<p>Podemos aplicar diversos métodos para avaliar se os dados não violam as premissas para o teste-t dentre as principais premissas temos:</p>
 <section id="normalidade" class="level4" data-number="7.1.7.1">
 <h4 data-number="7.1.7.1" class="anchored" data-anchor-id="normalidade"><span class="header-section-number">7.1.7.1</span> Normalidade</h4>
 <p>O teste-t assume a premissa de normalidade dos resíduos. Isso pode ser avaliado de maneira visual utilizando gráficos quantil-quantil, que comparam os quantis observados com os quantis teóricos para a distribuição normal (<a href="#fig-qqplot" class="quarto-xref">Figura&nbsp;<span>7.5</span></a>):</p>
@@ -691,9 +691,9 @@ Figura&nbsp;7.5: gráfico quantil-quantil para avaliar os pressupostos de normal
 </div>
 </div>
 </div>
-<p>O observação de linearidade dos pontos em relação à reta sugere que os dados sejam normalmente distribuídos.<br>
+<p>A observação de linearidade dos pontos em relação à reta sugere que os dados sejam normalmente distribuídos.<br>
 </p>
-<p>Obs: no próximo capítulo iremos ver em mais detalhes a utilização da função <code>lm()</code> para ajustar modelos lineares.</p>
+<p>Obs: no próximo capítulo vamos ver em mais detalhes a utilização da função <code>lm()</code> para ajustar modelos lineares.</p>
 <p>Existem diferentes testes que podem ser utilizados para verificar normalidade. Um exemplo é o teste de Shapiro-Wilk:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(<span class="fu">lm</span>(abundancia<span class="sc">~</span>ambiente, <span class="at">data =</span> art)))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
