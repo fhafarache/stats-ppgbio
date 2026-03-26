@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Testes de hipóteses – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
+<title>7&nbsp; Inferência Estatística: uma introdução com testes t e qui-quadrado – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -333,7 +333,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c07_TesteHip.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c07_InfEst.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inferência Estatística: uma introdução com testes t e qui-quadrado</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -407,8 +407,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./c07_TesteHip.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></span></a>
+  <a href="./c07_InfEst.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inferência Estatística: uma introdução com testes t e qui-quadrado</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -475,23 +475,24 @@ window.Quarto = {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#teste-t" id="toc-teste-t" class="nav-link active" data-scroll-target="#teste-t"><span class="header-section-number">7.1</span> Teste-t</a>
+  <li><a href="#teste-de-hipóteses" id="toc-teste-de-hipóteses" class="nav-link active" data-scroll-target="#teste-de-hipóteses"><span class="header-section-number">7.1</span> Teste de hipóteses</a></li>
+  <li><a href="#teste-t" id="toc-teste-t" class="nav-link" data-scroll-target="#teste-t"><span class="header-section-number">7.2</span> Teste-t</a>
   <ul class="collapse">
-  <li><a href="#teste-t-para-a-comparação-de-duas-amostras." id="toc-teste-t-para-a-comparação-de-duas-amostras." class="nav-link" data-scroll-target="#teste-t-para-a-comparação-de-duas-amostras."><span class="header-section-number">7.1.1</span> Teste-t para a comparação de duas amostras.</a></li>
-  <li><a href="#teste-t-pareado" id="toc-teste-t-pareado" class="nav-link" data-scroll-target="#teste-t-pareado"><span class="header-section-number">7.1.2</span> Teste-t pareado</a></li>
-  <li><a href="#teste-t-para-uma-média" id="toc-teste-t-para-uma-média" class="nav-link" data-scroll-target="#teste-t-para-uma-média"><span class="header-section-number">7.1.3</span> Teste-t para uma média</a></li>
-  <li><a href="#exemplo" id="toc-exemplo" class="nav-link" data-scroll-target="#exemplo"><span class="header-section-number">7.1.4</span> Exemplo</a></li>
-  <li><a href="#teste-unilateral-vs-teste-bilateral" id="toc-teste-unilateral-vs-teste-bilateral" class="nav-link" data-scroll-target="#teste-unilateral-vs-teste-bilateral"><span class="header-section-number">7.1.5</span> Teste unilateral vs teste bilateral</a></li>
-  <li><a href="#premissas-do-teste-t" id="toc-premissas-do-teste-t" class="nav-link" data-scroll-target="#premissas-do-teste-t"><span class="header-section-number">7.1.6</span> Premissas do teste-t</a></li>
-  <li><a href="#avaliando-as-premissas-do-teste-t" id="toc-avaliando-as-premissas-do-teste-t" class="nav-link" data-scroll-target="#avaliando-as-premissas-do-teste-t"><span class="header-section-number">7.1.7</span> Avaliando as premissas do teste-t</a></li>
-  <li><a href="#testes-não-paramétricos" id="toc-testes-não-paramétricos" class="nav-link" data-scroll-target="#testes-não-paramétricos"><span class="header-section-number">7.1.8</span> Testes não-paramétricos</a></li>
+  <li><a href="#teste-t-para-a-comparação-de-duas-amostras." id="toc-teste-t-para-a-comparação-de-duas-amostras." class="nav-link" data-scroll-target="#teste-t-para-a-comparação-de-duas-amostras."><span class="header-section-number">7.2.1</span> Teste-t para a comparação de duas amostras.</a></li>
+  <li><a href="#teste-t-pareado" id="toc-teste-t-pareado" class="nav-link" data-scroll-target="#teste-t-pareado"><span class="header-section-number">7.2.2</span> Teste-t pareado</a></li>
+  <li><a href="#teste-t-para-uma-média" id="toc-teste-t-para-uma-média" class="nav-link" data-scroll-target="#teste-t-para-uma-média"><span class="header-section-number">7.2.3</span> Teste-t para uma média</a></li>
+  <li><a href="#exemplo" id="toc-exemplo" class="nav-link" data-scroll-target="#exemplo"><span class="header-section-number">7.2.4</span> Exemplo</a></li>
+  <li><a href="#teste-unilateral-vs-teste-bilateral" id="toc-teste-unilateral-vs-teste-bilateral" class="nav-link" data-scroll-target="#teste-unilateral-vs-teste-bilateral"><span class="header-section-number">7.2.5</span> Teste unilateral vs teste bilateral</a></li>
+  <li><a href="#premissas-do-teste-t" id="toc-premissas-do-teste-t" class="nav-link" data-scroll-target="#premissas-do-teste-t"><span class="header-section-number">7.2.6</span> Premissas do teste-t</a></li>
+  <li><a href="#avaliando-as-premissas-do-teste-t" id="toc-avaliando-as-premissas-do-teste-t" class="nav-link" data-scroll-target="#avaliando-as-premissas-do-teste-t"><span class="header-section-number">7.2.7</span> Avaliando as premissas do teste-t</a></li>
+  <li><a href="#testes-não-paramétricos" id="toc-testes-não-paramétricos" class="nav-link" data-scroll-target="#testes-não-paramétricos"><span class="header-section-number">7.2.8</span> Testes não-paramétricos</a></li>
   </ul></li>
-  <li><a href="#teste-de-qui-quadrado" id="toc-teste-de-qui-quadrado" class="nav-link" data-scroll-target="#teste-de-qui-quadrado"><span class="header-section-number">7.2</span> Teste de qui-quadrado</a>
+  <li><a href="#teste-de-qui-quadrado" id="toc-teste-de-qui-quadrado" class="nav-link" data-scroll-target="#teste-de-qui-quadrado"><span class="header-section-number">7.3</span> Teste de qui-quadrado</a>
   <ul class="collapse">
-  <li><a href="#teste-de-aderênciaconcordância" id="toc-teste-de-aderênciaconcordância" class="nav-link" data-scroll-target="#teste-de-aderênciaconcordância"><span class="header-section-number">7.2.1</span> Teste de aderência/concordância</a></li>
-  <li><a href="#teste-de-independênciacontingência" id="toc-teste-de-independênciacontingência" class="nav-link" data-scroll-target="#teste-de-independênciacontingência"><span class="header-section-number">7.2.2</span> Teste de independência/contingência</a></li>
+  <li><a href="#teste-de-aderênciaconcordância" id="toc-teste-de-aderênciaconcordância" class="nav-link" data-scroll-target="#teste-de-aderênciaconcordância"><span class="header-section-number">7.3.1</span> Teste de aderência/concordância</a></li>
+  <li><a href="#teste-de-independênciacontingência" id="toc-teste-de-independênciacontingência" class="nav-link" data-scroll-target="#teste-de-independênciacontingência"><span class="header-section-number">7.3.2</span> Teste de independência/contingência</a></li>
   </ul></li>
-  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">7.3</span> Conclusão</a></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">7.4</span> Conclusão</a></li>
   </ul>
 </nav>
     </div>
@@ -501,7 +502,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inferência Estatística: uma introdução com testes t e qui-quadrado</span></h1>
 </div>
 
 
@@ -518,6 +519,11 @@ window.Quarto = {
 </header>
 
 
+<p>A&nbsp;<strong>inferência estatística</strong>&nbsp;consiste no conjunto de métodos que permite extrair conclusões sobre populações ou processos a partir de dados amostrais, incorporando explicitamente a incerteza associada à variabilidade natural dos dados. Por meio dela, é possível estimar parâmetros, avaliar relações entre variáveis e generalizar resultados além da amostra observada, sempre com base em fundamentos probabilísticos que quantificam o grau de confiança dessas conclusões.</p>
+<p>Neste capítulo, introduzimos os fundamentos dessa abordagem, com ênfase no conceito de testes de hipóteses como ferramenta de decisão, ilustrando sua aplicação por meio de exemplos clássicos, como o teste t e o teste de qui-quadrado, além de apresentar alternativas não paramétricas, úteis quando as suposições dos métodos tradicionais não são atendidas.Neste capítulo, introduzimos os fundamentos dessa abordagem, com ênfase no conceito de testes de hipóteses como ferramenta de decisão, ilustrando sua aplicação por meio de exemplos clássicos, como o teste t e o teste de qui-quadrado, além de apresentar alternativas não paramétricas, úteis quando as suposições dos métodos tradicionais não são atendidas.</p>
+<p>Nos capítulos seguintes, esse mesmo princípio inferencial será expandido e aprofundado no contexto de modelos estatísticos mais gerais. Serão abordados os modelos lineares, incluindo regressão e ANOVA, e posteriormente os modelos lineares generalizados (GLMs), que permitem lidar com diferentes distribuições de dados e estruturas de variância. Assim, o leitor será conduzido de testes mais simples, baseados em comparações diretas, para uma abordagem unificada baseada em modelos, na qual a inferência estatística continua sendo o eixo central para a análise e interpretação dos dados.</p>
+<section id="teste-de-hipóteses" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="teste-de-hipóteses"><span class="header-section-number">7.1</span> Teste de hipóteses</h2>
 <p>O termo “teste de hipóteses” se refere à utilização de regras para rejeitar ou não uma hipótese estatística com base em elementos de nossas amostras. Consideramos uma hipótese nula que não há diferença entre os elementos observados <span class="math inline">\(H_0: \theta = \theta_0\)</span>. A partir desta hipótese, estabelecemos uma hipótese alternativa. No exemplo temos a hipótese de que há diferenças entre os elementos observados <span class="math inline">\(H_a:\theta\neq\theta_0\)</span> <span class="citation" data-cites="mello2013">(<a href="czz_Referencias.html#ref-mello2013" role="doc-biblioref">Mello &amp; Peternelli, 2013</a>)</span>.</p>
 <p>Ao se definir as hipóteses, escolhemos um nível de probabilidade para as conclusões ou um nível de significância. Este processo é sujeito a erros, sendo esses chamados de <strong>erro tipo I</strong>, que é a rejeição de uma <span class="math inline">\(H_0\)</span> verdadeira, com probabilidade <span class="math inline">\(\alpha\)</span>, ou aceitar uma <span class="math inline">\(H_0\)</span> falsa, conhecido como <strong>erro tipo II</strong>, e expresso pela probabilidade <span class="math inline">\(\beta\)</span> <span class="citation" data-cites="tonhascajr1991">(<a href="czz_Referencias.html#ref-tonhascajr1991" role="doc-biblioref">Tonhasca Jr, 1991</a>)</span>. Neste sentido, <span class="math inline">\(\alpha\)</span> é a significância do teste, ou seja, a probabilidade de se rejeitar a hipótese nula sendo esta verdadeira, enquanto <span class="math inline">\(1-\beta\)</span> é o poder do teste, ou seja, a probabilidade de se rejeitar a hipótese nula sendo ela falsa <span class="citation" data-cites="gotelli2016 tonhascajr1991">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>; <a href="czz_Referencias.html#ref-tonhascajr1991" role="doc-biblioref">Tonhasca Jr, 1991</a>)</span>. Deste modo, temos a seguinte tabela de decisão:</p>
 <table class="caption-top table">
@@ -546,10 +552,11 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<section id="teste-t" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="teste-t"><span class="header-section-number">7.1</span> Teste-t</h2>
-<section id="teste-t-para-a-comparação-de-duas-amostras." class="level3" data-number="7.1.1">
-<h3 data-number="7.1.1" class="anchored" data-anchor-id="teste-t-para-a-comparação-de-duas-amostras."><span class="header-section-number">7.1.1</span> Teste-t para a comparação de duas amostras.</h3>
+</section>
+<section id="teste-t" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="teste-t"><span class="header-section-number">7.2</span> Teste-t</h2>
+<section id="teste-t-para-a-comparação-de-duas-amostras." class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="teste-t-para-a-comparação-de-duas-amostras."><span class="header-section-number">7.2.1</span> Teste-t para a comparação de duas amostras.</h3>
 <p>Vamos importar o conjunto de dados <code>artropodes</code>, que apresenta a abundância de artrópodes coletados com armadilhas <em>pitfall</em> em um fragmento florestal e na matriz do fragmento.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
@@ -604,7 +611,7 @@ mean in group fragmento    mean in group matriz
 <div id="fig-bplot_ambientes" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bplot_ambientes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c07_TesteHip_files/figure-html/fig-bplot_ambientes-1.png" class="img-fluid figure-img" width="672">
+<img src="c07_InfEst_files/figure-html/fig-bplot_ambientes-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bplot_ambientes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;7.1: gráfico de boxplot comparando a abundância de artrópodes em dois ambientes.
@@ -615,8 +622,8 @@ Figura&nbsp;7.1: gráfico de boxplot comparando a abundância de artrópodes em 
 </div>
 <p>pelo resultado, vemos que há diferença significativa entre a média da abundância nos ambientes analisados: t(12,85) = -4,49; p = 0,0006.</p>
 </section>
-<section id="teste-t-pareado" class="level3" data-number="7.1.2">
-<h3 data-number="7.1.2" class="anchored" data-anchor-id="teste-t-pareado"><span class="header-section-number">7.1.2</span> Teste-t pareado</h3>
+<section id="teste-t-pareado" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="teste-t-pareado"><span class="header-section-number">7.2.2</span> Teste-t pareado</h3>
 <p>No teste t pareado, as amostras são dependentes. Podemos utilizá-lo quando, por exemplo, aplicamos dois tratamentos diferentes em uma mesma amostra e queremos observar se houve diferença entre os tratamentos.</p>
 <p>No exemplo, vamos comparar o tamanho corpóreo de galhadores e parasitas que ocorrem em uma mesma espécie de plantas hospedeiras. Para cada hospedeiro, temos o tamanho em milímetros do galhador e do parasita associado (<a href="#fig-bplot_gal1" class="quarto-xref">Figura&nbsp;<span>7.2</span></a>) e o teste-t não pareado abaixo indicam que as abundâncias são similares. No entanto, observamos nos valores do conjunto de dados que para cada rio, o número de invertebrados na nascente é maior que o número na foz:</p>
 <div class="cell">
@@ -660,7 +667,7 @@ mean of x mean of y
 <div id="fig-bplot_gal1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bplot_gal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c07_TesteHip_files/figure-html/fig-bplot_gal1-1.png" class="img-fluid figure-img" width="672">
+<img src="c07_InfEst_files/figure-html/fig-bplot_gal1-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bplot_gal1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;7.2: gráfico de boxplot comparando galhadores e parasitas
@@ -698,7 +705,7 @@ mean difference
 <div id="fig-bplot_gal2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bplot_gal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c07_TesteHip_files/figure-html/fig-bplot_gal2-1.png" class="img-fluid figure-img" width="672">
+<img src="c07_InfEst_files/figure-html/fig-bplot_gal2-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bplot_gal2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;7.3: gráfico de boxplot pareado comparando galhadores e parasitas,
@@ -709,8 +716,8 @@ Figura&nbsp;7.3: gráfico de boxplot pareado comparando galhadores e parasitas,
 </div>
 <p>Pela visualização dos dados, fica claro que os parasitas são menores que os galhadores associados a um mesmo hospedeiro.</p>
 </section>
-<section id="teste-t-para-uma-média" class="level3" data-number="7.1.3">
-<h3 data-number="7.1.3" class="anchored" data-anchor-id="teste-t-para-uma-média"><span class="header-section-number">7.1.3</span> Teste-t para uma média</h3>
+<section id="teste-t-para-uma-média" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="teste-t-para-uma-média"><span class="header-section-number">7.2.3</span> Teste-t para uma média</h3>
 <p>O teste t para média de uma amostra pode ser utilizado para medir a probabilidade de a média da amostra em questão ter apresentado o valor observado <span class="math inline">\(\overline{x}\)</span> ou algo mais extremo, dada a média da população <span class="math inline">\(\mu_{0}\)</span>. Sendo assim testamos as seguintes hipóteses:</p>
 <center>
 <span class="math inline">\(H_{0}: \overline{x} = \mu_{0}\)</span>
@@ -719,8 +726,8 @@ Figura&nbsp;7.3: gráfico de boxplot pareado comparando galhadores e parasitas,
 <span class="math inline">\(H_{1}: \overline{x} \neq \mu_{0}\)</span>
 </center>
 </section>
-<section id="exemplo" class="level3" data-number="7.1.4">
-<h3 data-number="7.1.4" class="anchored" data-anchor-id="exemplo"><span class="header-section-number">7.1.4</span> Exemplo</h3>
+<section id="exemplo" class="level3" data-number="7.2.4">
+<h3 data-number="7.2.4" class="anchored" data-anchor-id="exemplo"><span class="header-section-number">7.2.4</span> Exemplo</h3>
 <p>Na literatura observamos que indivíduos de uma determinada espécie apresentam 5 cm de comprimento. Ao realizar uma amostragem de 8 indivíduos desta espécie, obtemos os seguintes valores: 2.9, 2.6, 5.8, 3.7, 5.2, 0.1, 5.0 e 5.0. Para testar a afirmação encontrada na literatura, podemos elaborar as seguintes hipóteses:</p>
 <center>
 <span class="math inline">\(H_{0}: \overline{x} = 5\)</span>
@@ -791,8 +798,8 @@ mean of x
 </div>
 <p>Neste caso a média da amostra (3.7875) não foi significativamente diferente (p &gt; 0.05) da média da população (<span class="math inline">\(\mu\)</span> = 5): t(7) = -1.8224, p = 0.1112</p>
 </section>
-<section id="teste-unilateral-vs-teste-bilateral" class="level3" data-number="7.1.5">
-<h3 data-number="7.1.5" class="anchored" data-anchor-id="teste-unilateral-vs-teste-bilateral"><span class="header-section-number">7.1.5</span> Teste unilateral vs teste bilateral</h3>
+<section id="teste-unilateral-vs-teste-bilateral" class="level3" data-number="7.2.5">
+<h3 data-number="7.2.5" class="anchored" data-anchor-id="teste-unilateral-vs-teste-bilateral"><span class="header-section-number">7.2.5</span> Teste unilateral vs teste bilateral</h3>
 <p>O teste t pode ser usado para testar se o valor difere da média (teste bilateral), ou se ele é maior (ou menor) que esta média. Neste caso dizemos que este teste é unilateral (ou <em>one-sided</em>). Se testarmos a hipótese alternativa de que a média de uma amostra é maior que a média da população, elaboramos as seguintes hipóteses:</p>
 <center>
 <span class="math inline">\(H_{0}: \overline{x} \leq \mu_{0}\)</span>
@@ -830,8 +837,8 @@ mean of x
 </div>
 <p>Neste caso, observamos que a média da amostra (3.7875) é menor do que a média da população (<span class="math inline">\(\mu\)</span> = 5), entretanto a diferença não é significativa (p &gt; 0.05): t(7) = -1.82, p = 0.056</p>
 </section>
-<section id="premissas-do-teste-t" class="level3" data-number="7.1.6">
-<h3 data-number="7.1.6" class="anchored" data-anchor-id="premissas-do-teste-t"><span class="header-section-number">7.1.6</span> Premissas do teste-t</h3>
+<section id="premissas-do-teste-t" class="level3" data-number="7.2.6">
+<h3 data-number="7.2.6" class="anchored" data-anchor-id="premissas-do-teste-t"><span class="header-section-number">7.2.6</span> Premissas do teste-t</h3>
 <ul>
 <li>Dados coletados seguem uma escala contínua ou ordinal.</li>
 <li>Dados amostrados aleatoriamente e amostra é representativa da população.</li>
@@ -840,11 +847,11 @@ mean of x
 <li>Homogeneidade de variâncias.</li>
 </ul>
 </section>
-<section id="avaliando-as-premissas-do-teste-t" class="level3" data-number="7.1.7">
-<h3 data-number="7.1.7" class="anchored" data-anchor-id="avaliando-as-premissas-do-teste-t"><span class="header-section-number">7.1.7</span> Avaliando as premissas do teste-t</h3>
+<section id="avaliando-as-premissas-do-teste-t" class="level3" data-number="7.2.7">
+<h3 data-number="7.2.7" class="anchored" data-anchor-id="avaliando-as-premissas-do-teste-t"><span class="header-section-number">7.2.7</span> Avaliando as premissas do teste-t</h3>
 <p>Podemos aplicar diversos métodos para avaliar se os dados não violam as premissas para o teste-t dentre as principais premissas temos:</p>
-<section id="normalidade" class="level4" data-number="7.1.7.1">
-<h4 data-number="7.1.7.1" class="anchored" data-anchor-id="normalidade"><span class="header-section-number">7.1.7.1</span> Normalidade</h4>
+<section id="normalidade" class="level4" data-number="7.2.7.1">
+<h4 data-number="7.2.7.1" class="anchored" data-anchor-id="normalidade"><span class="header-section-number">7.2.7.1</span> Normalidade</h4>
 <p>O teste-t assume a premissa de normalidade dos resíduos. Isso pode ser avaliado de maneira visual utilizando gráficos quantil-quantil, que comparam os quantis observados com os quantis teóricos para a distribuição normal (<a href="#fig-qqplot" class="quarto-xref">Figura&nbsp;<span>7.5</span></a>):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(<span class="fu">lm</span>(abundancia<span class="sc">~</span>ambiente, <span class="at">data =</span> art))) <span class="co">#gráfico quantil-quantil</span></span>
@@ -853,7 +860,7 @@ mean of x
 <div id="fig-qqplot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-qqplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c07_TesteHip_files/figure-html/fig-qqplot-1.png" class="img-fluid figure-img" width="672">
+<img src="c07_InfEst_files/figure-html/fig-qqplot-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qqplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;7.5: gráfico quantil-quantil para avaliar os pressupostos de normalidade.
@@ -879,8 +886,8 @@ W = 0.97236, p-value = 0.8753</code></pre>
 <p>O teste indicou que não há diferença significativa entre a distribuição dos dados e uma distribuição normal a uma significância de 5% (p &gt; 0.05).</p>
 <p>Embora muitas vezes utilizados, os testes de normalidade tendem a ser sensíveis ao tamanho amostral, assim a análise visual e compreensão das distribuições teóricas que podem ter gerado os dados são mais indicados na hora de escolher o teste. Além disso, o teste-t se mostra robusto a desvios à normalidade <span class="citation" data-cites="tsagris2021">(<a href="czz_Referencias.html#ref-tsagris2021" role="doc-biblioref">Tsagris &amp; Pandis, 2021</a>)</span>.</p>
 </section>
-<section id="homogeneidade-de-variâncias" class="level4" data-number="7.1.7.2">
-<h4 data-number="7.1.7.2" class="anchored" data-anchor-id="homogeneidade-de-variâncias"><span class="header-section-number">7.1.7.2</span> Homogeneidade de variâncias</h4>
+<section id="homogeneidade-de-variâncias" class="level4" data-number="7.2.7.2">
+<h4 data-number="7.2.7.2" class="anchored" data-anchor-id="homogeneidade-de-variâncias"><span class="header-section-number">7.2.7.2</span> Homogeneidade de variâncias</h4>
 <p>O teste-t tradicional assume que as variâncias das amostras sejam iguais. Isso pode ser testado utilizando a função var.test:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
@@ -932,8 +939,8 @@ mean in group fragmento    mean in group matriz
 </div>
 </section>
 </section>
-<section id="testes-não-paramétricos" class="level3" data-number="7.1.8">
-<h3 data-number="7.1.8" class="anchored" data-anchor-id="testes-não-paramétricos"><span class="header-section-number">7.1.8</span> Testes não-paramétricos</h3>
+<section id="testes-não-paramétricos" class="level3" data-number="7.2.8">
+<h3 data-number="7.2.8" class="anchored" data-anchor-id="testes-não-paramétricos"><span class="header-section-number">7.2.8</span> Testes não-paramétricos</h3>
 <p>Quando os dados violam os pressupostos de normalidade, muitas vezes é sugerida a utilização de testes não paramétricos <span class="citation" data-cites="tsagris2021">(entretanto veja <a href="czz_Referencias.html#ref-tsagris2021" role="doc-biblioref">Tsagris &amp; Pandis, 2021</a>)</span>. Um exemplo de teste não-paramétrico alternativo ao teste-t para duas amostras é o teste de Mann-Whitney:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
@@ -968,11 +975,11 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </section>
 </section>
-<section id="teste-de-qui-quadrado" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="teste-de-qui-quadrado"><span class="header-section-number">7.2</span> Teste de qui-quadrado</h2>
+<section id="teste-de-qui-quadrado" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="teste-de-qui-quadrado"><span class="header-section-number">7.3</span> Teste de qui-quadrado</h2>
 <p>O teste de qui-quadrado (<span class="math inline">\(X^2\)</span>) é utilizado para comparar frequências observadas a frequências esperadas. O teste de qui-quadrado é considerado um teste <strong>não paramétrico</strong>, pois ele não depende da estimativa de parâmetros populacionais (média e variância).</p>
-<section id="teste-de-aderênciaconcordância" class="level3" data-number="7.2.1">
-<h3 data-number="7.2.1" class="anchored" data-anchor-id="teste-de-aderênciaconcordância"><span class="header-section-number">7.2.1</span> Teste de aderência/concordância</h3>
+<section id="teste-de-aderênciaconcordância" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="teste-de-aderênciaconcordância"><span class="header-section-number">7.3.1</span> Teste de aderência/concordância</h3>
 <p>Neste tipo de teste, observamos o quanto que um modelo probabilístico se adequa aos dados observados</p>
 <p>Podemos usar como exemplo o experimento de Mendel. O cruzamento entre heterozigotos de ervilhas lisas amarelas (YyRr x YyRr) teve o seguinte resultado. De acordo com as leis de Mendel, obteríamos as seguintes proporções esperadas para as ervilhas amarelas lisas: verdes lisas: amarelas rugosas: verdes rugosas - 9:3:3:1</p>
 <div class="cell">
@@ -1032,8 +1039,8 @@ X-squared = 0.40126, df = 3, p-value = 0.94</code></pre>
 </div>
 <p>Com este teste, podemos observar que a frequência observada não é significativamente diferente da frequência observada.</p>
 </section>
-<section id="teste-de-independênciacontingência" class="level3" data-number="7.2.2">
-<h3 data-number="7.2.2" class="anchored" data-anchor-id="teste-de-independênciacontingência"><span class="header-section-number">7.2.2</span> Teste de independência/contingência</h3>
+<section id="teste-de-independênciacontingência" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="teste-de-independênciacontingência"><span class="header-section-number">7.3.2</span> Teste de independência/contingência</h3>
 <p>O teste de qui-quadrado pode ser usado para testar a independência entre duas variáveis medidas nas mesmas unidades de um experimento.</p>
 <p><em>Exemplo</em>: Ao realizar um experimento para testar se uma espécie de aranhas se abriga mais debaixo das pedras durante momentos de mais ou menos luz, foi analisado o tipo de ambiente que os animais foram encontrados (coberto ou aberto) durante o dia ou durante a noite. com isso, pode-se construir a seguinte tabela de contingência:</p>
 <table class="caption-top table">
@@ -1074,7 +1081,7 @@ Claro       33     25</code></pre>
 <div id="fig-mosaico" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mosaico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c07_TesteHip_files/figure-html/fig-mosaico-1.png" class="img-fluid figure-img" width="672">
+<img src="c07_InfEst_files/figure-html/fig-mosaico-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mosaico-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;7.6: gráfico em mosaico para dados de aranhas
@@ -1097,8 +1104,8 @@ X-squared = 8.0081, df = 1, p-value = 0.004657</code></pre>
 <p>Sendo assim, rejeitamos a hipótese de independência entre as variáveis. Ou seja, quando está escura, as aranhas preferem o ambiente aberto, e quando está claro, elas preferem o ambiente fechado.</p>
 </section>
 </section>
-<section id="conclusão" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">7.3</span> Conclusão</h2>
+<section id="conclusão" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">7.4</span> Conclusão</h2>
 <p>Neste capítulo, exploramos os fundamentos dos&nbsp;<strong>testes de hipóteses</strong>, com foco no&nbsp;<strong>teste-t</strong>&nbsp;e no&nbsp;<strong>teste de qui-quadrado</strong>. Aprendemos a aplicar o teste-t para comparar médias de amostras independentes e pareadas, além de testar a média de uma amostra em relação a um valor teórico. Também discutimos as premissas do teste-t, como normalidade e homogeneidade de variâncias, e como avaliá-las utilizando gráficos e testes estatísticos. Para situações em que as premissas não são atendidas, foram apresentados testes não paramétricos, como o&nbsp;<strong>teste de Mann-Whitney</strong>&nbsp;e o&nbsp;<strong>teste de Wilcoxon</strong>. Por fim, exploramos o&nbsp;<strong>teste de qui-quadrado</strong>&nbsp;para avaliar a aderência de frequências observadas a valores esperados e testar a independência entre variáveis categóricas.</p>
 
 

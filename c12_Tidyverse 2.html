@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Modelos lineares generalizados (GLMs) – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
+<title>12&nbsp; Introdução ao Tidyverse – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,8 +85,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./c11_Multivar.html" rel="next">
-<link href="./c09_ModLinearANOVA.html" rel="prev">
+<link href="./c13_Progr.html" rel="next">
+<link href="./c11_Multivar.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -130,35 +130,6 @@ div.csl-indent {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -333,7 +304,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c10_GLMs.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c12_Tidyverse.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Introdução ao Tidyverse</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -407,8 +378,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./c07_InfEst.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inferência Estatística: uma introdução com testes t e qui-quadrado</span></span></a>
+  <a href="./c07_TesteHip.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -425,7 +396,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./c10_GLMs.html" class="sidebar-item-text sidebar-link active">
+  <a href="./c10_GLMs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></span></a>
   </div>
 </li>
@@ -437,7 +408,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./c12_Tidyverse.html" class="sidebar-item-text sidebar-link">
+  <a href="./c12_Tidyverse.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Introdução ao Tidyverse</span></span></a>
   </div>
 </li>
@@ -475,14 +446,17 @@ window.Quarto = {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#desvio-deviance" id="toc-desvio-deviance" class="nav-link active" data-scroll-target="#desvio-deviance"><span class="header-section-number">10.1</span> Desvio (deviance)</a></li>
-  <li><a href="#glms-para-dados-de-contagem" id="toc-glms-para-dados-de-contagem" class="nav-link" data-scroll-target="#glms-para-dados-de-contagem"><span class="header-section-number">10.2</span> GLMs para dados de contagem</a>
+  <li><a href="#instalação-e-importação-de-dados-de-exemplo." id="toc-instalação-e-importação-de-dados-de-exemplo." class="nav-link active" data-scroll-target="#instalação-e-importação-de-dados-de-exemplo."><span class="header-section-number">12.1</span> Instalação e importação de dados de exemplo.</a></li>
+  <li><a href="#utilizando-pipes" id="toc-utilizando-pipes" class="nav-link" data-scroll-target="#utilizando-pipes"><span class="header-section-number">12.2</span> Utilizando pipes</a></li>
+  <li><a href="#o-pacote-dplyr" id="toc-o-pacote-dplyr" class="nav-link" data-scroll-target="#o-pacote-dplyr"><span class="header-section-number">12.3</span> O pacote dplyr</a>
   <ul class="collapse">
-  <li><a href="#superdispersão-overdispersion" id="toc-superdispersão-overdispersion" class="nav-link" data-scroll-target="#superdispersão-overdispersion"><span class="header-section-number">10.2.1</span> Superdispersão (overdispersion)</a></li>
-  <li><a href="#simplificando-o-modelo" id="toc-simplificando-o-modelo" class="nav-link" data-scroll-target="#simplificando-o-modelo"><span class="header-section-number">10.2.2</span> Simplificando o modelo</a></li>
+  <li><a href="#formato-longo-e-curto-pivot_longer-e-pivot_wider" id="toc-formato-longo-e-curto-pivot_longer-e-pivot_wider" class="nav-link" data-scroll-target="#formato-longo-e-curto-pivot_longer-e-pivot_wider"><span class="header-section-number">12.3.1</span> Formato longo e curto: <code>pivot_longer()</code> e <code>pivot_wider()</code></a></li>
   </ul></li>
-  <li><a href="#dados-binários" id="toc-dados-binários" class="nav-link" data-scroll-target="#dados-binários"><span class="header-section-number">10.3</span> Dados binários</a></li>
-  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">10.4</span> Conclusão</a></li>
+  <li><a href="#dados-relacionais" id="toc-dados-relacionais" class="nav-link" data-scroll-target="#dados-relacionais"><span class="header-section-number">12.4</span> Dados relacionais</a>
+  <ul class="collapse">
+  <li><a href="#trabalhando-com-dados-relacionais-e-filtros-no-tidyverse" id="toc-trabalhando-com-dados-relacionais-e-filtros-no-tidyverse" class="nav-link" data-scroll-target="#trabalhando-com-dados-relacionais-e-filtros-no-tidyverse"><span class="header-section-number">12.4.1</span> Trabalhando com dados relacionais e filtros no tidyverse</a></li>
+  </ul></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">12.5</span> Conclusão</a></li>
   </ul>
 </nav>
     </div>
@@ -492,7 +466,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></h1>
+<h1 class="title"><span id="sec-captidyverse" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Introdução ao Tidyverse</span></span></h1>
 </div>
 
 
@@ -509,396 +483,279 @@ window.Quarto = {
 </header>
 
 
-<p>Modelos lineares generalizados (<strong>GLMs</strong>) permitem a análise de dados em situações nas quais a variância não é constante e/ou os erros não seguem uma distribuição normal. Esses modelos são especialmente úteis para dados de contagem, proporções ou quando a variável resposta é binária, entre outros casos <span class="citation" data-cites="jones2022">(<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">Jones et al., 2022</a>)</span>.</p>
-<p>Três aspectos importantes dos GLMs são:</p>
-<ul>
-<li>A estrutura de erro.</li>
-<li>O preditor linear.</li>
-<li>A função de ligação.</li>
-</ul>
-<p>Até o momento, tratamos os dados assumindo que os erros seguiam uma distribuição normal. Quando esse pressuposto era violado, recorríamos à transformação da variável resposta ou ao uso de métodos não paramétricos. Os modelos lineares generalizados (GLMs), por sua vez, permitem lidar com erros que seguem diferentes tipos de distribuição, ampliando as possibilidades de análise.</p>
-<p>A estrutura do modelo generalizado relaciona cada valor de da variável resposta <span class="math inline">\(y\)</span> observado a um valor transformado conhecido como preditor linear (<span class="math inline">\(\eta\)</span>). A função que relaciona os valores de <span class="math inline">\(y\)</span> com seu preditor linear é chamada de <em>função de ligação</em>.</p>
-<p>As funções canônicas de ligação são as opções padrão empregadas no R para quando uma estrutura particular de erros é empregada com o argumento <code>family</code> na fórmula do modelo linear generalizado</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 26%">
-<col style="width: 29%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Distribuição dos erros</th>
-<th>Função canônica de Ligação</th>
-<th>Função inversa</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Normal</td>
-<td>identidade</td>
-<td>identidade <span class="math inline">\(\mu = \eta\)</span></td>
-</tr>
-<tr class="even">
-<td>Poisson</td>
-<td>log</td>
-<td>exponencial <span class="math inline">\(\mu = e^\eta\)</span></td>
-</tr>
-<tr class="odd">
-<td>Binomial</td>
-<td>logit</td>
-<td>logística <span class="math inline">\(\frac{\mu = e^\eta}{1+e^\eta}\)</span></td>
-</tr>
-</tbody>
-</table>
-<section id="desvio-deviance" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="desvio-deviance"><span class="header-section-number">10.1</span> Desvio (deviance)</h2>
-<p>A medida da discrepância entre os valores ajustados pelo modelo e os valores observados nos GLM é chamada de <em>desvio</em> ou <em>deviance</em>. Esta medida é baseada na comparação da verossimilhança entre o modelo criado e um modelo saturado, onde é criado um modelo que ajusta os dados perfeitamente.</p>
-</section>
-<section id="glms-para-dados-de-contagem" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="glms-para-dados-de-contagem"><span class="header-section-number">10.2</span> GLMs para dados de contagem</h2>
-<p>Vamos analisar o conjunto de dados <code>riqueza</code>, que inclui a riqueza de espécies em parcelas, relacionadas ao índice de luminosidade e biomassa de serrapilheira. Primeiro vamos importar os dados, verificar sua estrutura e observar as primeiras linhas:</p>
+<p>O tidyverse é um conjunto de pacotes desenvolvido para a Ciência de Dados no ambiente R, voltado especialmente para a análise de grandes conjuntos de dados. Esses pacotes adotam uma sintaxe distinta do R base e oferecem ferramentas integradas para importação, manipulação, exploração, visualização, análise e comunicação de dados. O tidyverse é amplamente descrito e explorado em referências como <span class="citation" data-cites="wickham2023">Wickham et al. (<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">2023</a>)</span> . Neste capítulo, apresentaremos algumas das principais funções desse ecossistema de pacotes.</p>
+<section id="instalação-e-importação-de-dados-de-exemplo." class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="instalação-e-importação-de-dados-de-exemplo."><span class="header-section-number">12.1</span> Instalação e importação de dados de exemplo.</h2>
+<p>Para este tópico, utilizaremos alguns pacotes do <code>tidyverse</code> e o conjunto de dados dos <code>pinguins</code>. Os pacotes do <code>tidyverse</code> podem ser instalados todos juntos utilizando <code>install.packages("tidyverse)</code> e depois carregados:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>riq <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"riqueza"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#abrir o conjunto de pacotes do tidyverse</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(riq)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>tibble [50 × 3] (S3: tbl_df/tbl/data.frame)
- $ riqueza     : num [1:50] 1 3 0 20 0 10 1 0 0 1 ...
- $ biomassa    : num [1:50] 0.722 1.835 -0.256 1.847 -1.9 ...
- $ luminosidade: num [1:50] 0.287 1.35 -0.683 -0.581 -0.472 ...</code></pre>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#importar dados de pinguins</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pinguins <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"pinguins"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riq)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-  riqueza biomassa luminosidade
-    &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
-1       1    0.722        0.287
-2       3    1.84         1.35 
-3       0   -0.256       -0.683
-4      20    1.85        -0.581
-5       0   -1.9         -0.472
-6      10    0.727       -0.812</code></pre>
-</div>
-</div>
-<p>Vamos criar um gráfico para avaliar a relação entre a variável resposta e as variáveis preditoras (<a href="#fig-riq" class="quarto-xref">Figura&nbsp;<span>10.1</span></a>).</p>
+</section>
+<section id="utilizando-pipes" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="utilizando-pipes"><span class="header-section-number">12.2</span> Utilizando pipes</h2>
+<p>Os&nbsp;<em>pipes</em>&nbsp;são operadores que permitem encadear uma sequência de operações de forma legível, evitando o aninhamento de múltiplas funções. Com eles, é possível aplicar diversas transformações a um objeto sem a necessidade de criar variáveis intermediárias, o que torna o fluxo da análise mais limpo e intuitivo. No&nbsp;<em>tidyverse</em>, o operador pipe é representado por&nbsp;<code>%&gt;%</code>. O R também possui um pipe nativo,&nbsp;<code>|&gt;</code>, que funciona de maneira muito similar ao&nbsp;<code>%&gt;%</code>, sendo, na maioria dos casos, intercambiáveis. No RStudio, é possível inserir o operador pipe rapidamente utilizando o atalho&nbsp;<strong>Ctrl + Shift + M</strong>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(riq)<span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> biomassa, <span class="at">y =</span> riqueza))</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(riq)<span class="sc">+</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> luminosidade, <span class="at">y =</span> riqueza))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="fig-riq" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-riq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<div id="fig-riq-1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-riq-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c10_GLMs_files/figure-html/fig-riq-1.png" class="img-fluid figure-img" data-ref-parent="fig-riq" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-riq-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) preditor: biomassa de serrapilheira
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-riq-2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-riq-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c10_GLMs_files/figure-html/fig-riq-2.png" class="img-fluid figure-img" data-ref-parent="fig-riq" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-riq-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) preditor: luminosidade (abertura do dossel)
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-riq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;10.1: gráfico de dispersão relacionando a riqueza de espécies com biomassa e luminosidade.
-</figcaption>
-</figure>
-</div>
-</div>
-<p>Nos gráficos conseguimos ver que há uma relação positiva entre o número de espécies com o aumento da biomassa, entretanto parece que há uma relação negativa entre a riqueza e a luminosidade.</p>
-<p>Como temos um dado de contagem, vamos criar um modelo linear generalizado:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(riqueza <span class="sc">~</span> biomassa <span class="sc">*</span> luminosidade, <span class="at">data =</span> riq, <span class="at">family =</span> poisson)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo1)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#média de peso</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pinguins<span class="sc">$</span>peso)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = riqueza ~ biomassa * luminosidade, family = poisson, 
-    data = riq)
-
-Coefficients:
-                      Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)            0.39721    0.14218   2.794  0.00521 ** 
-biomassa               1.17932    0.11253  10.480  &lt; 2e-16 ***
-luminosidade          -0.95762    0.09501 -10.079  &lt; 2e-16 ***
-biomassa:luminosidade  0.01153    0.07332   0.157  0.87503    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for poisson family taken to be 1)
-
-    Null deviance: 499.017  on 49  degrees of freedom
-Residual deviance:  44.719  on 46  degrees of freedom
-AIC: 157.08
-
-Number of Fisher Scoring iterations: 5</code></pre>
+<pre><code>[1] 4207.057</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#média de peso com o pipe do tidyverse</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pinguins<span class="sc">$</span>peso <span class="sc">%&gt;%</span>  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4207.057</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#média de peso com o pipe nativo do R</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>pinguins<span class="sc">$</span>peso <span class="sc">|&gt;</span>   </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4207.057</code></pre>
 </div>
 </div>
-<p>O modelo indica que há relação positiva entre a riqueza e a biomassa da serrapilheira, entretanto temos uma relação negativa entre a luminosidade que atinge o sub-bosque devido à abertura do dossel e a riqueza de espécies. A interação entre as duas variáveis preditoras não foi significativa. Algumas particularidades sobre o resumo dos modelos lineares generalizados:</p>
+</section>
+<section id="o-pacote-dplyr" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="o-pacote-dplyr"><span class="header-section-number">12.3</span> O pacote dplyr</h2>
+<p>O pacote <code>dplyr</code> apresenta funções para manipular conjuntos de dados, como filtrar, reordenar ou selecionar colunas. Vamos utilizar no exemplo, a função <code>summarise()</code> e <code>group_by()</code> para calcular estatísticas descritivas para as espécies de pinguins</p>
 <ul>
-<li><p>Em vez de apresentar estatísticas sobre os resíduos, são apresentadas estatísticas descritivas do desvio (<em>deviance</em>).</p></li>
-<li><p>É preciso atenção com os coeficientes dos modelos, pois eles estão apresentados na escala do preditor linear. No caso dos modelos da família Poisson, a função de ligação canônica é a logarítmica. Para se colocar os coeficientes na escala da variável resposta, deve-se utilizar a função inversa, que no caso é a exponencial.</p></li>
+<li><p><code>summarise()</code> utilizada para resumir os dados de coluna em um único valor</p></li>
+<li><p><code>group_by()</code> utilizada para agrupar variáveis por um determinado fator.</p></li>
 </ul>
-<section id="superdispersão-overdispersion" class="level3" data-number="10.2.1">
-<h3 data-number="10.2.1" class="anchored" data-anchor-id="superdispersão-overdispersion"><span class="header-section-number">10.2.1</span> Superdispersão (overdispersion)</h3>
-<p>Outra coisa importante que deve ser levada em conta é que modelos como os da família Poisson e binomial assumem que o parâmetro de dispersão é igual a 1, o que pode não ser adequado. Caso este parâmetro não seja adequado, observaremos que o desvio residual (<em>residual deviance</em>) dividido pelos seus graus de liberdade será muito diferente de 1. No nosso exemplo, o desvio residual foi <code>44,7</code> para <code>46</code> graus de liberdade e, sendo assim, foi adequado. Caso haja discrepância entre o desvio residual e os graus de liberdade, pode ser interessante utilizar modelos de famílias que podem variar o parâmetro de dispersão. nesse caso pode ser utilizada a família quasi-poisson (com o argumento <code>family = quasipoisson</code>) ou binomial negativa (utilizando a função <code>glm.nb()</code> do pacote <code>MASS</code>). Para modelos da família binomial (apresentada a seguir), pode ser utilizada a família quasi-binomial (com o argumento <code>family = quasibinomial</code>). Mais detalhes sobre o assunto podem ser vistos em <span class="citation" data-cites="jones2022">Jones et al. (<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">2022</a>)</span>.</p>
-</section>
-<section id="simplificando-o-modelo" class="level3" data-number="10.2.2">
-<h3 data-number="10.2.2" class="anchored" data-anchor-id="simplificando-o-modelo"><span class="header-section-number">10.2.2</span> Simplificando o modelo</h3>
-<p>Podemos criar um modelo mais simples sem interação e observar se esse modelo é melhor que o testado anteriormente. Para isso, podemos utilizar a função ANOVA para comparar os modelos como feito anteriormente. No caso de modelos lineares generalizados, a comparação deve ser feita por qui-quadrado, assim devemos incluir o argumento <code>test="Chi"</code>.</p>
+<p>No exemplo (1) calculamos a média do peso dos pinguins. Utilizamos <code>summarise(peso_média = mean(peso))</code> para criar uma variável <code>peso_média</code> representando a média de <em>peso</em> dos pinguins; (2) utilizamos a função <code>group_by()</code> para agrupar os pesos por espécie e depois calculamos a média e o desvio padrão para cada espécie utilizando <code>summarise()</code>, e (3) calculamos a média e desvio padrão para cada espécie e sexo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(riqueza <span class="sc">~</span> biomassa <span class="sc">+</span> luminosidade, <span class="at">data =</span> riq, poisson)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo1, modelo2, <span class="at">test=</span><span class="st">"Chi"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#peso médio dos pinguins</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pinguins <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(peso_média <span class="ot">=</span> <span class="fu">mean</span>(peso))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Deviance Table
-
-Model 1: riqueza ~ biomassa * luminosidade
-Model 2: riqueza ~ biomassa + luminosidade
-  Resid. Df Resid. Dev Df  Deviance Pr(&gt;Chi)
-1        46     44.719                      
-2        47     44.744 -1 -0.024573   0.8754</code></pre>
+<pre><code># A tibble: 1 × 1
+  peso_média
+       &lt;dbl&gt;
+1      4207.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#média e desvio padrão de peso agrupada para cada espécie</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pinguins <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(especie) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(peso_média <span class="ot">=</span> <span class="fu">mean</span>(peso), <span class="at">peso_sd =</span> <span class="fu">sd</span>(peso))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  especie  peso_média peso_sd
+  &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt;
+1 Adelia        3706.    459.
+2 Barbicha      3733.    384.
+3 Gentoo        5092.    501.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#média e desvio padrão de peso agrupada para cada espécie e sexo</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pinguins <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(especie, sexo) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(peso_média <span class="ot">=</span> <span class="fu">mean</span>(peso), <span class="at">peso_sd =</span> <span class="fu">sd</span>(peso))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'especie'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+# Groups:   especie [3]
+  especie  sexo  peso_média peso_sd
+  &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+1 Adelia   Femea      3369.    269.
+2 Adelia   Macho      4043.    347.
+3 Barbicha Femea      3527.    285.
+4 Barbicha Macho      3939.    362.
+5 Gentoo   Femea      4680.    282.
+6 Gentoo   Macho      5485.    313.</code></pre>
 </div>
 </div>
-<p>Podemos observar que o modelo 1 não apresenta vantagem em relação ao modelo 2. Assim optamos por manter o modelo mais simples, que não inclui interação.</p>
-<p>Vamos criar um gráfico com a curva da predição da riqueza pela biomassa e luminosidade. Para isso, utilizaremos o pacote <code>ggeffects</code> (<a href="#fig-riq2" class="quarto-xref">Figura&nbsp;<span>10.2</span></a>).</p>
+<p>Vamos utilizar a função <code>select()</code> para selecionar variáveis de interesse. Depois utilizaremos a função <code>mutate()</code> para transformar variáveis ou realizar cálculos para calcular a razão entre a coluna do peso e a coluna do comprimento da nadadeira.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#biomassa</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>riq.pred1 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(modelo1, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"biomassa"</span>))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(riq.pred1, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
-  Please use `show_data` instead.</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pinguins <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(especie, sexo, peso, nadadeira) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">peso.nadadeira =</span> peso<span class="sc">/</span>nadadeira)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 333 × 5
+   especie sexo   peso nadadeira peso.nadadeira
+   &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;
+ 1 Adelia  Macho  3750       181           20.7
+ 2 Adelia  Femea  3800       186           20.4
+ 3 Adelia  Femea  3250       195           16.7
+ 4 Adelia  Femea  3450       193           17.9
+ 5 Adelia  Macho  3650       190           19.2
+ 6 Adelia  Femea  3625       181           20.0
+ 7 Adelia  Macho  4675       195           24.0
+ 8 Adelia  Femea  3200       182           17.6
+ 9 Adelia  Macho  3800       191           19.9
+10 Adelia  Macho  4400       198           22.2
+# ℹ 323 more rows</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
-  random variation to the location of data points and avoid overplotting.</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#luminosidade</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>riq.pred2 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(modelo1, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"luminosidade"</span>))</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(riq.pred2, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
-  Please use `show_data` instead.</code></pre>
+<p>Caso eu tenha interesse em criar uma coluna transformado o peso em gramas em peso em kg (1 kg = 1000 g).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pinguins <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(especie, sexo, peso) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">peso_kg =</span> peso<span class="sc">/</span><span class="dv">1000</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
-  random variation to the location of data points and avoid overplotting.</code></pre>
-</div>
-<div id="fig-riq2" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-riq2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p>Utilizando a função <code>filter()</code> para filtrar (selecionar) somente pinguins fêmeas da ilha <em>Biscoe</em>, depois utilizar o <code>ggplot2</code> para criar um gráfico <em>boxplot</em> comparando as espécies (<a href="#fig-peso-especie" class="quarto-xref">Figura&nbsp;<span>12.1</span></a>). Para mais informações sobre gráficos, verifique o <a href="c06_Graficos.html" class="quarto-xref"><span>Capítulo 6</span></a> .</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>pinguins <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">"Femea"</span> <span class="sc">&amp;</span> ilha <span class="sc">==</span> <span class="st">"Biscoe"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> peso, <span class="at">x =</span> especie))<span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-riq2-1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-riq2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c10_GLMs_files/figure-html/fig-riq2-1.png" class="img-fluid figure-img" data-ref-parent="fig-riq2" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-riq2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) preditor: biomassa de serrapilheira
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div id="fig-riq2-2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-riq2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c10_GLMs_files/figure-html/fig-riq2-2.png" class="img-fluid figure-img" data-ref-parent="fig-riq2" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-riq2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) preditor: luminosidade (abertura do dossel)
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-riq2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;10.2: gráficos de dispersão relacionando a riqueza de espécies, biomassa e luminosidade, incluindo ajuste do modelo linear generalizado.
-</figcaption>
-</figure>
-</div>
-</div>
-</section>
-</section>
-<section id="dados-binários" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="dados-binários"><span class="header-section-number">10.3</span> Dados binários</h2>
-<p>Podemos utilizar modelos lineares generalizados para analisar dados onde a variável resposta é binária.</p>
-<p>No exemplo abaixo utilizaremos os dados da planilha <code>pres_aus</code>, que apresenta dados de presença/ausência de uma determinada espécie em fragmentos florestais, como uma função da área do fragmento e de sua distância de uma reserva florestal maior. No conjunto de dados, a variável presença está codificada como 0 e 1, onde 0 indica ausência e 1 indica presença da espécie:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>praus <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"pres_aus"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(praus)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>tibble [30 × 3] (S3: tbl_df/tbl/data.frame)
- $ presença : num [1:30] 1 1 0 1 0 1 1 1 0 0 ...
- $ area     : num [1:30] 10.5 13 8.3 13.1 4.6 10.5 6.4 7.4 5.4 8.9 ...
- $ distancia: num [1:30] 12.3 8.1 14.3 8.1 10.7 10.8 11.3 5.5 10.5 16.2 ...</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(praus)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-  presença  area distancia
-     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-1        1  10.5      12.3
-2        1  13         8.1
-3        0   8.3      14.3
-4        1  13.1       8.1
-5        0   4.6      10.7
-6        1  10.5      10.8</code></pre>
-</div>
-</div>
-<p>Vamos criar dois modelos: um deles avaliando a interação entre as variáveis explanatórias e o outro não avaliando a interação.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>praus.modelo1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(presença <span class="sc">~</span> area <span class="sc">*</span> distancia, <span class="at">data =</span> praus, <span class="at">family =</span> binomial) <span class="co">#com interação</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>praus.modelo2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(presença <span class="sc">~</span> area <span class="sc">+</span> distancia, <span class="at">data =</span> praus, <span class="at">family =</span> binomial) <span class="co">#sem interação</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Vamos comparar os modelos:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(praus.modelo1, praus.modelo2)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Deviance Table
-
-Model 1: presença ~ area * distancia
-Model 2: presença ~ area + distancia
-  Resid. Df Resid. Dev Df  Deviance Pr(&gt;Chi)
-1        26     19.674                      
-2        27     19.688 -1 -0.014146   0.9053</code></pre>
-</div>
-</div>
-<p>O modelo mais complexo (incluindo a interação) não é significativamente melhor, desta forma utilizamos o modelo mais simples pelo critério da parcimônia.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(praus.modelo2)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = presença ~ area + distancia, family = binomial, 
-    data = praus)
-
-Coefficients:
-            Estimate Std. Error z value Pr(&gt;|z|)   
-(Intercept)  -3.0103     3.2778  -0.918   0.3584   
-area          0.9672     0.3446   2.807   0.0050 **
-distancia    -0.5204     0.2729  -1.907   0.0565 . 
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 41.455  on 29  degrees of freedom
-Residual deviance: 19.688  on 27  degrees of freedom
-AIC: 25.688
-
-Number of Fisher Scoring iterations: 6</code></pre>
-</div>
-</div>
-<p>Ao analisar as estimativas (<em>Estimate</em>) vemos uma relação positiva entre a presença de aves com <em>area</em>, e coeficiente de distância foi negativo. Assim fragmentos maiores tem mais chance de apresentar a espécie, enquanto fragmentos mais afastados da reserva florestal têm uma probabilidade menor de apresentar a espécie. pelo teste-z, a distância foi marginalmente significativa, entretanto para avaliar de forma mais adequada, devemos realizar uma análise do desvio com a função <code>anova():</code></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(praus.modelo2)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Deviance Table
-
-Model: binomial, link: logit
-
-Response: presença
-
-Terms added sequentially (first to last)
-
-          Df Deviance Resid. Df Resid. Dev  Pr(&gt;Chi)    
-NULL                         29     41.455              
-area       1  16.1616        28     25.294 5.816e-05 ***
-distancia  1   5.6062        27     19.688    0.0179 *  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<p>Nesta análise, a partir de um modelo nulo (presença ~ 1), as variáveis preditoras são adicionadas sequencialmente. Desta forma, vemos que tanto a adição da variável area como distância melhoram significativamente o modelo, desta forma devem ser mantidas. É preciso ter atenção em relação à interpretação dos valores do <em>deviance</em>, pois, como eles são adicionados sequencialmente, dependendo da ordem que forem adicionados, os valores serão diferentes.</p>
-<p>Podemos realizar a predição dos valores e preparar gráficos representando o modelo utilizando o pacote <code>ggeffects</code> (<a href="#fig-presaus" class="quarto-xref">Figura&nbsp;<span>10.3</span></a>):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico para isolamento</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>praus.pred.dist <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(praus.modelo2, <span class="at">terms =</span>  <span class="fu">c</span>(<span class="st">"distancia [all]"</span>))</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(praus.pred.dist, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
-  Please use `show_data` instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
-  random variation to the location of data points and avoid overplotting.</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico para incidência</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>praus.pred.ar <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(praus.modelo2, <span class="at">terms =</span>  <span class="fu">c</span>(<span class="st">"area [all]"</span>))</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(praus.pred.ar, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
-  Please use `show_data` instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
-  random variation to the location of data points and avoid overplotting.</code></pre>
-</div>
-<div id="fig-presaus" class="quarto-layout-panel">
+<div id="fig-peso-especie" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-presaus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-presaus" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-presaus-1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-presaus-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c10_GLMs_files/figure-html/fig-presaus-1.png" class="img-fluid figure-img" data-ref-parent="fig-presaus" width="672">
+<div aria-describedby="fig-peso-especie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c12_Tidyverse_files/figure-html/fig-peso-especie-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-presaus-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) preditor: distância
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-presaus" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-presaus-2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-presaus-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c10_GLMs_files/figure-html/fig-presaus-2.png" class="img-fluid figure-img" data-ref-parent="fig-presaus" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-presaus-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) preditor: área
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-peso-especie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;12.1: boxplot de peso por espécie de pinguins filtrando somente fêmeas da ilha Biscoe.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<section id="formato-longo-e-curto-pivot_longer-e-pivot_wider" class="level3" data-number="12.3.1">
+<h3 data-number="12.3.1" class="anchored" data-anchor-id="formato-longo-e-curto-pivot_longer-e-pivot_wider"><span class="header-section-number">12.3.1</span> Formato longo e curto: <code>pivot_longer()</code> e <code>pivot_wider()</code></h3>
+<p>Essas funções podem ser usadas para colocar os dados em formato longo (menos colunas e mais linhas) ou largo (menos linhas e mais colunas).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>  pinguins <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(especie, sexo, peso, nadadeira) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(peso<span class="sc">:</span> nadadeira, <span class="at">names_to =</span> <span class="st">"variável"</span>, <span class="at">values_to =</span> <span class="st">"valor"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 666 × 4
+   especie sexo  variável  valor
+   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
+ 1 Adelia  Macho peso       3750
+ 2 Adelia  Macho nadadeira   181
+ 3 Adelia  Femea peso       3800
+ 4 Adelia  Femea nadadeira   186
+ 5 Adelia  Femea peso       3250
+ 6 Adelia  Femea nadadeira   195
+ 7 Adelia  Femea peso       3450
+ 8 Adelia  Femea nadadeira   193
+ 9 Adelia  Macho peso       3650
+10 Adelia  Macho nadadeira   190
+# ℹ 656 more rows</code></pre>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-presaus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;10.3: gráfico relacionando a probabilidade de se encontrar determinada espécie com as variáveis contínuas preditoras
-</figcaption>
-</figure>
+</div>
+<p>Vamos fazer o movimento inverso com os dados de pinguins, transformando do formato longo para o largo. Para fazer isso, vamos criar um objeto com os dados longos. Para que possamos reverter do formato longo para o largo, precisamos de um valor único para identificar cada linha, então criaremos uma coluna com a identificação da linha (id) com valores de 1 a 333 (o número de linhas do conjunto de dados).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pinguins_longo <span class="ot">&lt;-</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>pinguins <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(especie, sexo, peso, nadadeira) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(pinguins)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(peso<span class="sc">:</span>nadadeira, <span class="at">names_to =</span> <span class="st">"variável"</span>, <span class="at">values_to =</span> <span class="st">"valor"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pinguins_longo) <span class="co">#ver as primeiras linhas</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Agora vamos transformar do formato longo para o formato largo:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pinguins_longo <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"variável"</span>, <span class="at">values_from =</span> <span class="st">"valor"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 333 × 5
+   especie sexo     id  peso nadadeira
+   &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Adelia  Macho     1  3750       181
+ 2 Adelia  Femea     2  3800       186
+ 3 Adelia  Femea     3  3250       195
+ 4 Adelia  Femea     4  3450       193
+ 5 Adelia  Macho     5  3650       190
+ 6 Adelia  Femea     6  3625       181
+ 7 Adelia  Macho     7  4675       195
+ 8 Adelia  Femea     8  3200       182
+ 9 Adelia  Macho     9  3800       191
+10 Adelia  Macho    10  4400       198
+# ℹ 323 more rows</code></pre>
+</div>
 </div>
 </section>
-<section id="conclusão" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">10.4</span> Conclusão</h2>
-<p>Neste capítulo, exploramos os&nbsp;<strong>Modelos Lineares Generalizados (GLMs)</strong>, que permitem analisar dados onde a variância não é constante e/ou os erros não seguem uma distribuição normal. Aprendemos a aplicar GLMs para dados de contagem (usando a família Poisson) e dados binários (usando a família binomial), destacando a importância da&nbsp;<strong>função de ligação</strong>&nbsp;e da&nbsp;<strong>estrutura de erro</strong>. Também discutimos a&nbsp;<strong>superdispersão</strong>&nbsp;e como ajustar modelos para lidar com esse problema. Por fim, utilizamos pacotes como&nbsp;<code>ggeffects</code>&nbsp;para visualizar e interpretar os resultados dos modelos. Essas técnicas fornecem ferramentas poderosas para analisar dados que não se encaixam nos pressupostos dos modelos lineares tradicionais, permitindo ao leitor abordar uma variedade de problemas estatísticos.</p>
+</section>
+<section id="dados-relacionais" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="dados-relacionais"><span class="header-section-number">12.4</span> Dados relacionais</h2>
+<p>Podemos buscar informações de uma tabela em outra tabela, caso tenhamos uma coluna chave que relaciona as duas.</p>
+<p>Nos conjuntos de dados, a aba <strong>amostras</strong> apresenta os dados de amostragem como data e local de coleta, enquanto a planilha <strong>id</strong> apresenta dados da identificação das espécies coletadas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>amostras <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"amostras"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>amostras</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29 × 6
+   Amostra   Dia   Mês   Ano Pais   Prov_Est 
+   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
+ 1 AM001       1     3  2019 Brasil Goiás    
+ 2 AM002       1     3  2019 Brasil Goiás    
+ 3 AM003       1     3  2019 Brasil Goiás    
+ 4 AM004       6     4  2019 Brasil Goiás    
+ 5 AM005       6     4  2019 Brasil Goiás    
+ 6 AM006      12     8  2019 Brasil Goiás    
+ 7 AM007      12     8  2019 Brasil Goiás    
+ 8 AM008      12     8  2019 Brasil Goiás    
+ 9 AM009      12     8  2019 Brasil Goiás    
+10 AM010      12     8  2019 Brasil São Paulo
+# ℹ 19 more rows</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"id"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>id</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 × 3
+   Amostra Familia    Especie               
+   &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;                 
+ 1 AM001   Eupelmidae Lutnes testaceus      
+ 2 AM001   Mymaridae  Gonatocerus litoralis 
+ 3 AM001   Eupelmidae Merostenus melinus    
+ 4 AM005   Mymaridae  Neomymar mirabilicorne
+ 5 AM005   Mymaridae  Neomymar mirabilicorne
+ 6 AM005   Mymaridae  Neomymar soror        
+ 7 AM005   Mymaridae  Neomymar soror        
+ 8 AM010   Encyrtidae Copidosoma floridanum 
+ 9 AM024   Eupelmidae Lutnes testaceus      
+10 AM024   Mymaridae  Gonatocerus litoralis 
+# ℹ 14 more rows</code></pre>
+</div>
+</div>
+<p>As tabelas apresentam uma coluna chave (<em>key</em>) chamada <code>Amostra</code>, que relaciona uma com a outra. Com isso, podemos preencher o dado da tabela da identificação dos insetos com as informações de coleta:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">match</span>(id<span class="sc">$</span>Amostra, amostras<span class="sc">$</span>Amostra) <span class="co"># encontra a correspondência para cada elemento de id em amostra.</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  1  1  5  5  5  5 10 24 24 24 24 24 24  5  6  7  8  9  9 12 23 24 25</code></pre>
+</div>
+</div>
+<section id="trabalhando-com-dados-relacionais-e-filtros-no-tidyverse" class="level3" data-number="12.4.1">
+<h3 data-number="12.4.1" class="anchored" data-anchor-id="trabalhando-com-dados-relacionais-e-filtros-no-tidyverse"><span class="header-section-number">12.4.1</span> Trabalhando com dados relacionais e filtros no tidyverse</h3>
+<p>Pacotes como o <code>dplyr</code> apresentam diversas funções para manipular conjuntos de dados. Vamos juntar as tabelas <code>id</code> e <code>amostras</code> pela coluna <code>Amostra</code>, e depois filtrar somente as amostras de Goiás e pertencentes à Família Agaonidae:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>id <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(amostras, <span class="at">by =</span> <span class="st">"Amostra"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Prov_Est <span class="sc">==</span> <span class="st">"Goiás"</span> <span class="sc">&amp;</span> Familia <span class="sc">==</span> <span class="st">"Agaonidae"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+  Amostra Familia   Especie                 Dia   Mês   Ano Pais   Prov_Est
+  &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   
+1 AM005   Agaonidae Pegoscapus aerumnosus     6     4  2019 Brasil Goiás   
+2 AM006   Agaonidae Pegoscapus aerumnosus    12     8  2019 Brasil Goiás   
+3 AM007   Agaonidae Pegoscapus sp.4          12     8  2019 Brasil Goiás   
+4 AM008   Agaonidae Pegoscapus sp.4          12     8  2019 Brasil Goiás   
+5 AM009   Agaonidae Pegoscapus sp.4          12     8  2019 Brasil Goiás   </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusão" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">12.5</span> Conclusão</h2>
+<p>Neste capítulo, exploramos o&nbsp;<strong>Tidyverse</strong>, um conjunto de pacotes do R projetado para facilitar a manipulação, análise e visualização de dados. Aprendemos a utilizar&nbsp;<strong>pipes</strong>&nbsp;(<code>%&gt;%</code>&nbsp;e&nbsp;<code>|&gt;</code>) para encadear operações de forma clara e eficiente, além de funções do pacote&nbsp;<strong>dplyr</strong>&nbsp;como&nbsp;<code>summarise()</code>,&nbsp;<code>group_by()</code>,&nbsp;<code>select()</code>,&nbsp;<code>mutate()</code>&nbsp;e&nbsp;<code>filter()</code>&nbsp;para manipular e resumir dados. Também discutimos a transformação de dados entre formatos&nbsp;<strong>longo</strong>&nbsp;e&nbsp;<strong>largo</strong>&nbsp;com&nbsp;<code>pivot_longer()</code>&nbsp;e&nbsp;<code>pivot_wider()</code>, e como trabalhar com&nbsp;<strong>dados relacionais</strong>&nbsp;utilizando funções como&nbsp;<code>left_join()</code>.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
-<div id="ref-jones2022" class="csl-entry" role="listitem">
-Jones, E., Harden, S., &amp; Crawley, M. J. (2022). <em>The R book</em> (Third edition). Wiley.
+<div id="ref-wickham2023" class="csl-entry" role="listitem">
+Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). <em>R for data science: import, tidy, transform, visualize, and model data</em> (2nd edition). O’Reilly Media, Inc.
 </div>
 </div>
 </section>
@@ -1319,13 +1176,13 @@ Jones, E., Harden, S., &amp; Crawley, M. J. (2022). <em>The R book</em> (Third e
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./c09_ModLinearANOVA.html" class="pagination-link" aria-label="Modelos lineares: ANOVA">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Modelos lineares: ANOVA</span></span>
+      <a href="./c11_Multivar.html" class="pagination-link" aria-label="Estatística multivariada">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Estatística multivariada</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./c11_Multivar.html" class="pagination-link" aria-label="Estatística multivariada">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Estatística multivariada</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./c13_Progr.html" class="pagination-link" aria-label="Programação, strings e dados relacionais">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Programação, strings e dados relacionais</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

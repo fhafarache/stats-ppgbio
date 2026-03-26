@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; Modelos lineares: ANOVA – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
+<title>10&nbsp; Modelos lineares generalizados (GLMs) – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,8 +85,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./c10_GLMs.html" rel="next">
-<link href="./c08_ModLinearReg.html" rel="prev">
+<link href="./c11_Multivar.html" rel="next">
+<link href="./c09_ModLinearANOVA.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -333,7 +333,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c09_ModLinearANOVA.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Modelos lineares: ANOVA</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c10_GLMs.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -407,8 +407,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./c07_InfEst.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Inferência Estatística: uma introdução com testes t e qui-quadrado</span></span></a>
+  <a href="./c07_TesteHip.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -419,13 +419,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./c09_ModLinearANOVA.html" class="sidebar-item-text sidebar-link active">
+  <a href="./c09_ModLinearANOVA.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Modelos lineares: ANOVA</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./c10_GLMs.html" class="sidebar-item-text sidebar-link">
+  <a href="./c10_GLMs.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></span></a>
   </div>
 </li>
@@ -475,15 +475,14 @@ window.Quarto = {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#anova-de-um-fator" id="toc-anova-de-um-fator" class="nav-link active" data-scroll-target="#anova-de-um-fator"><span class="header-section-number">9.1</span> ANOVA de um fator</a>
+  <li><a href="#desvio-deviance" id="toc-desvio-deviance" class="nav-link active" data-scroll-target="#desvio-deviance"><span class="header-section-number">10.1</span> Desvio (deviance)</a></li>
+  <li><a href="#glms-para-dados-de-contagem" id="toc-glms-para-dados-de-contagem" class="nav-link" data-scroll-target="#glms-para-dados-de-contagem"><span class="header-section-number">10.2</span> GLMs para dados de contagem</a>
   <ul class="collapse">
-  <li><a href="#análise-do-modelo" id="toc-análise-do-modelo" class="nav-link" data-scroll-target="#análise-do-modelo"><span class="header-section-number">9.1.1</span> Análise do modelo</a></li>
-  <li><a href="#teste-a-posteriori" id="toc-teste-a-posteriori" class="nav-link" data-scroll-target="#teste-a-posteriori"><span class="header-section-number">9.1.2</span> Teste a posteriori</a></li>
-  <li><a href="#gráfico-incluindo-comparações-múltiplas" id="toc-gráfico-incluindo-comparações-múltiplas" class="nav-link" data-scroll-target="#gráfico-incluindo-comparações-múltiplas"><span class="header-section-number">9.1.3</span> Gráfico incluindo comparações múltiplas</a></li>
+  <li><a href="#superdispersão-overdispersion" id="toc-superdispersão-overdispersion" class="nav-link" data-scroll-target="#superdispersão-overdispersion"><span class="header-section-number">10.2.1</span> Superdispersão (overdispersion)</a></li>
+  <li><a href="#simplificando-o-modelo" id="toc-simplificando-o-modelo" class="nav-link" data-scroll-target="#simplificando-o-modelo"><span class="header-section-number">10.2.2</span> Simplificando o modelo</a></li>
   </ul></li>
-  <li><a href="#anova-fatorial" id="toc-anova-fatorial" class="nav-link" data-scroll-target="#anova-fatorial"><span class="header-section-number">9.2</span> ANOVA fatorial</a></li>
-  <li><a href="#ancova" id="toc-ancova" class="nav-link" data-scroll-target="#ancova"><span class="header-section-number">9.3</span> ANCOVA</a></li>
-  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">9.4</span> Conclusão</a></li>
+  <li><a href="#dados-binários" id="toc-dados-binários" class="nav-link" data-scroll-target="#dados-binários"><span class="header-section-number">10.3</span> Dados binários</a></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">10.4</span> Conclusão</a></li>
   </ul>
 </nav>
     </div>
@@ -493,7 +492,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Modelos lineares: ANOVA</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></h1>
 </div>
 
 
@@ -510,373 +509,396 @@ window.Quarto = {
 </header>
 
 
-<p>A análise de variância (ANOVA) é um método desenvolvido por Robert Fisher para realizar o particionamento das variâncias. Neste método, criamos um modelo linear onde temos variável preditora categórica variável resposta contínua <span class="citation" data-cites="gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>)</span>. Este método pode ser usado para comparar três grupos ou mais, e verificar se há diferenças entre eles.</p>
-<section id="anova-de-um-fator" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="anova-de-um-fator"><span class="header-section-number">9.1</span> ANOVA de um fator</h2>
-<p>Vamos analisar o conjunto de dados <code>figos_comp</code>, que apresenta o diâmetro e a produção de sementes em figos de 3 espécies de figueiras.</p>
+<p>Modelos lineares generalizados (<strong>GLMs</strong>) permitem a análise de dados em situações nas quais a variância não é constante e/ou os erros não seguem uma distribuição normal. Esses modelos são especialmente úteis para dados de contagem, proporções ou quando a variável resposta é binária, entre outros casos <span class="citation" data-cites="jones2022">(<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">Jones et al., 2022</a>)</span>.</p>
+<p>Três aspectos importantes dos GLMs são:</p>
+<ul>
+<li>A estrutura de erro.</li>
+<li>O preditor linear.</li>
+<li>A função de ligação.</li>
+</ul>
+<p>Até o momento, tratamos os dados assumindo que os erros seguiam uma distribuição normal. Quando esse pressuposto era violado, recorríamos à transformação da variável resposta ou ao uso de métodos não paramétricos. Os modelos lineares generalizados (GLMs), por sua vez, permitem lidar com erros que seguem diferentes tipos de distribuição, ampliando as possibilidades de análise.</p>
+<p>A estrutura do modelo generalizado relaciona cada valor de da variável resposta <span class="math inline">\(y\)</span> observado a um valor transformado conhecido como preditor linear (<span class="math inline">\(\eta\)</span>). A função que relaciona os valores de <span class="math inline">\(y\)</span> com seu preditor linear é chamada de <em>função de ligação</em>.</p>
+<p>As funções canônicas de ligação são as opções padrão empregadas no R para quando uma estrutura particular de erros é empregada com o argumento <code>family</code> na fórmula do modelo linear generalizado</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 29%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Distribuição dos erros</th>
+<th>Função canônica de Ligação</th>
+<th>Função inversa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Normal</td>
+<td>identidade</td>
+<td>identidade <span class="math inline">\(\mu = \eta\)</span></td>
+</tr>
+<tr class="even">
+<td>Poisson</td>
+<td>log</td>
+<td>exponencial <span class="math inline">\(\mu = e^\eta\)</span></td>
+</tr>
+<tr class="odd">
+<td>Binomial</td>
+<td>logit</td>
+<td>logística <span class="math inline">\(\frac{\mu = e^\eta}{1+e^\eta}\)</span></td>
+</tr>
+</tbody>
+</table>
+<section id="desvio-deviance" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="desvio-deviance"><span class="header-section-number">10.1</span> Desvio (deviance)</h2>
+<p>A medida da discrepância entre os valores ajustados pelo modelo e os valores observados nos GLM é chamada de <em>desvio</em> ou <em>deviance</em>. Esta medida é baseada na comparação da verossimilhança entre o modelo criado e um modelo saturado, onde é criado um modelo que ajusta os dados perfeitamente.</p>
+</section>
+<section id="glms-para-dados-de-contagem" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="glms-para-dados-de-contagem"><span class="header-section-number">10.2</span> GLMs para dados de contagem</h2>
+<p>Vamos analisar o conjunto de dados <code>riqueza</code>, que inclui a riqueza de espécies em parcelas, relacionadas ao índice de luminosidade e biomassa de serrapilheira. Primeiro vamos importar os dados, verificar sua estrutura e observar as primeiras linhas:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>fig_comp <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"figos_comp"</span>) <span class="co"># importar os dados</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(fig_comp)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>riq <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"riqueza"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(riq)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tibble [60 × 3] (S3: tbl_df/tbl/data.frame)
- $ especie : chr [1:60] "citrif" "citrif" "citrif" "citrif" ...
- $ diametro: num [1:60] 1.58 1.67 1.6 1.43 1.49 1.35 1.42 1.4 1.51 1.53 ...
- $ sementes: num [1:60] 220 276 180 112 172 200 176 196 128 252 ...</code></pre>
+<pre><code>tibble [50 × 3] (S3: tbl_df/tbl/data.frame)
+ $ riqueza     : num [1:50] 1 3 0 20 0 10 1 0 0 1 ...
+ $ biomassa    : num [1:50] 0.722 1.835 -0.256 1.847 -1.9 ...
+ $ luminosidade: num [1:50] 0.287 1.35 -0.683 -0.581 -0.472 ...</code></pre>
 </div>
-</div>
-<p>No conjunto de dados, temos as variáveis contínuas <code>diametro</code> e <code>sementes</code> que analizaremos como variáveis resposta <span class="math inline">\(y\)</span> e a variável categórica <code>especie</code>, que analisaremos como variável preditora <span class="math inline">\(x\)</span>.</p>
-<p>Vamos comparar inicialente as espécies em relação à quantidade de sementes. Vamos visualizar graficamente os dados utilizando um boxplot (<a href="#fig-figos" class="quarto-xref">Figura&nbsp;<span>9.1</span></a>).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(sementes <span class="sc">~</span> especie, <span class="at">data =</span> fig_comp)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-figos" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-figos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c09_ModLinearANOVA_files/figure-html/fig-figos-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-figos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;9.1: boxplot de sementes para três espécies de figos.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>As medianas entre duas espécies <em>Ficus citrifolia</em> (citrif) e <em>F. obtusifolia</em> (obfol) são próximas, enquanto a espécie <em>F. obtusiuscula</em> (obus) parece apresentar menos sementes.</p>
-<p>Vamos testar se há diferenças significativas entre os três grupos estudados:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sem.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(sementes <span class="sc">~</span> especie, <span class="at">data =</span> fig_comp)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#outra maneira</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sem.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(sementes <span class="sc">~</span> especie, <span class="at">data =</span> fig_comp)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Neste passo, criamos um modelo linear testando a relação da variável categórica na variável contínua sementes. Podemos observar a tabela de ANOVA:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(sem.lm) <span class="co">#ou summary(produt.aov)</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
-
-Response: sementes
-          Df Sum Sq Mean Sq F value    Pr(&gt;F)    
-especie    2 478631  239315  108.01 &lt; 2.2e-16 ***
-Residuals 57 126289    2216                      
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<p>A tabela de ANOVA mostra os graus de liberdade associados a espécie e aos resíduos, as somas dos quadrados, os quadrados médios, o valor de F do teste de hipótese e o valor p.&nbsp;O valor de p nos indica que, considerando a significância de 0,05, rejeitamos <span class="math inline">\(H_0\)</span> e dizemos que pelo menos uma das médias é diferente das demais.</p>
-<section id="análise-do-modelo" class="level3" data-number="9.1.1">
-<h3 data-number="9.1.1" class="anchored" data-anchor-id="análise-do-modelo"><span class="header-section-number">9.1.1</span> Análise do modelo</h3>
-<p>Podemos analisar o modelo visualmente da mesma forma que fizemos com os modelos de regressão linear. Podemos observar se não há uma tendência de aumento dos resíduos ao longo do tratamento, e se a distribuição dos resíduos se aproxima à distribuição normal ( <a href="#fig-sem_diag" class="quarto-xref">Figura&nbsp;<span>9.2</span></a>).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sem.lm)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-sem_diag" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sem_diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c09_ModLinearANOVA_files/figure-html/fig-sem_diag-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sem_diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;9.2: diagnóstico do modelo da quantidade de sementes em três espécies.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>A primeira figura avalia se as variâncias são constantes e não deve haver um padrão entre os resíduos e os valores ajustados. No segundo, é testada a normalidade dos resíduos, e os pontos devem ser dispostos em uma linha reta na relação entre os resíduos padronizados e os quantis teóricos derivados da distribuição normal. O terceiro gráfico avalia o comportamento dos resíduos <span class="citation" data-cites="jones2022">(para mais detalhes, ver <a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">Jones et al., 2022</a>)</span>. Observamos que pode haver violação nos pressupostos dos modelos lineares, principalmente pela análise do gráfico quantil-quantil.</p>
-</section>
-<section id="teste-a-posteriori" class="level3" data-number="9.1.2">
-<h3 data-number="9.1.2" class="anchored" data-anchor-id="teste-a-posteriori"><span class="header-section-number">9.1.2</span> Teste a posteriori</h3>
-<p>O teste de ANOVA indicou a existência de diferenças em pelo menos um dos grupos. Para descobrir que grupos são diferentes, realizamos comparações par a par entre eles. Um dos testes utilizados para isso é o teste HSD de Tukey (Honest Significant Difference). Ele se assemelha a um teste t onde o erro do tipo I é corrigido para comparações múltiplas.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(sem.lm)) <span class="co">#ou TukeyHSD(produt.aov)</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Tukey multiple comparisons of means
-    95% family-wise confidence level
-
-Fit: aov(formula = sem.lm)
-
-$especie
-               diff         lwr        upr     p adj
-obfol-citrif   29.8   -6.019217   65.61922 0.1209402
-obus-citrif  -172.8 -208.619217 -136.98078 0.0000000
-obus-obfol   -202.6 -238.419217 -166.78078 0.0000000</code></pre>
-</div>
-</div>
-<p>Nos resultados é mostrada diferença das médias dos grupos par a par (diff), o intervalo de confiança entre as diferenças e o valor-p do teste estatístico. Neste caso observamos diferenças entre obfol e citrif e entre bus e obfol, mas não há diferenças entre obfol e citrif.</p>
-</section>
-<section id="gráfico-incluindo-comparações-múltiplas" class="level3" data-number="9.1.3">
-<h3 data-number="9.1.3" class="anchored" data-anchor-id="gráfico-incluindo-comparações-múltiplas"><span class="header-section-number">9.1.3</span> Gráfico incluindo comparações múltiplas</h3>
-<p>O pacote <code>tidyplots</code> permite preparar gráficos para publicação de forma simples. Vamos utilizar ele para criar um gráfico de boxplot comparando as três espécies e adicionando o valor-p do teste de Tukey à figura.</p>
-<p>Atenção: neste código, utilizaremos o sinal de pipeline que será tratado futuramente no <a href="c12_Tidyverse.html" class="quarto-xref"><span>Capítulo 12</span></a> - Utilizando pipes.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyplots)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fig_comp <span class="sc">|&gt;</span> <span class="co">#objeto a ser utilizado </span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidyplot</span>(<span class="at">x =</span> especie, <span class="at">y =</span> sementes) <span class="sc">|&gt;</span> <span class="co">#criar gráfico e definir eixos</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_boxplot</span>() <span class="sc">|&gt;</span>  <span class="co"># adicioanr boxplot</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_test_pvalue</span>(<span class="at">method =</span> <span class="st">"tukey_hsd"</span>, <span class="at">hide_info =</span> <span class="cn">TRUE</span>) <span class="co">#adicionar Tukey</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: p-values can't be adjusted by panel for the specified stat method.
-The result of the method doesn't contain the p column.
-Note that, tests such as tukey_hsd or games_howell_test handle p-value adjustement internally; they only return the p.adj.</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="c09_ModLinearANOVA_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="anova-fatorial" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="anova-fatorial"><span class="header-section-number">9.2</span> ANOVA fatorial</h2>
-<p>A ANOVA de dois fatores pode ser utilizada quando temos duas variáveis categóricas preditoras.</p>
-<p>Vamos utilizar os dados <code>atividade</code>. Neste conjunto temos dados simulados da alimentação e movimentação de duas espécies de insetos para machos ou fêmeas.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ativ <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"atividade"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ativ)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(riq)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
-  tratamento sexo  movimento
-  &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt;
-1 A          M         12.4 
-2 A          M         10.0 
-3 A          M         10.0 
-4 A          M         14.7 
-5 A          M         12.0 
-6 A          M          8.77</code></pre>
+  riqueza biomassa luminosidade
+    &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
+1       1    0.722        0.287
+2       3    1.84         1.35 
+3       0   -0.256       -0.683
+4      20    1.85        -0.581
+5       0   -1.9         -0.472
+6      10    0.727       -0.812</code></pre>
 </div>
 </div>
-<p>Ao observar os boxplot ( <a href="#fig-ativ_bp" class="quarto-xref">Figura&nbsp;<span>9.3</span></a>), podemos inferir que há diferença na quantidade de cálcio no sangue para grupos tratados com o hormônio e não tratados. O boxplot pode ser feito utilizando o pacote <code>ggplot2</code>:</p>
+<p>Vamos criar um gráfico para avaliar a relação entre a variável resposta e as variáveis preditoras (<a href="#fig-riq" class="quarto-xref">Figura&nbsp;<span>10.1</span></a>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ativ)<span class="sc">+</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tratamento, <span class="at">y =</span> movimento, <span class="at">fill =</span> sexo))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-ativ_bp" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(riq)<span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> biomassa, <span class="at">y =</span> riqueza))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(riq)<span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> luminosidade, <span class="at">y =</span> riqueza))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-riq" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ativ_bp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c09_ModLinearANOVA_files/figure-html/fig-ativ_bp-1.png" class="img-fluid figure-img" width="672">
+<div aria-describedby="fig-riq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="fig-riq-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-riq-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c10_GLMs_files/figure-html/fig-riq-1.png" class="img-fluid figure-img" data-ref-parent="fig-riq" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ativ_bp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;9.3: boxplot da movimentação em insetos machos e fêmeas que receberam 2 tratamentos.
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-riq-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) preditor: biomassa de serrapilheira
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-riq-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-riq-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c10_GLMs_files/figure-html/fig-riq-2.png" class="img-fluid figure-img" data-ref-parent="fig-riq" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-riq-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) preditor: luminosidade (abertura do dossel)
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Vamos criar o modelo utilizando a movimentaçãoo como variável resposta e tratamento e sexo como preditores, utilizando a função <code>lm( )</code>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mod.ativ <span class="ot">&lt;-</span> <span class="fu">lm</span>(movimento<span class="sc">~</span> tratamento <span class="sc">*</span> sexo, <span class="at">data =</span> ativ)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod.ativ)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
-
-Response: movimento
-                Df  Sum Sq Mean Sq F value   Pr(&gt;F)    
-tratamento       1  35.175  35.175  10.500 0.002011 ** 
-sexo             1  84.966  84.966  25.364 5.26e-06 ***
-tratamento:sexo  1   2.204   2.204   0.658 0.420709    
-Residuals       56 187.595   3.350                     
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<p>Observamos um efeito significativo de <code>tratamento</code> sobre <code>movimento</code>. A variável <code>sexo</code> também explicou a variação na movimentação. A interação <code>tratamento:sexo</code> não foi significativa.</p>
-</section>
-<section id="ancova" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="ancova"><span class="header-section-number">9.3</span> ANCOVA</h2>
-<p>A ANCOVA é uma extensão da ANOVA, onde incluímos fatores e variáveis contínuas (covariáveis) como variáveis preditoras. Assim, esse delineamento pode ser considerado como um híbrido entre ANOVA e regressão linear <span class="citation" data-cites="gotelli2016">(<a href="czz_Referencias.html#ref-gotelli2016" role="doc-biblioref">Gotelli &amp; Ellison, 2016</a>)</span>.</p>
-<p>Para exemplificar, vamos utilizar o conjunto de dados <code>grilos</code>, adaptado de <span class="citation" data-cites="walker1962">Walker (<a href="czz_Referencias.html#ref-walker1962" role="doc-biblioref">1962</a>)</span>, no qual foi estudado a canção de acasalamento de grilos. Neste conjunto, são apresentados os números de pulsos por segundo emitido por grilos machos das espécies <em>Oecanthus exclamationis</em> e <em>O. niveus</em> a diferentes temperaturas:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>grilos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"grilos"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>grilos</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 31 × 3
-   Temperatura Pulsos Especie        
-         &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;          
- 1        20.8   67.9 O_exclamationis
- 2        20.8   65.1 O_exclamationis
- 3        24     77.3 O_exclamationis
- 4        24     78.7 O_exclamationis
- 5        24     79.4 O_exclamationis
- 6        24     80.4 O_exclamationis
- 7        26.2   85.8 O_exclamationis
- 8        26.2   86.6 O_exclamationis
- 9        26.2   87.5 O_exclamationis
-10        26.2   89.1 O_exclamationis
-# ℹ 21 more rows</code></pre>
-</div>
-</div>
-<p>Neste conjunto, temos duas variáveis contínuas: o número de pulsos emitidos e a temperatura. Além disso temos uma variável categórica (espécie).</p>
-<p>Vamos visualizar a relação entre o número de pulsos e temperatura, utilizando cores diferentes para espécies diferentes (<a href="#fig-grilos_disp" class="quarto-xref">Figura&nbsp;<span>9.4</span></a>).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grilos) <span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temperatura, <span class="at">y =</span> Pulsos, <span class="at">col =</span> Especie))<span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-grilos_disp" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-grilos_disp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c09_ModLinearANOVA_files/figure-html/fig-grilos_disp-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-grilos_disp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;9.4: gráfico de dispersão relacionando a quantidade de pulsos e temperatura para duas espécies de grilos.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-riq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;10.1: gráfico de dispersão relacionando a riqueza de espécies com biomassa e luminosidade.
 </figcaption>
 </figure>
 </div>
 </div>
-</div>
-<p>Ao visualizar os dados, parece haver uma clara relação positiva entre o número de pulsos emitidos e a temperatura. além disso, o número de pulsos emitidos parece diferir para cada espécie.</p>
-<p>Vamos criar um modelo linear para ajustar o efeito das variáveis preditoras <em>Temperatura</em> e <em>Especie</em> na variável resposta <em>Pulsos</em>. Vamos considerar também a possibilidade de existir interação entre as duas variáveis preditoras:</p>
+<p>Nos gráficos conseguimos ver que há uma relação positiva entre o número de espécies com o aumento da biomassa, entretanto parece que há uma relação negativa entre a riqueza e a luminosidade.</p>
+<p>Como temos um dado de contagem, vamos criar um modelo linear generalizado:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>grilos.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Pulsos <span class="sc">~</span> Temperatura <span class="sc">+</span> Especie, <span class="at">data =</span> grilos)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(grilos.lm)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(riqueza <span class="sc">~</span> biomassa <span class="sc">*</span> luminosidade, <span class="at">data =</span> riq, <span class="at">family =</span> poisson)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo1)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = Pulsos ~ Temperatura + Especie, data = grilos)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--3.0128 -1.1296 -0.3912  0.9650  3.7800 
+glm(formula = riqueza ~ biomassa * luminosidade, family = poisson, 
+    data = riq)
 
 Coefficients:
-                 Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)      -7.21091    2.55094  -2.827  0.00858 ** 
-Temperatura       3.60275    0.09729  37.032  &lt; 2e-16 ***
-EspecieO_niveus -10.06529    0.73526 -13.689 6.27e-14 ***
+                      Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)            0.39721    0.14218   2.794  0.00521 ** 
+biomassa               1.17932    0.11253  10.480  &lt; 2e-16 ***
+luminosidade          -0.95762    0.09501 -10.079  &lt; 2e-16 ***
+biomassa:luminosidade  0.01153    0.07332   0.157  0.87503    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 1.786 on 28 degrees of freedom
-Multiple R-squared:  0.9896,    Adjusted R-squared:  0.9888 
-F-statistic:  1331 on 2 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<p>Há um claro efeito da <code>Temperatura</code> e da <code>Especie</code> na taxa de pulsos emitidas pelos grilos. O aumento de 1ºC na temperatura aumenta a taxa de pulsos em 3.6 segundo o modelo. Além disso, a espécie <em>O. niveus</em> apresenta em média 10 pulsos a menos do que a espécie <em>O_exclamationis</em>.</p>
-<p>Podemos verificar a tabela de ANOVA para o modelo:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(grilos.lm)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
+(Dispersion parameter for poisson family taken to be 1)
 
-Response: Pulsos
-            Df Sum Sq Mean Sq F value    Pr(&gt;F)    
-Temperatura  1 7894.8  7894.8  2474.0 &lt; 2.2e-16 ***
-Especie      1  598.0   598.0   187.4 6.272e-14 ***
-Residuals   28   89.3     3.2                      
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<p>Além disso, podemos incluir a interação entre as variáveis preditoras, ou seja, se o efeito de uma das variáveis é modulado pelo efeito de outra:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar mdelo com interação</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>grilos.lm.int <span class="ot">&lt;-</span> <span class="fu">lm</span>(Pulsos <span class="sc">~</span> Temperatura <span class="sc">*</span> Especie, <span class="at">data =</span> grilos)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># comparar modelos</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(grilos.lm, grilos.lm.int)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
+    Null deviance: 499.017  on 49  degrees of freedom
+Residual deviance:  44.719  on 46  degrees of freedom
+AIC: 157.08
 
-Model 1: Pulsos ~ Temperatura + Especie
-Model 2: Pulsos ~ Temperatura * Especie
-  Res.Df    RSS Df Sum of Sq     F Pr(&gt;F)
-1     28 89.350                          
-2     27 85.074  1    4.2758 1.357 0.2542</code></pre>
+Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
-<p>O acréscimo do parâmetro de interação não tornou o modelo significativamente melhor, deste modo, optamos pelo modelo mais simples que não considera a interação.</p>
-<p>Podemos utilizar a análise gráfica para diagnosticar o modelo (<a href="#fig-grilos_diag" class="quarto-xref">Figura&nbsp;<span>9.5</span></a>)</p>
+<p>O modelo indica que há relação positiva entre a riqueza e a biomassa da serrapilheira, entretanto temos uma relação negativa entre a luminosidade que atinge o sub-bosque devido à abertura do dossel e a riqueza de espécies. A interação entre as duas variáveis preditoras não foi significativa. Algumas particularidades sobre o resumo dos modelos lineares generalizados:</p>
+<ul>
+<li><p>Em vez de apresentar estatísticas sobre os resíduos, são apresentadas estatísticas descritivas do desvio (<em>deviance</em>).</p></li>
+<li><p>É preciso atenção com os coeficientes dos modelos, pois eles estão apresentados na escala do preditor linear. No caso dos modelos da família Poisson, a função de ligação canônica é a logarítmica. Para se colocar os coeficientes na escala da variável resposta, deve-se utilizar a função inversa, que no caso é a exponencial.</p></li>
+</ul>
+<section id="superdispersão-overdispersion" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="superdispersão-overdispersion"><span class="header-section-number">10.2.1</span> Superdispersão (overdispersion)</h3>
+<p>Outra coisa importante que deve ser levada em conta é que modelos como os da família Poisson e binomial assumem que o parâmetro de dispersão é igual a 1, o que pode não ser adequado. Caso este parâmetro não seja adequado, observaremos que o desvio residual (<em>residual deviance</em>) dividido pelos seus graus de liberdade será muito diferente de 1. No nosso exemplo, o desvio residual foi <code>44,7</code> para <code>46</code> graus de liberdade e, sendo assim, foi adequado. Caso haja discrepância entre o desvio residual e os graus de liberdade, pode ser interessante utilizar modelos de famílias que podem variar o parâmetro de dispersão. nesse caso pode ser utilizada a família quasi-poisson (com o argumento <code>family = quasipoisson</code>) ou binomial negativa (utilizando a função <code>glm.nb()</code> do pacote <code>MASS</code>). Para modelos da família binomial (apresentada a seguir), pode ser utilizada a família quasi-binomial (com o argumento <code>family = quasibinomial</code>). Mais detalhes sobre o assunto podem ser vistos em <span class="citation" data-cites="jones2022">Jones et al. (<a href="czz_Referencias.html#ref-jones2022" role="doc-biblioref">2022</a>)</span>.</p>
+</section>
+<section id="simplificando-o-modelo" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="simplificando-o-modelo"><span class="header-section-number">10.2.2</span> Simplificando o modelo</h3>
+<p>Podemos criar um modelo mais simples sem interação e observar se esse modelo é melhor que o testado anteriormente. Para isso, podemos utilizar a função ANOVA para comparar os modelos como feito anteriormente. No caso de modelos lineares generalizados, a comparação deve ser feita por qui-quadrado, assim devemos incluir o argumento <code>test="Chi"</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(grilos.lm)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div id="fig-grilos_diag" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-grilos_diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c09_ModLinearANOVA_files/figure-html/fig-grilos_diag-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-grilos_diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;9.5: diagnóstico do modelo grilos.lm.
-</figcaption>
-</figure>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(riqueza <span class="sc">~</span> biomassa <span class="sc">+</span> luminosidade, <span class="at">data =</span> riq, poisson)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo1, modelo2, <span class="at">test=</span><span class="st">"Chi"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: riqueza ~ biomassa * luminosidade
+Model 2: riqueza ~ biomassa + luminosidade
+  Resid. Df Resid. Dev Df  Deviance Pr(&gt;Chi)
+1        46     44.719                      
+2        47     44.744 -1 -0.024573   0.8754</code></pre>
 </div>
 </div>
-<p>Finalmente, vamos criar um gráfico para observar os resultados, a partir do gráfico criado anteriormente (<a href="#fig-grilos_reg1" class="quarto-xref">Figura&nbsp;<span>9.6</span></a>).</p>
+<p>Podemos observar que o modelo 1 não apresenta vantagem em relação ao modelo 2. Assim optamos por manter o modelo mais simples, que não inclui interação.</p>
+<p>Vamos criar um gráfico com a curva da predição da riqueza pela biomassa e luminosidade. Para isso, utilizaremos o pacote <code>ggeffects</code> (<a href="#fig-riq2" class="quarto-xref">Figura&nbsp;<span>10.2</span></a>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grilos, <span class="fu">aes</span>(<span class="at">x =</span> Temperatura, <span class="at">y =</span> Pulsos, <span class="at">col =</span> Especie))<span class="sc">+</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#biomassa</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>riq.pred1 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(modelo1, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"biomassa"</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(riq.pred1, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
+  Please use `show_data` instead.</code></pre>
 </div>
-<div class="cell-output-display">
-<div id="fig-grilos_reg1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-grilos_reg1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c09_ModLinearANOVA_files/figure-html/fig-grilos_reg1-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-grilos_reg1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;9.6: gráfico de dispersão entre o total de pulsos e temperatura para duas espécies de grilos incluindo ajuste do modelo linear.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Um gráfico mais preciso mostrando a estimativa dos efeitos prevista pelo modelo pode ser feito com o pacote ggeffects (<a href="#fig-grilos_reg2" class="quarto-xref">Figura&nbsp;<span>9.7</span></a>).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggeffects"</span>) <span class="co">#caso o pacote não esteja instalado</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>grilos.pred <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(grilos.lm, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Temperatura"</span>,  <span class="st">"Especie"</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Some of the focal terms are of type `character`. This may lead to
-  unexpected results. It is recommended to convert these variables to
-  factors before fitting the model.
-  The following variables are of type character: `Especie`</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(grilos.pred, <span class="at">show_data =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
   random variation to the location of data points and avoid overplotting.</code></pre>
 </div>
-<div class="cell-output-display">
-<div id="fig-grilos_reg2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-grilos_reg2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="c09_ModLinearANOVA_files/figure-html/fig-grilos_reg2-1.png" class="img-fluid figure-img" width="672">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#luminosidade</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>riq.pred2 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(modelo1, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"luminosidade"</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(riq.pred2, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
+  Please use `show_data` instead.</code></pre>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-grilos_reg2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;9.7: gráfico de dispersão incluindo o ajuste do modelo utilizando o pacote ggeffects.
+<div class="cell-output cell-output-stderr">
+<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
+  random variation to the location of data points and avoid overplotting.</code></pre>
+</div>
+<div id="fig-riq2" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-riq2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="fig-riq2-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-riq2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c10_GLMs_files/figure-html/fig-riq2-1.png" class="img-fluid figure-img" data-ref-parent="fig-riq2" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-riq2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) preditor: biomassa de serrapilheira
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-riq2-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-riq2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c10_GLMs_files/figure-html/fig-riq2-2.png" class="img-fluid figure-img" data-ref-parent="fig-riq2" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-riq2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) preditor: luminosidade (abertura do dossel)
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-riq2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;10.2: gráficos de dispersão relacionando a riqueza de espécies, biomassa e luminosidade, incluindo ajuste do modelo linear generalizado.
+</figcaption>
+</figure>
+</div>
+</div>
 </section>
-<section id="conclusão" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">9.4</span> Conclusão</h2>
-<p>Neste capítulo, exploramos a&nbsp;<strong>Análise de Variância (ANOVA)</strong>&nbsp;como uma ferramenta para comparar médias entre grupos, utilizando modelos lineares com variáveis preditoras categóricas. Aprendemos a aplicar a ANOVA de um fator para testar diferenças entre grupos, realizar diagnósticos de modelos e interpretar resultados, incluindo testes&nbsp;<em>post-hoc</em>&nbsp;como o teste de&nbsp;<strong>Tukey</strong>. Além disso, abordamos a&nbsp;<strong>ANOVA fatorial</strong>&nbsp;para analisar múltiplas variáveis categóricas e a&nbsp;<strong>ANCOVA</strong>&nbsp;para incluir covariáveis contínuas. Essas técnicas permitem ao leitor avaliar relações complexas entre variáveis, diagnosticar modelos e interpretar resultados de forma robusta, fornecendo uma base sólida para análises estatísticas avançadas.</p>
+</section>
+<section id="dados-binários" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="dados-binários"><span class="header-section-number">10.3</span> Dados binários</h2>
+<p>Podemos utilizar modelos lineares generalizados para analisar dados onde a variável resposta é binária.</p>
+<p>No exemplo abaixo utilizaremos os dados da planilha <code>pres_aus</code>, que apresenta dados de presença/ausência de uma determinada espécie em fragmentos florestais, como uma função da área do fragmento e de sua distância de uma reserva florestal maior. No conjunto de dados, a variável presença está codificada como 0 e 1, onde 0 indica ausência e 1 indica presença da espécie:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>praus <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados_R.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"pres_aus"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(praus)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [30 × 3] (S3: tbl_df/tbl/data.frame)
+ $ presença : num [1:30] 1 1 0 1 0 1 1 1 0 0 ...
+ $ area     : num [1:30] 10.5 13 8.3 13.1 4.6 10.5 6.4 7.4 5.4 8.9 ...
+ $ distancia: num [1:30] 12.3 8.1 14.3 8.1 10.7 10.8 11.3 5.5 10.5 16.2 ...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(praus)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  presença  area distancia
+     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1        1  10.5      12.3
+2        1  13         8.1
+3        0   8.3      14.3
+4        1  13.1       8.1
+5        0   4.6      10.7
+6        1  10.5      10.8</code></pre>
+</div>
+</div>
+<p>Vamos criar dois modelos: um deles avaliando a interação entre as variáveis explanatórias e o outro não avaliando a interação.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>praus.modelo1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(presença <span class="sc">~</span> area <span class="sc">*</span> distancia, <span class="at">data =</span> praus, <span class="at">family =</span> binomial) <span class="co">#com interação</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>praus.modelo2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(presença <span class="sc">~</span> area <span class="sc">+</span> distancia, <span class="at">data =</span> praus, <span class="at">family =</span> binomial) <span class="co">#sem interação</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Vamos comparar os modelos:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(praus.modelo1, praus.modelo2)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: presença ~ area * distancia
+Model 2: presença ~ area + distancia
+  Resid. Df Resid. Dev Df  Deviance Pr(&gt;Chi)
+1        26     19.674                      
+2        27     19.688 -1 -0.014146   0.9053</code></pre>
+</div>
+</div>
+<p>O modelo mais complexo (incluindo a interação) não é significativamente melhor, desta forma utilizamos o modelo mais simples pelo critério da parcimônia.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(praus.modelo2)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = presença ~ area + distancia, family = binomial, 
+    data = praus)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)   
+(Intercept)  -3.0103     3.2778  -0.918   0.3584   
+area          0.9672     0.3446   2.807   0.0050 **
+distancia    -0.5204     0.2729  -1.907   0.0565 . 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 41.455  on 29  degrees of freedom
+Residual deviance: 19.688  on 27  degrees of freedom
+AIC: 25.688
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div>
+<p>Ao analisar as estimativas (<em>Estimate</em>) vemos uma relação positiva entre a presença de aves com <em>area</em>, e coeficiente de distância foi negativo. Assim fragmentos maiores tem mais chance de apresentar a espécie, enquanto fragmentos mais afastados da reserva florestal têm uma probabilidade menor de apresentar a espécie. pelo teste-z, a distância foi marginalmente significativa, entretanto para avaliar de forma mais adequada, devemos realizar uma análise do desvio com a função <code>anova():</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(praus.modelo2)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model: binomial, link: logit
+
+Response: presença
+
+Terms added sequentially (first to last)
+
+          Df Deviance Resid. Df Resid. Dev  Pr(&gt;Chi)    
+NULL                         29     41.455              
+area       1  16.1616        28     25.294 5.816e-05 ***
+distancia  1   5.6062        27     19.688    0.0179 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Nesta análise, a partir de um modelo nulo (presença ~ 1), as variáveis preditoras são adicionadas sequencialmente. Desta forma, vemos que tanto a adição da variável area como distância melhoram significativamente o modelo, desta forma devem ser mantidas. É preciso ter atenção em relação à interpretação dos valores do <em>deviance</em>, pois, como eles são adicionados sequencialmente, dependendo da ordem que forem adicionados, os valores serão diferentes.</p>
+<p>Podemos realizar a predição dos valores e preparar gráficos representando o modelo utilizando o pacote <code>ggeffects</code> (<a href="#fig-presaus" class="quarto-xref">Figura&nbsp;<span>10.3</span></a>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico para isolamento</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>praus.pred.dist <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(praus.modelo2, <span class="at">terms =</span>  <span class="fu">c</span>(<span class="st">"distancia [all]"</span>))</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(praus.pred.dist, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
+  Please use `show_data` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
+  random variation to the location of data points and avoid overplotting.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gráfico para incidência</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>praus.pred.ar <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(praus.modelo2, <span class="at">terms =</span>  <span class="fu">c</span>(<span class="st">"area [all]"</span>))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(praus.pred.ar, <span class="at">rawdata =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Argument `rawdata` is deprecated and will be removed in the future.
+  Please use `show_data` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Data points may overlap. Use the `jitter` argument to add some amount of
+  random variation to the location of data points and avoid overplotting.</code></pre>
+</div>
+<div id="fig-presaus" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-presaus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-presaus" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-presaus-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-presaus-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c10_GLMs_files/figure-html/fig-presaus-1.png" class="img-fluid figure-img" data-ref-parent="fig-presaus" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-presaus-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) preditor: distância
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-presaus" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-presaus-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-presaus-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="c10_GLMs_files/figure-html/fig-presaus-2.png" class="img-fluid figure-img" data-ref-parent="fig-presaus" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-presaus-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) preditor: área
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-presaus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;10.3: gráfico relacionando a probabilidade de se encontrar determinada espécie com as variáveis contínuas preditoras
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="conclusão" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">10.4</span> Conclusão</h2>
+<p>Neste capítulo, exploramos os&nbsp;<strong>Modelos Lineares Generalizados (GLMs)</strong>, que permitem analisar dados onde a variância não é constante e/ou os erros não seguem uma distribuição normal. Aprendemos a aplicar GLMs para dados de contagem (usando a família Poisson) e dados binários (usando a família binomial), destacando a importância da&nbsp;<strong>função de ligação</strong>&nbsp;e da&nbsp;<strong>estrutura de erro</strong>. Também discutimos a&nbsp;<strong>superdispersão</strong>&nbsp;e como ajustar modelos para lidar com esse problema. Por fim, utilizamos pacotes como&nbsp;<code>ggeffects</code>&nbsp;para visualizar e interpretar os resultados dos modelos. Essas técnicas fornecem ferramentas poderosas para analisar dados que não se encaixam nos pressupostos dos modelos lineares tradicionais, permitindo ao leitor abordar uma variedade de problemas estatísticos.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
-<div id="ref-gotelli2016" class="csl-entry" role="listitem">
-Gotelli, N. J., &amp; Ellison, A. M. (2016). <em>Princípios de estatística em ecologia</em>. Artmed.
-</div>
 <div id="ref-jones2022" class="csl-entry" role="listitem">
 Jones, E., Harden, S., &amp; Crawley, M. J. (2022). <em>The R book</em> (Third edition). Wiley.
-</div>
-<div id="ref-walker1962" class="csl-entry" role="listitem">
-Walker, T. J. (1962). The Taxonomy and Calling Songs of United States Tree Crickets (Orthoptera: Gryllidae: Oecanthinae). I. The Genus Neoxabea and the niveus and varicornis Groups of the Genus Oecanthus1. <em>Annals of the Entomological Society of America</em>, <em>55</em>(3), 303–322. <a href="https://doi.org/10.1093/aesa/55.3.303">https://doi.org/10.1093/aesa/55.3.303</a>
 </div>
 </div>
 </section>
@@ -1297,13 +1319,13 @@ Walker, T. J. (1962). The Taxonomy and Calling Songs of United States Tree Crick
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./c08_ModLinearReg.html" class="pagination-link" aria-label="Modelos lineares e regressão">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modelos lineares e regressão</span></span>
+      <a href="./c09_ModLinearANOVA.html" class="pagination-link" aria-label="Modelos lineares: ANOVA">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Modelos lineares: ANOVA</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./c10_GLMs.html" class="pagination-link" aria-label="Modelos lineares generalizados (GLMs)">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Modelos lineares generalizados (GLMs)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./c11_Multivar.html" class="pagination-link" aria-label="Estatística multivariada">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Estatística multivariada</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
