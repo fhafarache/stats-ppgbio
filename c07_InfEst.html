@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>7&nbsp; Inferência Estatística: uma introdução com testes t e qui-quadrado – Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -89,19 +92,18 @@ div.csl-indent {
 <link href="./c06_Graficos.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c7b6e623688ae686fe66ff55d95cd48d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-deb2d9b8974b0bcabf524bf280c4cd57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-c7b6e623688ae686fe66ff55d95cd48d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-25ad4e96992a73d0d22eff0f8f444645.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-dd5edda311ef82cd8d203691c6862f23.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-25ad4e96992a73d0d22eff0f8f444645.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -131,7 +133,7 @@ div.csl-indent {
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -346,9 +348,7 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Análise de Dados em Biodiversidade: uma Introdução Utilizando o R</a> 
         <div class="sidebar-tools-main">
@@ -944,32 +944,24 @@ mean in group fragmento    mean in group matriz
 <p>Quando os dados violam os pressupostos de normalidade, muitas vezes é sugerida a utilização de testes não paramétricos <span class="citation" data-cites="tsagris2021">(entretanto veja <a href="czz_Referencias.html#ref-tsagris2021" role="doc-biblioref">Tsagris &amp; Pandis, 2021</a>)</span>. Um exemplo de teste não-paramétrico alternativo ao teste-t para duas amostras é o teste de Mann-Whitney:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(abundancia <span class="sc">~</span> ambiente, <span class="at">data =</span> art)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in wilcox.test.default(x = DATA[[1L]], y = DATA[[2L]], ...): cannot
-compute exact p-value with ties</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-    Wilcoxon rank sum test with continuity correction
+    Wilcoxon rank sum exact test
 
 data:  abundancia by ambiente
-W = 3.5, p-value = 0.00323
+W = 3.5, p-value = 0.001243
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
 <p>No caso de dados pareados, temos o teste de Wilcoxon, que também pode ser feito utilizando a função <em>wilcox.test</em>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(gal<span class="sc">$</span>galhador, gal<span class="sc">$</span>parasita, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in wilcox.test.default(gal$galhador, gal$parasita, paired = TRUE):
-cannot compute exact p-value with ties</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(gal<span class="sc">$</span>galhador, gal<span class="sc">$</span>parasita, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-    Wilcoxon signed rank test with continuity correction
+    Wilcoxon signed rank exact test
 
 data:  gal$galhador and gal$parasita
-V = 91, p-value = 0.001651
+V = 91, p-value = 0.0002441
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
@@ -983,12 +975,12 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <p>Neste tipo de teste, observamos o quanto que um modelo probabilístico se adequa aos dados observados</p>
 <p>Podemos usar como exemplo o experimento de Mendel. O cruzamento entre heterozigotos de ervilhas lisas amarelas (YyRr x YyRr) teve o seguinte resultado. De acordo com as leis de Mendel, obteríamos as seguintes proporções esperadas para as ervilhas amarelas lisas: verdes lisas: amarelas rugosas: verdes rugosas - 9:3:3:1</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>ervilhas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  Fenótipos <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Amarela Lisa"</span>, <span class="st">"Verde lisa"</span>, <span class="st">"Amarela Rugosa"</span>, <span class="st">"Verde Rugosa"</span>),</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Freq_obs =</span> <span class="fu">c</span>(<span class="dv">320</span>, <span class="dv">110</span>, <span class="dv">101</span>, <span class="dv">35</span>),</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Prop_esp =</span> <span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>ervilhas</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>ervilhas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  Fenótipos <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Amarela Lisa"</span>, <span class="st">"Verde lisa"</span>, <span class="st">"Amarela Rugosa"</span>, <span class="st">"Verde Rugosa"</span>),</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Freq_obs =</span> <span class="fu">c</span>(<span class="dv">320</span>, <span class="dv">110</span>, <span class="dv">101</span>, <span class="dv">35</span>),</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Prop_esp =</span> <span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>ervilhas</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Fenótipos Freq_obs Prop_esp
 1   Amarela Lisa      320        9
@@ -999,9 +991,9 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 <p>Podemos calcular a frequência esperada a partir das proporções esperadas:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>Freq_esp <span class="ot">&lt;-</span> <span class="fu">sum</span>(ervilhas<span class="sc">$</span>Freq_obs)<span class="sc">/</span><span class="fu">sum</span>(ervilhas<span class="sc">$</span>Prop_esp)<span class="sc">*</span>ervilhas<span class="sc">$</span>Prop_esp</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>ervilhas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(ervilhas, Freq_esp)</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>ervilhas</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>Freq_esp <span class="ot">&lt;-</span> <span class="fu">sum</span>(ervilhas<span class="sc">$</span>Freq_obs)<span class="sc">/</span><span class="fu">sum</span>(ervilhas<span class="sc">$</span>Prop_esp)<span class="sc">*</span>ervilhas<span class="sc">$</span>Prop_esp</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>ervilhas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(ervilhas, Freq_esp)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>ervilhas</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Fenótipos Freq_obs Prop_esp Freq_esp
 1   Amarela Lisa      320        9  318.375
@@ -1016,19 +1008,19 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 </center>
 <p>Sendo assim o valor de <span class="math inline">\(X^2\)</span> pode ser calculado:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(((ervilhas<span class="sc">$</span>Freq_obs <span class="sc">-</span> ervilhas<span class="sc">$</span>Freq_esp)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>ervilhas<span class="sc">$</span>Freq_esp)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(((ervilhas<span class="sc">$</span>Freq_obs <span class="sc">-</span> ervilhas<span class="sc">$</span>Freq_esp)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>ervilhas<span class="sc">$</span>Freq_esp)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4012564</code></pre>
 </div>
 </div>
 <p>Podemos calcular o <span class="math inline">\(X^2\)</span> utilizando a função chisq.test():</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>prop <span class="ot">&lt;-</span> ervilhas<span class="sc">$</span>Prop_esp<span class="sc">/</span><span class="fu">sum</span>(ervilhas<span class="sc">$</span>Prop_esp) <span class="co">#cálculo da probabilidade esperada de obter cada valor : (9, 3, 3, 1)/16</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>prop</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>prop <span class="ot">&lt;-</span> ervilhas<span class="sc">$</span>Prop_esp<span class="sc">/</span><span class="fu">sum</span>(ervilhas<span class="sc">$</span>Prop_esp) <span class="co">#cálculo da probabilidade esperada de obter cada valor : (9, 3, 3, 1)/16</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>prop</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5625 0.1875 0.1875 0.0625</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(ervilhas<span class="sc">$</span>Freq_obs, <span class="at">p =</span> prop) <span class="co"># teste de qui-quadrado</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(ervilhas<span class="sc">$</span>Freq_obs, <span class="at">p =</span> prop) <span class="co"># teste de qui-quadrado</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Chi-squared test for given probabilities
@@ -1066,8 +1058,8 @@ X-squared = 0.40126, df = 3, p-value = 0.94</code></pre>
 </table>
 <p>Podemos criar esta tabela no R:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>aranhas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Coberto =</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">33</span>), <span class="at">Aberto =</span>  <span class="fu">c</span>(<span class="dv">29</span>,<span class="dv">25</span>), <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"Escuro"</span>, <span class="st">"Claro"</span>))</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>aranhas</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>aranhas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Coberto =</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">33</span>), <span class="at">Aberto =</span>  <span class="fu">c</span>(<span class="dv">29</span>,<span class="dv">25</span>), <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"Escuro"</span>, <span class="st">"Claro"</span>))</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>aranhas</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Coberto Aberto
 Escuro      10     29
@@ -1076,7 +1068,7 @@ Claro       33     25</code></pre>
 </div>
 <p>Para observar graficamente a quantidade de indivíduos em cada um dos conjuntos, podemos criar um gráfico em mosaico (<a href="#fig-mosaico" class="quarto-xref">Figura&nbsp;<span>7.6</span></a>):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(aranhas, <span class="at">main =</span> <span class="cn">NULL</span> ,<span class="at">ylab =</span> <span class="st">"Ambiente"</span>, <span class="at">xlab =</span> <span class="st">"Luminosidade"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(aranhas, <span class="at">main =</span> <span class="cn">NULL</span> ,<span class="at">ylab =</span> <span class="st">"Ambiente"</span>, <span class="at">xlab =</span> <span class="st">"Luminosidade"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-mosaico" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1092,7 +1084,7 @@ Figura&nbsp;7.6: gráfico em mosaico para dados de aranhas
 </div>
 <p>Vamos realizar o teste de independência entre as duas variáveis:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(aranhas)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(aranhas)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test with Yates' continuity correction
