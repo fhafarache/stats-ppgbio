@@ -495,7 +495,7 @@ div.csl-indent {
 <h2 data-number="3.1" class="anchored" data-anchor-id="organização-de-dados"><span class="header-section-number">3.1</span> Organização de dados</h2>
 <p>A forma de se organizar um conjunto de dados é muito importante, e pode facilitar muito a compreensão da forma como se vai analisar os dados. Existem muitas formas como os dados serão organizados e planilhados, o que pode mudar dependendo da área de pesquisa.</p>
 <p>Em um passo inicial, provavelmente os dados serão tabulados em papel ou utilizando uma planilha em um software como Excel, Planilhas do Google ou similar. A organização desses dados muitas vezes depende da área de pesquisa. Entretanto, na hora de se analisar os dados, é necessário aplicar algum sistema de organização que facilite a filtragem, reorganização (<em>data wrangling</em>), preparação de gráficos, estatísticas descritivas e inferência estatística. Podemos chamar esse tipo de conjunto de dados de dados organizados ou <em>tidy data</em> <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>.</p>
-<p>A organização ideal de um conjunto de dados segue alguns princípios <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-fig-varobval" role="doc-biblioref"><strong>fig-varobval?</strong></a>)</span>:</p>
+<p>A organização ideal de um conjunto de dados segue alguns princípios <span class="citation" data-cites="wickham2023">(<a href="czz_Referencias.html#ref-wickham2023" role="doc-biblioref">Wickham et al., 2023</a>)</span>, como ilustrado na <a href="#fig-varobval" class="quarto-xref">Figura&nbsp;<span>3.1</span></a>:</p>
 <ol type="1">
 <li><p>Cada variável é representada por uma coluna;</p></li>
 <li><p>Cada observação é representada por uma linha e cada linha representa uma observação;</p></li>
@@ -775,20 +775,20 @@ especie    Femea Macho
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pinguins) <span class="co"># resumo da planilha</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   especie              ilha             bico_comp       bico_prof    
- Length:333         Length:333         Min.   :32.10   Min.   :13.10  
- Class :character   Class :character   1st Qu.:39.50   1st Qu.:15.60  
- Mode  :character   Mode  :character   Median :44.50   Median :17.30  
-                                       Mean   :43.99   Mean   :17.16  
-                                       3rd Qu.:48.60   3rd Qu.:18.70  
-                                       Max.   :59.60   Max.   :21.50  
-   nadadeira        peso          sexo          
- Min.   :172   Min.   :2700   Length:333        
- 1st Qu.:190   1st Qu.:3550   Class :character  
- Median :197   Median :4050   Mode  :character  
- Mean   :201   Mean   :4207                     
- 3rd Qu.:213   3rd Qu.:4775                     
- Max.   :231   Max.   :6300                     </code></pre>
+<pre><code>      especie           ilha       bico_comp       bico_prof       nadadeira  
+ Length   :333   Length   :333   Min.   :32.10   Min.   :13.10   Min.   :172  
+ N.unique :  3   N.unique :  3   1st Qu.:39.50   1st Qu.:15.60   1st Qu.:190  
+ N.blank  :  0   N.blank  :  0   Median :44.50   Median :17.30   Median :197  
+ Min.nchar:  6   Min.nchar:  5   Mean   :43.99   Mean   :17.16   Mean   :201  
+ Max.nchar:  8   Max.nchar:  9   3rd Qu.:48.60   3rd Qu.:18.70   3rd Qu.:213  
+                                 Max.   :59.60   Max.   :21.50   Max.   :231  
+      peso             sexo    
+ Min.   :2700   Length   :333  
+ 1st Qu.:3550   N.unique :  2  
+ Median :4050   N.blank  :  0  
+ Mean   :4207   Min.nchar:  5  
+ 3rd Qu.:4775   Max.nchar:  5  
+ Max.   :6300                  </code></pre>
 </div>
 </div>
 <p>No <em>summary</em> ou sumário da planilha podemos ver um resumo de cada variável do conjunto de dados. Para variáveis contínuas, podemos observar medidas descritivas das variáveis contínuas, como valor mínimo e máximo, quartis, média e mediana.</p>
@@ -956,7 +956,7 @@ Para indicar para a função <code>read_excel()</code> que os dados faltantes ta
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados_prob<span class="sc">$</span>diametro)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
   0.660   0.810   1.510   2.841   2.230  79.000       1 </code></pre>
 </div>
 </div>
